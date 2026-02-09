@@ -1,190 +1,209 @@
-
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { 
-  Shield, Landmark, BadgeCheck, Truck, UserX, Globe2, 
-  Map as MapIcon, Syringe, UserCheck, Binary, Cpu, 
-  ArrowUpRight, Lock, Activity, ChevronLeft, ChevronRight,
-  Radar, Footprints, Eye
-} from 'lucide-react';
+// Iconsax imports
+import {
+    ShieldSecurity, Bank, Verify, TruckFast, UserRemove, Global,
+    Map, I3Dcube, UserTick, Code1, Cpu,
+    ExportSquare, Lock1, Activity, ArrowLeft2, ArrowRight2,
+    Radar, Profile2User, Eye, Flash, Judge, Briefcase,
+    Wifi, Anchor, Airplane, Danger, Warning2, Gps
+} from 'iconsax-react';
 import UseCaseModal from './UseCaseModal';
 
 interface UseCaseCarouselProps {
-  cases: any[];
-  isRtl: boolean;
+    cases: any[];
+    isRtl: boolean;
 }
 
+// Domain-Specific Themes
+const themeMap: Record<string, { color: string, bg: string, border: string, glow: string, accent: string }> = {
+    terror_finance: { color: 'text-red-500', bg: 'bg-red-500/10', border: 'border-red-500/20', glow: 'shadow-red-500/20', accent: 'bg-red-500' },
+    cyber_threat_intel: { color: 'text-cyan-400', bg: 'bg-cyan-500/10', border: 'border-cyan-500/20', glow: 'shadow-cyan-500/20', accent: 'bg-cyan-500' },
+    critical_infrastructure: { color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20', glow: 'shadow-amber-500/20', accent: 'bg-amber-500' },
+    defense_intelligence_fusion: { color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', glow: 'shadow-emerald-500/20', accent: 'bg-emerald-500' },
+    legal_regulatory_investigations: { color: 'text-indigo-400', bg: 'bg-indigo-500/10', border: 'border-indigo-500/20', glow: 'shadow-indigo-500/20', accent: 'bg-indigo-500' },
+    supply_chain_procurement: { color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20', glow: 'shadow-purple-500/20', accent: 'bg-purple-500' },
+    // New Cases
+    esg_csrd_audit: { color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', glow: 'shadow-emerald-500/20', accent: 'bg-emerald-500' },
+    systematic_reviews: { color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20', glow: 'shadow-blue-500/20', accent: 'bg-blue-500' },
+    construction_claims: { color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20', glow: 'shadow-amber-500/20', accent: 'bg-amber-500' },
+    workplace_investigations: { color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20', glow: 'shadow-purple-500/20', accent: 'bg-purple-500' },
+    brand_crisis_intel: { color: 'text-red-500', bg: 'bg-red-500/10', border: 'border-red-500/20', glow: 'shadow-red-500/20', accent: 'bg-red-500' },
+    oncology_target_biomarker_to_trial: { color: 'text-pink-400', bg: 'bg-pink-500/10', border: 'border-pink-500/20', glow: 'shadow-pink-500/20', accent: 'bg-pink-500' },
+};
+
+// Iconsax Mapping
 const iconMap: Record<string, React.ReactNode> = {
-  terror: <Shield className="w-8 h-8" />,
-  cyber: <Binary className="w-8 h-8" />,
-  finance: <Landmark className="w-8 h-8" />,
-  crypto: <Lock className="w-8 h-8" />,
-  maritime: <Activity className="w-8 h-8" />,
-  audit: <BadgeCheck className="w-8 h-8" />,
-  supply: <Truck className="w-8 h-8" />,
-  insider: <UserX className="w-8 h-8" />,
-  disinfo: <Globe2 className="w-8 h-8" />,
-  border: <MapIcon className="w-8 h-8" />,
-  narcotics: <Syringe className="w-8 h-8" />,
-  vip: <UserCheck className="w-8 h-8" />,
-  uav: <Radar className="w-8 h-8" />,
-  trafficking: <Footprints className="w-8 h-8" />,
-  espionage: <Eye className="w-8 h-8" />
+    terror_finance: <Danger variant="TwoTone" size={32} />,
+    cyber_threat_intel: <Code1 variant="TwoTone" size={32} />,
+    critical_infrastructure: <Flash variant="TwoTone" size={32} />,
+    defense_intelligence_fusion: <Radar variant="TwoTone" size={32} />,
+    legal_regulatory_investigations: <Judge variant="TwoTone" size={32} />,
+    supply_chain_procurement: <TruckFast variant="TwoTone" size={32} />,
+    // New Cases
+    esg_csrd_audit: <Verify variant="TwoTone" size={32} />,
+    systematic_reviews: <Radar variant="TwoTone" size={32} />,
+    construction_claims: <Briefcase variant="TwoTone" size={32} />,
+    workplace_investigations: <Profile2User variant="TwoTone" size={32} />,
+    brand_crisis_intel: <Warning2 variant="TwoTone" size={32} />,
+    oncology_target_biomarker_to_trial: <Activity variant="TwoTone" size={32} />,
+    // Fallbacks
+    terror: <ShieldSecurity variant="TwoTone" size={32} />,
+    cyber: <Code1 variant="TwoTone" size={32} />,
+    finance: <Bank variant="TwoTone" size={32} />,
+    crypto: <Lock1 variant="TwoTone" size={32} />,
+    maritime: <Activity variant="TwoTone" size={32} />,
+    audit: <Verify variant="TwoTone" size={32} />,
+    supply: <TruckFast variant="TwoTone" size={32} />,
+    insider: <UserRemove variant="TwoTone" size={32} />,
+    disinfo: <Global variant="TwoTone" size={32} />,
+    border: <Map variant="TwoTone" size={32} />,
+    narcotics: <I3Dcube variant="TwoTone" size={32} />,
+    vip: <UserTick variant="TwoTone" size={32} />,
+    uav: <Radar variant="TwoTone" size={32} />,
+    trafficking: <Profile2User variant="TwoTone" size={32} />,
+    espionage: <Eye variant="TwoTone" size={32} />
 };
 
 interface Card3DProps {
-  item: any;
-  isRtl: boolean;
-  onSelect: (item: any) => void;
+    item: any;
+    isRtl: boolean;
+    onSelect: (item: any) => void;
 }
 
 const Card3D: React.FC<Card3DProps> = ({ item, isRtl, onSelect }) => {
-  const ref = useRef<HTMLDivElement>(null);
+    const ref = useRef<HTMLDivElement>(null);
+    const theme = themeMap[item.id] || themeMap['defense_intelligence_fusion']; // Default to emerald
 
-  // Motion values for mouse position relative to card center (0.5 to -0.5)
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
+    // 3D Tilt Logic
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
 
-  // Smooth physics for the tilt - "Heavy" feel for premium effect
-  const mouseXSpring = useSpring(x, { stiffness: 200, damping: 25, mass: 1 });
-  const mouseYSpring = useSpring(y, { stiffness: 200, damping: 25, mass: 1 });
+    const mouseXSpring = useSpring(x, { stiffness: 150, damping: 15 });
+    const mouseYSpring = useSpring(y, { stiffness: 150, damping: 15 });
 
-  // Rotate based on mouse position
-  // Invert X rotation so it tilts "towards" the mouse vertically
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["12deg", "-12deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-12deg", "12deg"]);
-  
-  // Dynamic Glare / Spot light effect positioning
-  const glareX = useTransform(mouseXSpring, [-0.5, 0.5], ["0%", "100%"]);
-  const glareY = useTransform(mouseYSpring, [-0.5, 0.5], ["0%", "100%"]);
+    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    // Disable tilt on mobile
-    if (window.innerWidth < 768) return;
+    // Parallax displacements
+    const iconX = useTransform(mouseXSpring, [-0.5, 0.5], ["-20px", "20px"]);
+    const iconY = useTransform(mouseYSpring, [-0.5, 0.5], ["-20px", "20px"]);
 
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    
-    // Calculate mouse position relative to card
-    const width = rect.width;
-    const height = rect.height;
-    
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-    
-    // Normalize to -0.5 to 0.5 range
-    const xPct = (mouseX / width) - 0.5;
-    const yPct = (mouseY / height) - 0.5;
-    
-    x.set(xPct);
-    y.set(yPct);
-  };
+    // Glare
+    const glareX = useTransform(mouseXSpring, [-0.5, 0.5], ["0%", "100%"]);
+    const glareY = useTransform(mouseYSpring, [-0.5, 0.5], ["0%", "100%"]);
 
-  const handleMouseLeave = () => {
-    // Reset to center smoothly
-    x.set(0);
-    y.set(0);
-  };
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (window.innerWidth < 768) return;
+        if (!ref.current) return;
 
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      onClick={() => onSelect(item)}
-      initial={{ scale: 0.95, opacity: 0 }}
-      whileInView={{ scale: 1, opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      style={{ 
-        rotateX: window.innerWidth >= 768 ? rotateX : 0, 
-        rotateY: window.innerWidth >= 768 ? rotateY : 0, 
-        transformStyle: "preserve-3d",
-        perspective: "1000px" 
-      }}
-      className="relative w-[85vw] max-w-[300px] md:max-w-[340px] h-[320px] md:h-[380px] mx-3 md:mx-6 flex-shrink-0 cursor-pointer group py-4"
-    >
-        {/* Animated Glow Behind - Desktop Only */}
-        <div 
-            className="hidden md:block absolute inset-4 rounded-[30px] bg-emerald-500/20 blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10"
-            style={{ transform: "translateZ(-50px)" }} 
-        />
+        const rect = ref.current.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        const xPct = (mouseX / width) - 0.5;
+        const yPct = (mouseY / height) - 0.5;
 
-        {/* Card Chassis */}
-        <div 
-          className="absolute inset-0 bg-[#080a0e] rounded-[24px] md:rounded-[32px] border border-white/10 overflow-hidden transition-all duration-300 group-hover:border-emerald-500/50 shadow-2xl"
-          style={{ transform: "translateZ(0)" }}
+        x.set(xPct);
+        y.set(yPct);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return (
+        <motion.div
+            ref={ref}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onClick={() => onSelect(item)}
+            initial={{ scale: 0.9, opacity: 0 }}
+            whileInView={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.5 }}
+            style={{
+                rotateX: window.innerWidth >= 768 ? rotateX : 0,
+                rotateY: window.innerWidth >= 768 ? rotateY : 0,
+                transformStyle: "preserve-3d",
+                perspective: "1200px"
+            }}
+            className="relative w-[85vw] max-w-[320px] md:max-w-[360px] h-[380px] md:h-[440px] mx-4 flex-shrink-0 cursor-pointer group py-6 z-10"
         >
-            {/* Background Texture */}
-            <div className="absolute inset-0 opacity-[0.05] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay pointer-events-none"></div>
-            
-            {/* Dynamic Glare Effect - Desktop Only */}
-            <motion.div 
-                className="hidden md:block absolute inset-0 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300 mix-blend-soft-light"
-                style={{ 
-                    background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.2), transparent 60%)` 
-                }}
+            {/* Ambient Glow */}
+            <div
+                className={`hidden md:block absolute inset-10 rounded-full blur-[80px] opacity-0 group-hover:opacity-40 transition-opacity duration-700 -z-10 ${theme.accent.replace('bg-', 'bg-')}`}
+                style={{ transform: "translateZ(-80px)" }}
             />
 
-            {/* Content Container with Parallax Depth */}
-            <div className="relative z-20 h-full flex flex-col p-6" style={{ transformStyle: "preserve-3d" }}>
-                
-                {/* Header: Icon & Tag */}
-                <div 
-                    className="flex justify-between items-start mb-4 md:mb-6"
-                    style={{ transform: "translateZ(40px)" }} // Pops out
-                >
-                    {/* Icon Container */}
-                    <div className="relative">
-                         <div className="w-12 h-12 md:w-16 md:h-16 rounded-xl md:rounded-2xl bg-white/[0.03] border border-white/[0.08] flex items-center justify-center text-slate-400 group-hover:text-emerald-400 group-hover:bg-emerald-500/10 group-hover:border-emerald-500/40 group-hover:scale-110 transition-all duration-300 ease-out shadow-[0_0_20px_rgba(0,0,0,0.5)]">
-                             {iconMap[item.id] || <Cpu className="w-6 h-6 md:w-8 md:h-8" />}
-                         </div>
+            {/* Main Card Chassis */}
+            <div
+                className={`absolute inset-0 bg-[#0a0d12]/98 md:bg-[#080a0e]/95 backdrop-blur-xl rounded-[24px] md:rounded-[32px] border border-white/10 md:border-white/5 overflow-hidden transition-all duration-300 group-hover:${theme.border} md:group-hover:shadow-[0_0_50px_rgba(0,0,0,0.5)]`}
+                style={{ transform: "translateZ(0)" }}
+            >
+                {/* Texture Overlay */}
+                <div className="hidden md:block absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay pointer-events-none"></div>
+
+                {/* Dynamic Glare */}
+                <motion.div
+                    className="hidden md:block absolute inset-0 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 mix-blend-soft-light"
+                    style={{
+                        background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.15), transparent 50%)`
+                    }}
+                />
+
+                {/* Content Container (Preserve 3D) */}
+                <div className="relative z-30 h-full flex flex-col p-5 md:p-8" style={{ transformStyle: "preserve-3d" }}>
+
+                    {/* Floating Icon Header */}
+                    <div className="flex justify-between items-start mb-5 md:mb-6" style={{ transform: "translateZ(40px)" }}>
+                        <motion.div
+                            style={{ x: iconX, y: iconY }}
+                            className={`w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl ${theme.bg} border ${theme.border} flex items-center justify-center ${theme.color} shadow-md md:shadow-lg backdrop-blur-sm group-hover:scale-110 transition-transform duration-300`}
+                        >
+                            {iconMap[item.id] || <Cpu variant="TwoTone" size={28} />}
+                        </motion.div>
+
+                        <div className={`px-2 md:px-2.5 py-0.5 md:py-1 rounded-md md:rounded-lg border border-white/10 md:border-white/5 bg-black/70 md:bg-black/60 backdrop-blur text-[9px] md:text-[10px] font-mono text-slate-400 md:text-slate-500 tracking-widest uppercase flex items-center gap-1.5 md:gap-2 shadow-none md:shadow-inner group-hover:text-white transition-colors`}>
+                            <span className={`w-1.5 h-1.5 rounded-full ${theme.accent} animate-pulse`}></span>
+                            {item.id.split('_')[0]}
+                        </div>
                     </div>
 
-                    {/* Badge */}
-                    <div className="px-2 md:px-3 py-1 md:py-1.5 rounded-full bg-emerald-950/30 border border-emerald-500/20 backdrop-blur-md flex items-center gap-1.5 md:gap-2 group-hover:border-emerald-500/50 transition-colors">
-                         <span className="w-1 md:w-1.5 h-1 md:h-1.5 rounded-full bg-emerald-500 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
-                         <span className="text-[9px] md:text-[10px] font-mono text-emerald-400/80 tracking-widest uppercase font-bold">
-                             {isRtl ? 'פעיל' : 'Active'}
-                         </span>
-                    </div>
-                </div>
+                    {/* Text Content */}
+                    <div style={{ transform: "translateZ(25px)" }} className="flex-1">
+                        <h3 className={`text-lg md:text-2xl font-black text-white mb-2.5 md:mb-3 leading-tight group-hover:${theme.color} transition-colors ${isRtl ? 'text-right' : 'text-left'}`}>
+                            {item.title}
+                        </h3>
+                        {/* Decorative Line */}
+                        <div className={`w-8 md:w-10 h-0.5 md:h-1 rounded-full bg-white/20 md:bg-white/10 mb-3 md:mb-4 group-hover:w-16 md:group-hover:w-20 group-hover:${theme.accent} transition-all duration-500`}></div>
 
-                {/* Body Text */}
-                <div 
-                    className="flex-1 flex flex-col justify-start relative"
-                    style={{ transform: "translateZ(20px)" }} // Pops out slightly less
-                >
-                    <h3 className={`text-2xl md:text-3xl font-black text-white mb-2 md:mb-3 leading-[1.1] tracking-tight group-hover:text-emerald-50 transition-colors duration-300 ${isRtl ? 'text-right' : 'text-left'}`}>
-                        {item.title}
-                    </h3>
-                    
-                    <div className={`w-8 md:w-12 h-1 bg-gradient-to-r from-emerald-500 to-transparent rounded-full mb-3 md:mb-4 group-hover:w-24 transition-all duration-500 ${isRtl ? 'ml-auto bg-gradient-to-l' : 'mr-auto'}`}></div>
-                    
-                    <p className={`text-slate-400 text-xs md:text-sm leading-relaxed font-light line-clamp-3 group-hover:text-slate-300 transition-colors ${isRtl ? 'text-right' : 'text-left'}`}>
-                        {item.desc}
-                    </p>
-                </div>
-
-                {/* Footer Action */}
-                <div 
-                    className="mt-auto pt-4 border-t border-white/5 flex items-center justify-between group-hover:border-emerald-500/30 transition-colors"
-                    style={{ transform: "translateZ(30px)" }} // Footer pops out too
-                >
-                    <div className="flex flex-col">
-                        <span className="text-[8px] md:text-[9px] font-mono text-slate-500 uppercase tracking-widest mb-0.5">
-                            {isRtl ? 'מזהה פרוטוקול' : 'Protocol ID'}
-                        </span>
-                        <span className="text-[10px] md:text-xs font-mono text-emerald-500/80">{item.id.toUpperCase()}_04</span>
+                        <p className={`text-sm md:text-sm text-slate-300 md:text-slate-400 font-light leading-relaxed line-clamp-3 group-hover:text-slate-200 md:group-hover:text-slate-300 transition-colors ${isRtl ? 'text-right' : 'text-left'}`}>
+                            {item.desc}
+                        </p>
                     </div>
-                    
-                    <button className={`w-10 h-10 rounded-full bg-white/5 border border-white/5 flex items-center justify-center text-slate-400 transition-all duration-300 group-hover:bg-emerald-500 group-hover:border-emerald-400 group-hover:text-black group-hover:scale-110 shadow-lg ${isRtl ? 'rotate-90 group-hover:-rotate-90' : 'group-hover:rotate-45'}`}>
-                         <ArrowUpRight size={18} strokeWidth={2.5} className="md:w-5 md:h-5" />
-                    </button>
+
+                    {/* Footer / Action */}
+                    <div className="mt-auto pt-4 md:pt-6 border-t border-white/10 md:border-white/5 flex items-center justify-between" style={{ transform: "translateZ(50px)" }}>
+                        <div className="flex flex-col">
+                            <span className="text-[9px] text-slate-500 md:text-slate-600 font-mono tracking-widest uppercase">
+                                {isRtl ? 'מזהה' : 'ID'}
+                            </span>
+                            <span className={`text-[10px] md:text-xs font-mono ${theme.color} opacity-90 md:opacity-80`}>
+                                {item.id.substring(0, 4).toUpperCase()}_04
+                            </span>
+                        </div>
+
+                        <button className={`w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/10 md:bg-white/5 border border-white/10 md:border-white/5 flex items-center justify-center text-slate-300 md:text-slate-400 group-hover:${theme.bg} group-hover:${theme.color} group-hover:${theme.border} transition-all duration-300 group-hover:scale-110 shadow-md md:shadow-lg`}>
+                            <ExportSquare variant="TwoTone" size={18} />
+                        </button>
+                    </div>
+
                 </div>
             </div>
-        </div>
-    </motion.div>
-  );
+        </motion.div>
+    );
 };
 
 const UseCaseCarousel: React.FC<UseCaseCarouselProps> = ({ cases, isRtl }) => {
@@ -196,15 +215,12 @@ const UseCaseCarousel: React.FC<UseCaseCarouselProps> = ({ cases, isRtl }) => {
     useEffect(() => {
         const container = scrollRef.current;
         if (!container) return;
-        
         let animationId: number;
-        // Adjust speed here (pixels per frame)
-        const speed = 0.5; 
+        // Slower speed for premium feel
+        const speed = 0.4;
 
         const animate = () => {
             if (!isPaused && container) {
-                // If we have scrolled past the end of the first set of items
-                // (assuming 2 duplicate sets, scrollWidth/2 is the reset point)
                 if (container.scrollLeft >= container.scrollWidth / 2) {
                     container.scrollLeft = 0;
                 } else {
@@ -213,82 +229,73 @@ const UseCaseCarousel: React.FC<UseCaseCarouselProps> = ({ cases, isRtl }) => {
             }
             animationId = requestAnimationFrame(animate);
         };
-
         animationId = requestAnimationFrame(animate);
-
         return () => cancelAnimationFrame(animationId);
     }, [isPaused]);
 
-    // Manual Scroll
     const scroll = (direction: 'left' | 'right') => {
         if (scrollRef.current) {
             const { current } = scrollRef;
-            // Scroll by one card width approx
-            const scrollAmount = 300; 
+            const scrollAmount = 400;
             current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
         }
     };
 
-    // Duplicate items to ensure infinite loop seamlessly
     const items = [...cases, ...cases];
 
     return (
-      <div className="relative group/carousel">
-        
-        <UseCaseModal 
-            isOpen={!!selectedCase} 
-            onClose={() => setSelectedCase(null)} 
-            data={selectedCase} 
-            isRtl={isRtl}
-            icon={selectedCase ? (iconMap[selectedCase.id] || <Cpu />) : null}
-        />
+        <div className="relative group/carousel">
 
-        <div className="w-full relative py-8 md:py-12 px-0" dir="ltr">
-            {/* Side Fade Masks */}
-            <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-[#0F1115] via-[#0F1115]/80 to-transparent z-20 pointer-events-none"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-[#0F1115] via-[#0F1115]/80 to-transparent z-20 pointer-events-none"></div>
+            <UseCaseModal
+                isOpen={!!selectedCase}
+                onClose={() => setSelectedCase(null)}
+                data={selectedCase}
+                isRtl={isRtl}
+                icon={selectedCase ? (iconMap[selectedCase.id] || <Cpu variant="TwoTone" size={32} />) : null}
+            />
 
-            {/* Floating Navigation Buttons - Hidden on Mobile */}
-            <div className="max-w-[1400px] mx-auto relative pointer-events-none h-0 z-30 hidden md:block">
-               <button 
-                  onClick={() => scroll('left')}
-                  className="pointer-events-auto absolute left-4 md:left-8 top-0 transform translate-y-[150px] md:translate-y-[190px] w-14 h-14 rounded-full bg-black/50 border border-white/10 backdrop-blur-xl flex items-center justify-center text-slate-400 hover:text-emerald-400 hover:border-emerald-500/50 hover:bg-emerald-900/20 transition-all active:scale-95 shadow-[0_0_30px_rgba(0,0,0,0.5)] group-hover/carousel:opacity-100 opacity-0 transition-opacity duration-300"
-               >
-                  <ChevronLeft size={28} />
-               </button>
-               
-               <button 
-                  onClick={() => scroll('right')}
-                  className="pointer-events-auto absolute right-4 md:right-8 top-0 transform translate-y-[150px] md:translate-y-[190px] w-14 h-14 rounded-full bg-black/50 border border-white/10 backdrop-blur-xl flex items-center justify-center text-slate-400 hover:text-emerald-400 hover:border-emerald-500/50 hover:bg-emerald-900/20 transition-all active:scale-95 shadow-[0_0_30px_rgba(0,0,0,0.5)] group-hover/carousel:opacity-100 opacity-0 transition-opacity duration-300"
-               >
-                  <ChevronRight size={28} />
-               </button>
-            </div>
+            <div className="w-full relative py-8 md:py-20 px-0" dir="ltr">
+                {/* Gradient Masks - Lighter on mobile for better readability */}
+                <div className="absolute left-0 top-0 bottom-0 w-16 md:w-40 bg-gradient-to-r from-[#0F1115] via-[#0F1115]/60 md:via-[#0F1115]/90 to-transparent z-20 pointer-events-none"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-16 md:w-40 bg-gradient-to-l from-[#0F1115] via-[#0F1115]/60 md:via-[#0F1115]/90 to-transparent z-20 pointer-events-none"></div>
 
-            {/* Scroll Container */}
-            <div 
-                ref={scrollRef}
-                className="flex overflow-x-auto gap-0 py-8 md:py-12 scrollbar-hide select-none touch-pan-x"
-                style={{ 
-                    scrollbarWidth: 'none', 
-                    msOverflowStyle: 'none'
-                }}
-                onMouseEnter={() => setIsPaused(true)}
-                onMouseLeave={() => setIsPaused(false)}
-                onTouchStart={() => setIsPaused(true)}
-                onTouchEnd={() => setIsPaused(false)}
-            >
-                {items.map((item, idx) => (
-                    <Card3D 
-                        key={`${item.id}-${idx}`} 
-                        item={item} 
-                        isRtl={isRtl} 
-                        onSelect={setSelectedCase}
-                    />
-                ))}
+                {/* Navigation Controls */}
+                <div className="max-w-[1400px] mx-auto relative pointer-events-none h-0 z-30 hidden md:block">
+                    <button
+                        onClick={() => scroll('left')}
+                        className="pointer-events-auto absolute left-8 md:left-12 top-0 transform translate-y-[210px] w-14 h-14 rounded-full bg-black/60 border border-white/10 backdrop-blur-xl flex items-center justify-center text-slate-400 hover:text-white hover:border-emerald-500/50 transition-all active:scale-95 shadow-2xl opacity-0 group-hover/carousel:opacity-100 duration-300 hover:shadow-emerald-500/20"
+                    >
+                        <ArrowLeft2 variant="TwoTone" size={24} />
+                    </button>
+
+                    <button
+                        onClick={() => scroll('right')}
+                        className="pointer-events-auto absolute right-8 md:right-12 top-0 transform translate-y-[210px] w-14 h-14 rounded-full bg-black/60 border border-white/10 backdrop-blur-xl flex items-center justify-center text-slate-400 hover:text-white hover:border-emerald-500/50 transition-all active:scale-95 shadow-2xl opacity-0 group-hover/carousel:opacity-100 duration-300 hover:shadow-emerald-500/20"
+                    >
+                        <ArrowRight2 variant="TwoTone" size={24} />
+                    </button>
+                </div>
+
+                {/* Scroll Container */}
+                <div
+                    ref={scrollRef}
+                    className="flex overflow-x-auto gap-0 py-8 md:py-16 scrollbar-hide select-none touch-pan-x"
+                    onMouseEnter={() => setIsPaused(true)}
+                    onMouseLeave={() => setIsPaused(false)}
+                    onTouchStart={() => setIsPaused(true)}
+                    onTouchEnd={() => setIsPaused(false)}
+                >
+                    {items.map((item, idx) => (
+                        <Card3D
+                            key={`${item.id}-${idx}`}
+                            item={item}
+                            isRtl={isRtl}
+                            onSelect={setSelectedCase}
+                        />
+                    ))}
+                </div>
             </div>
         </div>
-      </div>
     );
 };
 

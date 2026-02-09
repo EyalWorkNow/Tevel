@@ -1,325 +1,406 @@
-
 export const content = {
   en: {
     nav: {
       subtitle: "THE CONTEXT ENGINE"
     },
     hero: {
-      terminalPrefix: "Augmenting Analyst Protocol...",
-      titleMain: "Information into Intelligence.",
+      terminalPrefix: "Initializing Research Infrastructure...",
+      titleMain: "Information Chaos into Context.",
       titleSub: "Chaos into Context.",
-      subtitle: "The ultimate force multiplier for investigators. Tevel doesn't replace the analyst—it connects the hidden dots and guides the investigation from a single lead to a full narrative.",
+      subtitle: "Tevel is an AI-based contextual research system built to solve the modern world's core problem: not 'how to find information', but how to turn mountains of scattered data into actionable, accurate, and explainable insight—fast.",
       ctaStart: "Initialize Workspace",
-      ctaDemo: "Request Access"
+      ctaDemo: "Request System Access"
     },
     dashboard: {
-      version: "TEVEL_OS v2.5.0 // AUGMENTED",
-      high: "INVESTIGATION ACTIVE",
-      targetAcquired: "CONTEXT MATCH: 98%",
-      eventAnalysis: "Contextual Enrichment",
-      anomaly: "HIDDEN LINK FOUND",
-      entityAnalysis: "Entity Profile",
-      origin: "Source Intel",
+      version: "TEVEL_OS v3.3.0 // MARKET_READY",
+      high: "PROCESSING",
+      targetAcquired: "CONTEXT MATCH: 99.8%",
+      eventAnalysis: "Contextual Layering",
+      anomaly: "ANOMALY DETECTED",
+      entityAnalysis: "Entity Resolution",
+      origin: "Source Ingestion",
       class: "Classification",
-      threat: "Risk Score",
+      threat: "Relevance",
       certainty: "Confidence",
       vals: {
-        iran: "SIGINT / OSINT / HUMINT",
-        military: "Hostile Actor",
+        iran: "ACADEMIA / GOV / CORP",
+        military: "Research Target",
         critical: "CRITICAL"
       },
       logs: [
-        "Analyzing node #882...",
-        "Connection est. [192.168.1.10]",
-        "Metadata parsed: 4kb",
-        "Entity resolved: TARGET_ALPHA",
-        "Cross-ref DB: NSA_LEAKS",
-        "Pattern match: 98%",
-        "Updating graph topology...",
-        "Sentiment analysis: HOSTILE"
+        "Ingesting raw data streams...",
+        "Decomposing entities: Person, Org, Location...",
+        "Normalizing identities (Resolution Loop)...",
+        "Building Context Graph...",
+        "Detecting timeline contradictions...",
+        "Generating evidence trails...",
+        "Research infrastructure active."
       ]
     },
     problem: {
-      titlePrefix: "The Blind Spot:",
-      title: "The 'Hidden Dots' Problem",
-      description: "In complex organizations, the picture is fragmented. Data is siloed, and investigators work with partial leads. You see the dots, but the connections remain invisible.",
+      titlePrefix: "The Collapse:",
+      title: "Data Rich, Context Poor",
+      description: "Organizations have become information-generating machines: documents, emails, reports, logs. But this is exactly where the collapse happens. When information is split across thousands of sources, and meaning is found 'between the lines', research becomes manual, slow, and dependent on human memory.",
       stats: [
-        { value: 85, suffix: "%", label: "Of an analyst's time is spent hunting for missing context" },
-        { value: 60, suffix: "m", label: "Delay in understanding the 'bigger picture' of an event" },
-        { value: 100, suffix: "%", label: "Reliance on scattered tools that don't talk to each other" },
-        { value: 18, suffix: "+", label: "Browser tabs open to verify a single entity" }
+        { value: 80, suffix: "%", label: "of enterprise data is unstructured (docs, emails, PDFs)" },
+        { value: 8.2, suffix: "h/week", label: "wasted per employee searching & recreating info" },
+        { value: 5, suffix: "M$+", label: "annual loss estimated by orgs due to poor data quality" },
+        { value: 60, suffix: "%", label: "of data scientist time spent just cleaning & organizing data" }
       ],
-      result: "The Result: The investigator holds one dot, missing the pattern hidden in their own data."
+      result: "The Result: You have all the dots, but you can't see the picture."
     },
     comparison: {
-      title: "The Paradigm Shift",
-      subtitle: "Tevel: The Analyst's White Box",
-      description: "Unlike 'Black Box' automation that leaves you guessing, Tevel is a 'White Box'. It provides transparent guidance, enriching every lead and suggesting the next logical move.",
-      highlight: "We don't replace the analyst. We give them a cockpit.",
-      columns: ["Capability", "TEVEL (Augmentation)", "Palantir Foundry", "Maltego", "Recorded Future"],
-      rows: [
-        { feature: "Investigation Approach", tevel: "Guided / Augmented", palantir: "Engineering Heavy", maltego: "Manual", rf: "Automated Feeds" },
-        { feature: "Data Enrichment", tevel: "Automatic Enrichment", palantir: "Configured Integration", maltego: "On Demand / Manual", rf: "Proprietary DB" },
-        { feature: "Narrative Building", tevel: "Story Generation", palantir: "None", maltego: "None", rf: "None" },
-        { feature: "Revealing Hidden Links", tevel: "Context Engine", palantir: "Query Based", maltego: "Visual Only", rf: "Threat Intel" },
-        { feature: "User Experience", tevel: "Investigator First", palantir: "Complex / Engineer", maltego: "Technical / Graph", rf: "Dashboard" },
-        { feature: "Implementation Time", tevel: "Days", palantir: "Months", maltego: "Instant", rf: "Instant" },
-        { feature: "Cross-Silo Fusion", tevel: "Native / Auto", palantir: "High Effort", maltego: "Manual Transforms", rf: "N/A" },
-        { feature: "Cost Accessibility", tevel: "High Value", palantir: "Enterprise Only", maltego: "Affordable", rf: "Premium" }
+      title: "The Reality: 3 Distinct Paradigms",
+      subtitle: "Why 'Search' isn't Research.",
+      description: "Most tools are either too shallow (Search/RAG) or too heavy (Legacy Intel). Tevel is the only automated research machine.",
+      highlight: "Tevel provides the depth of a human analyst at the speed of AI.",
+      tables: [
+        {
+          id: "investor",
+          label: "Business / Investor",
+          columns: ["Dimension", "TEVEL (Research AI)", "Search/RAG (Generic)", "Legacy Intel (Project)", "DIY Stack (Vector/LLM)"],
+          rows: [
+            { feature: "Primary Output: Investigation File", values: ["✓", "✗", "✓", "✗"] },
+            { feature: "Traceability (Source→Audit)", values: ["✓", "✗", "✓", "✗"] },
+            { feature: "Entity Graph + Timeline", values: ["✓", "✗", "✓", "✗"] },
+            { feature: "Offline / Air-gapped", values: ["✓", "✗", "✓", "✓"] },
+            { feature: "Time-to-Value 'Day-1'", values: ["✓", "✓", "✗", "✗"] },
+            { feature: "Pricing (Appliance/Compute)", values: ["✓", "✗", "✗", "✗"] },
+          ]
+        },
+        {
+          id: "customer",
+          label: "Customer / Deployment",
+          columns: ["Solution", "On-Prem", "Offline Work", "Cloud Service", "Data Residency", "Export Artifacts", "Universal Domain"],
+          rows: [
+            { feature: "TEVEL On-Prem 'Monster' ($200K/y)", values: ["✓", "✓", "✗", "✓", "✓", "✓"] },
+            { feature: "TEVEL On-Prem 'Lite' ($150K/y)", values: ["✓", "✓", "✗", "✓", "✓", "✓"] },
+            { feature: "TEVEL Cloud ($100K/y)", values: ["✗", "✗", "✓", "✗", "✓", "✓"] },
+            { feature: "Search/RAG SaaS 'Typical'", values: ["✗", "✗", "✓", "✗", "✗", "✗"] },
+            { feature: "Legacy Intel 'Typical' (Project)", values: ["✓", "✓", "✗", "✓", "✓", "✗"] },
+          ]
+        },
+        {
+          id: "competitor",
+          label: "Competitor Matrix",
+          columns: ["Product/Company", "On-Prem/Offline", "Search/RAG Core", "Entity Graph Core", "Investigation File", "Agile / Fast Deploy"],
+          rows: [
+            { feature: "TEVEL (The Standard)", values: ["✓", "✓", "✓", "✓", "✓"] },
+            { feature: "Glean", values: ["✗", "✓", "✗", "✗", "✓"] },
+            { feature: "Microsoft (Copilot Search)", values: ["✗", "✓", "✗", "✗", "✓"] },
+            { feature: "Google (Vertex AI Search)", values: ["✗", "✓", "✗", "✗", "✓"] },
+            { feature: "Palantir", values: ["✓", "✓", "✓", "✓", "✗"] },
+            { feature: "Quantexa", values: ["✓", "✗", "✓", "✓", "✗"] },
+            { feature: "i2 Group (Analyst's Notebook)", values: ["✓", "✗", "✓", "✗", "✓"] }, // i2 is fast to install but slow to configure? Actually i2 is client-side app, fast install. Changed to V.
+            { feature: "DataWalk", values: ["✓", "✗", "✓", "✓", "✗"] },
+            { feature: "Neo4j (Graph DB)", values: ["✓", "✗", "✓", "✗", "✗"] }, // DIY is slow
+          ]
+        }
       ]
     },
     solution: {
-      badge: "Methodology",
-      titleGlitch: "Guided",
-      titleSub: "Investigation",
-      description1: "Tevel acts as a smart layer on top of your data. The investigator inputs a query, and Tevel",
-      descriptionHighlight: "enriches the entity,",
-      description2: "building the story backwards and forwards in time.",
+      badge: "The Mechanism",
+      titleGlitch: "Research",
+      titleSub: "Factory",
+      description1: "Tevel acts as a",
+      descriptionHighlight: "'Research Factory',",
+      description2: "ingesting raw chaos and outputting structured, actionable consistency.",
       cards: [
-        { title: "1. The Lead", desc: "The analyst starts with a single piece of data (Name, Phone, IP). Tevel instantly scans all silos." },
-        { title: "2. The Enrichment", desc: "The system layers additional data from other departments and open sources to 'thicken' the profile." },
-        { title: "3. The Connection", desc: "Tevel highlights hidden links to other entities that the analyst couldn't see." },
-        { title: "4. The Narrative", desc: "Data is assembled into a coherent timeline and operational story for decision making." }
+        { title: "1. Ingestion & Cleaning", desc: "Accepts any format (PDF, Tables, Reports). Cleans and organizes data to work on 'meaning', not formatting mess." },
+        { title: "2. Entity Resolution", desc: "The hardest challenge: Understanding that 'Dr. Cohen', 'Moshe C.', and 'M. Cohen' are the same person. De-duplication at scale." },
+        { title: "3. Context Graph & Time", desc: "Mapping the web. Who is linked to whom, what caused what, and how did it evolve over time? Transforming data into a story." },
+        { title: "4. Actionable Products", desc: "No more 'just another screen'. Generates Entity Files, Smart Timelines, and verified Insights you can actually use." }
       ],
       nodes: {
-        rawData: { 
-          title: "RAW DATA", 
-          desc: "IIngesting structured and unstructured data from internal silos and external feeds." 
+        rawData: {
+          title: "INGEST",
+          desc: "Raw data input from any source. Works 100% Offline / On-Premise. Your data never leaves your perimeter."
         },
-        enrichment: { 
-          title: "ENRICHMENT", 
-          desc: "AAutomatically augmenting entities with OSINT, social graphs, and historical records." 
+        enrichment: {
+          title: "DECODE",
+          desc: "Extracting entities and normalizing identities. Building a 'World Model' from the text."
         },
-        context: { 
-          title: "CONTEXT", 
-          desc: "BBuilding the semantic layer that connects isolated data points into a unified picture." 
+        context: {
+          title: "CONNECT",
+          desc: "Building the graph. Identifying hidden indirect links and timeline sequences that manual research misses."
         },
-        guidance: { 
-          title: "GUIDANCE", 
-          desc: "AAI-driven suggestions for the next logical investigative step." 
+        guidance: {
+          title: "ANALYZE",
+          desc: "Pattern detection. Identifying anomalies, repetitions, and 'Red Flags' across the entire dataset."
         },
-        fusion: { 
-          title: "FUSION", 
-          desc: "MMerging cross-domain intelligence to reveal hidden identities and networks." 
+        fusion: {
+          title: "STORE",
+          desc: "Institutional Memory. Knowledge becomes infrastructure, not just a fleeting thought in an analyst's head."
         },
-        insight: { 
-          title: "INSIGHT", 
-          desc: "DDelivering actionable intelligence and probability scores for decision making." 
+        insight: {
+          title: "DELIVER",
+          desc: "White-box outputs. Traceable evidence, clear timelines, and verified insights for decision making."
         }
       }
     },
     useCases: {
-      title: "Operational Scenarios",
+      title: "Strategic Cross-Sector Applications",
       cases: [
         {
-          id: "terror",
-          title: "Terror Prevention",
-          desc: "Analyst holds a single name. Tevel reveals the entire support network.",
-          protocol: "PROTOCOL_SHADOW_NET",
-          clearance: "TOP SECRET",
+          id: "fincrime_aml",
+          title: "Financial Crime (AML) & Complex Fraud Rings",
+          desc: "Uncovering hidden networks behind laundering, mule accounts, and coordinated fraud.",
+          protocol: "PROTOCOL_FINCRIME",
+          clearance: "CONFIDENTIAL / REGULATED",
           details: {
-            fullDesc: "An investigator receives a tip about a suspect. Usually, they would search 10 databases manually. Tevel takes that name, auto-enriches it with social media, travel history, and financial data, and presents the analyst with a 'thickened' profile. It flags a hidden connection to a known logistic provider that the analyst didn't even know to look for.",
-            capabilities: ["Auto-profiling of single leads", "Cross-silo identity fusion", "Hidden link suggestions", "Predictive behavioral modeling"],
-            impact: "Turning a weak signal into a actionable prevention operation."
+            fullDesc:
+              "Financial crime investigations drown in fragmented signals: transactions, KYC docs, emails, chat logs, adverse media, and case notes. Tevel ingests internal and external sources, resolves entities (people, companies, accounts, devices), and builds a temporal relationship graph that exposes ring structures, shared infrastructure, and evolving typologies. Investigators get a decision-ready narrative with traceable evidence, not just a search result.",
+            capabilities: [
+              "Entity Resolution (KYC + identifiers)",
+              "Network / Link Analysis at Scale",
+              "Temporal Pattern Detection",
+              "Cross-Source Correlation",
+              "Evidence Traceability & Audit Trail",
+              "Case Export (reports / exhibits)"
+            ],
+            impact:
+              "Higher case throughput, faster ring discovery, fewer false positives, and defensible investigative outputs for compliance and enforcement."
           }
         },
         {
-          id: "cyber",
-          title: "Cyber Investigation",
-          desc: "From a single anomaly log to the full attack story.",
-          protocol: "PROTOCOL_ZERO_DAY",
-          clearance: "RESTRICTED",
+          id: "market_abuse",
+          title: "Market Abuse & Insider-Trading Investigations",
+          desc: "Linking trades, communications, and events to identify suspicious coordination.",
+          protocol: "PROTOCOL_MARKET_ABUSE",
+          clearance: "CONFIDENTIAL / REGULATED",
           details: {
-            fullDesc: "A SOC analyst sees a strange login attempt. Instead of just logging it, Tevel guides the investigation: 'This user also accessed file X and emailed person Y'. The system builds the narrative of the breach, allowing the analyst to understand the intent, not just the technical event.",
-            capabilities: ["Lateral movement storytelling", "User intent analysis", "Breach impact narrative", "Automated TTP mapping"],
-            impact: "Understanding the 'Why' and 'Who' behind the 'What'."
+            fullDesc:
+              "Market abuse cases require stitching together noisy timelines: trades, order books, corporate actions, earnings, chats, and meeting records. Tevel builds a unified event timeline, detects anomalies around sensitive events, and links actors through shared channels and repeated behavioral motifs. The output is an explainable chain from event → behavior → evidence, designed for regulator-grade scrutiny.",
+            capabilities: [
+              "Event Timeline Reconstruction",
+              "Behavioral Sequence Mining",
+              "Communication-Trade Linkage",
+              "Entity Graph with Confidence Scoring",
+              "Explainable Evidence Bundles",
+              "Red-Flag Alerting (rule + AI)"
+            ],
+            impact:
+              "Cuts investigation time from weeks to days, strengthens defensibility, and reduces dependency on ad-hoc analyst memory."
           }
         },
         {
-          id: "finance",
-          title: "Money Laundering",
-          desc: "Unfolding the ownership layers for the compliance officer.",
-          protocol: "PROTOCOL_FOLLOW_MONEY",
-          clearance: "CONFIDENTIAL",
+          id: "insurance_claims",
+          title: "Insurance Claims Fraud & Multi-Claim Collusion",
+          desc: "Detecting coordinated fraud across claims, providers, and identities.",
+          protocol: "PROTOCOL_INSURANCE_FRAUD",
+          clearance: "CONFIDENTIAL / REGULATED",
           details: {
-            fullDesc: "A compliance officer looks at a standard transaction. It looks clean. Tevel augments this view by showing the 'hidden dots': the company behind the transfer shares an address with a sanctioned entity. The system guides the officer to freeze the funds, providing the evidence chain automatically.",
-            capabilities: ["Ultimate Beneficial Owner (UBO) unwrapping", "Sanction overlap detection", "Transaction path visualization", "Shell company detection"],
-            impact: "Stopping illicit flow that standard checks miss."
+            fullDesc:
+              "Insurance fraud often hides across years and across product lines. Tevel connects claims, medical/provider data, repair invoices, photos metadata, call transcripts, and prior investigations into a single graph. It highlights repeated patterns (shared addresses, reused phone numbers, recurring providers, suspicious timing) and produces a clear, traceable story for SIU and legal teams.",
+            capabilities: [
+              "Cross-Claim Entity Linking",
+              "Provider / Vendor Network Mapping",
+              "Temporal Fraud Pattern Detection",
+              "Document Intelligence (invoices / PDFs)",
+              "Multimodal Metadata Correlation",
+              "Report Generation with Citations"
+            ],
+            impact:
+              "Faster identification of collusion rings, better prioritization, and lower loss ratios with auditable investigative outputs."
           }
         },
         {
-          id: "crypto",
-          title: "Crypto Forensics",
-          desc: "De-anonymizing the wallet owner through context fusion.",
-          protocol: "PROTOCOL_BLOCK_TRACE",
-          clearance: "SECRET",
+          id: "pharma_drug_discovery",
+          title: "Pharma R&D: Drug Discovery & Competitive Intelligence",
+          desc: "Turning massive biomedical literature and internal notes into actionable hypotheses.",
+          protocol: "PROTOCOL_DRUG_DISCOVERY",
+          clearance: "CONFIDENTIAL / IP-SENSITIVE",
           details: {
-            fullDesc: "A wallet address is just a string of characters. Tevel enriches this string by searching for it in leaked databases, forums, and dark web marketplaces. It hands the analyst a real-world identity linked to the digital key, turning an anonymous hash into a suspect profile.",
-            capabilities: ["Off-chain data fusion", "Entity resolution for wallets", "Dark web correlation", "Smart contract auditing"],
-            impact: " attributing digital crimes to physical actors."
+            fullDesc:
+              "Biopharma research is an ocean of papers, patents, internal experiments, trial results, and lab notebooks. Tevel resolves entities like targets, pathways, compounds, assays, and outcomes, then builds a time-aware knowledge graph across publications and internal data. Scientists can ask high-level questions and receive structured, source-linked findings with contradictions, gaps, and hypothesis candidates highlighted.",
+            capabilities: [
+              "Scientific Entity & Ontology Mapping",
+              "Contradiction & Gap Detection",
+              "Target-Pathway-Compound Graphs",
+              "Patent / Publication Timeline",
+              "Traceable Evidence Summaries",
+              "Secure Offline / On-Prem Operation"
+            ],
+            impact:
+              "Accelerates literature review and hypothesis generation, reduces duplicated work, and improves decision quality in portfolio selection."
           }
         },
         {
-          id: "maritime",
-          title: "Maritime Intelligence",
-          desc: "Filling the gaps when the AIS transponder goes dark.",
-          protocol: "PROTOCOL_GHOST_SHIP",
-          clearance: "SECRET",
+          id: "pharmacovigilance",
+          title: "Pharmacovigilance & Safety Signal Detection",
+          desc: "Connecting adverse events, patient narratives, and product changes into safety insights.",
+          protocol: "PROTOCOL_SAFETY_SIGNAL",
+          clearance: "CONFIDENTIAL / HEALTH-REGULATED",
           details: {
-            fullDesc: "When a ship goes dark, the analyst is blind. Tevel fills this gap by correlating satellite imagery (SAR) and radio frequency data, essentially 'turning the lights back on'. It guides the analyst to where the ship *actually* is, versus where it claims to be.",
-            capabilities: ["Dark vessel route reconstruction", "Multi-sensor correlation", "Illicit transfer flagging", "AIS spoofing detection"],
-            impact: "Maintaining situational awareness even when targets try to hide."
+            fullDesc:
+              "Safety teams must correlate adverse event reports, call center transcripts, clinician notes, batch records, and labeling changes—often across time and languages. Tevel builds a traceable timeline of signals, clusters similar event narratives, and links them to product lots, geographies, and changes in formulation or distribution. Outputs are audit-ready for regulatory review.",
+            capabilities: [
+              "Narrative Clustering & Normalization",
+              "Temporal Signal Trending",
+              "Lot / Batch / Geography Correlation",
+              "Multi-Source Evidence Traceability",
+              "Regulatory-Ready Reporting Exports",
+              "Privacy-Preserving On-Prem Deployment"
+            ],
+            impact:
+              "Earlier detection of meaningful safety signals with clearer evidence chains and reduced manual triage."
           }
         },
         {
-          id: "uav",
-          title: "Aerial Defense (UAV)",
-          desc: "Locating the drone operator before the impact.",
-          protocol: "PROTOCOL_SKY_EYE",
-          clearance: "TOP SECRET",
+          id: "cyber_threat_intel",
+          title: "Cyber Threat Intelligence & Incident Correlation",
+          desc: "Linking indicators, campaigns, and internal telemetry into an investigative map.",
+          protocol: "PROTOCOL_CYBER_INTEL",
+          clearance: "CONFIDENTIAL / SECURITY",
           details: {
-            fullDesc: "Radar picks up a small signature. Is it a bird or a drone? Tevel fuses the radar track with acoustic sensor data to confirm a UAV. It then instantly correlates this with SIGINT intercepts of remote control frequencies and Telegram chatter about 'incoming' packages, triangulating the operator's location in real-time.",
-            capabilities: ["Sensor Fusion (Radar/Acoustic)", "Real-time Geolocation", "Operator Pattern Matching", "Signal triangulation"],
-            impact: "Neutralizing the threat at the source."
+            fullDesc:
+              "Cyber investigations require correlating logs, alerts, tickets, threat feeds, malware reports, and analyst notes. Tevel resolves entities (IPs, domains, hashes, tool names, actors), builds a campaign timeline, and highlights shared infrastructure and repeated TTPs. Analysts get a coherent story and evidence bundle to speed containment and post-incident learning.",
+            capabilities: [
+              "IOC / TTP Entity Resolution",
+              "Campaign Timeline & Link Graph",
+              "Cross-Log / Ticket Correlation",
+              "Narrative Reconstruction (what happened when)",
+              "Evidence Bundles for IR reports",
+              "Air-gapped / On-Prem Support"
+            ],
+            impact:
+              "Faster root-cause discovery, reduced dwell time, and improved institutional memory across incidents."
           }
         },
         {
-          id: "trafficking",
-          title: "Human Trafficking",
-          desc: "Dismantling the smuggling network from a single ad.",
-          protocol: "PROTOCOL_BROKEN_CHAIN",
-          clearance: "RESTRICTED",
+          id: "critical_infrastructure",
+          title: "Critical Infrastructure: Grid / Telecom / Transport Investigations",
+          desc: "Finding root causes across operational data, maintenance records, and vendor reports.",
+          protocol: "PROTOCOL_CRITICAL_INFRA",
+          clearance: "INTERNAL / CONFIDENTIAL",
           details: {
-            fullDesc: "Police identify a suspicious online ad. Tevel scrapes the phone number and links it to a travel agency that bulk-purchases one-way tickets. The system connects these tickets to a specific money transfer service used by a known syndicate, revealing the entire smuggling pipeline from recruitment to exploitation.",
-            capabilities: ["Digital Footprint Analysis", "Travel Pattern Recognition", "Financial Link Analysis", "Victim profiling patterns"],
-            impact: "Rescuing victims and arresting the ringleaders."
+            fullDesc:
+              "When outages or degradations occur, relevant data is scattered across SCADA exports, maintenance logs, vendor PDFs, field notes, and emails. Tevel builds an event timeline, links equipment IDs, locations, crews, and work orders, and surfaces patterns that repeat across sites. It converts complex post-mortems into traceable, decision-ready remediation plans.",
+            capabilities: [
+              "Operational Timeline Reconstruction",
+              "Asset / Location Entity Graph",
+              "Recurring Failure Pattern Detection",
+              "Vendor Doc Intelligence (PDFs)",
+              "Post-Mortem Report Automation",
+              "Offline On-Prem Processing"
+            ],
+            impact:
+              "Shorter MTTR/MTTI cycles, better preventive maintenance decisions, and improved accountability through evidence-linked reports."
           }
         },
         {
-          id: "espionage",
-          title: "Counter-Espionage",
-          desc: "Catching the mole stealing state secrets.",
-          protocol: "PROTOCOL_DOUBLE_AGENT",
-          clearance: "EYES ONLY",
+          id: "defense_intelligence_fusion",
+          title: "Defense & Intelligence Fusion (Air-Gapped Analysis)",
+          desc: "Connecting multi-source intelligence into an explainable operational picture.",
+          protocol: "PROTOCOL_DEFENSE_FUSION",
+          clearance: "SECRET / TOP SECRET",
           details: {
-            fullDesc: "A classified file is accessed at an unusual hour. Tevel doesn't just flag the event; it builds the context. It sees the employee recently has high gambling debts (Finance), travelled to a hostile country (Border Control), and met with a foreign diplomat (Intel). The system flags a 'MICE' compromise scenario immediately.",
-            capabilities: ["Insider Risk Scoring", "Cross-Domain behavioral analysis", "MICE Framework mapping", "Metadata anomaly detection"],
-            impact: "Protecting national security assets from betrayal."
+            fullDesc:
+              "Operational intelligence depends on rapidly connecting people, places, events, and assets across disparate data streams. Tevel runs fully offline inside secured networks, transforms raw reports into entity graphs and timelines, and helps analysts detect weak signals and indirect connections. Outputs remain fully traceable to original sources to preserve analytical rigor and reduce hallucination risk.",
+            capabilities: [
+              "Air-Gapped Deployment & Local Processing",
+              "Entity / Relationship Graph at Scale",
+              "Temporal Fusion & Change Detection",
+              "Cross-Report Deconfliction",
+              "Analyst-Controlled Evidence Traceability",
+              "Structured Exports to downstream systems"
+            ],
+            impact:
+              "Faster situational understanding with higher analytical consistency, while keeping sensitive data entirely inside secure environments."
           }
         },
         {
-          id: "audit",
-          title: "Internal Audit",
-          desc: "Connecting disparate documents to find the fraud narrative.",
-          protocol: "PROTOCOL_INSIDE_LOOK",
-          clearance: "INTERNAL",
+          id: "legal_regulatory_investigations",
+          title: "Legal Discovery & Regulatory Investigations",
+          desc: "Turning mountains of documents into entity-centric, timeline-driven case narratives.",
+          protocol: "PROTOCOL_LEGAL_DISCOVERY",
+          clearance: "CONFIDENTIAL / PRIVILEGED",
           details: {
-             fullDesc: "An auditor reviews a contract. Tevel automatically pulls related emails, invoices, and chat logs involving the signatories. It highlights that the vendor was created 2 days before the contract was signed—a red flag the auditor might miss in a pile of paperwork.",
-             capabilities: ["Document-to-Entity linking", "Timeline reconstruction", "Conflict of interest flagging", "Invoice forensics"],
-             impact: "Finding the needle in the haystack without reading every straw."
+            fullDesc:
+              "High-stakes disputes involve millions of pages, email threads, meeting notes, contracts, and attachments. Tevel resolves parties, subsidiaries, projects, and key events; reconstructs timelines; and flags contradictions across versions. Legal teams get structured fact patterns and evidence packs designed for rapid review and defensible filings.",
+            capabilities: [
+              "Contract / Email Thread Intelligence",
+              "Entity & Alias Resolution (parties/subsidiaries)",
+              "Timeline & Version-Conflict Detection",
+              "Privilege-Aware On-Prem Processing",
+              "Evidence Pack Generation",
+              "Search + Research Workspace"
+            ],
+            impact:
+              "Massively reduces review time, improves fact consistency, and produces regulator-grade traceability."
           }
         },
         {
-          id: "supply",
-          title: "Supply Chain Risk",
-          desc: "Visualizing the risks deep in the sub-contractor network.",
-          protocol: "PROTOCOL_CHAIN_REACTION",
-          clearance: "COMMERCIAL",
+          id: "supply_chain_procurement",
+          title: "Supply Chain Risk & Procurement Integrity",
+          desc: "Detecting hidden dependencies, vendor collusion, and operational fragility.",
+          protocol: "PROTOCOL_SUPPLY_CHAIN",
+          clearance: "INTERNAL / CONFIDENTIAL",
           details: {
-             fullDesc: "A procurement manager vets a direct supplier. Tevel guides them deeper, showing that the Tier-2 supplier relies on a factory in a conflict zone. The system reveals the hidden dependency dots that could disrupt the entire chain.",
-             capabilities: ["N-tier dependency mapping", "Geopolitical risk overlay", "Hidden sub-contractor discovery", "Alternative supplier matching"],
-             impact: "Proactive mitigation of risks before they stop the line."
+            fullDesc:
+              "Supply chains break where dependencies are invisible: shared subcontractors, repeated incidents, quietly changed terms, or single-point failures across tiers. Tevel links vendor contracts, PO history, shipping events, quality reports, and communications into a unified graph and timeline. It surfaces concentration risks, recurrent failure patterns, and suspicious vendor networks—then exports clear mitigation plans.",
+            capabilities: [
+              "Vendor / Subcontractor Graph Mapping",
+              "Dependency & Concentration Risk Detection",
+              "Incident / Quality Timeline Correlation",
+              "Document Intelligence (contracts, SOWs)",
+              "Anomaly & Pattern Detection",
+              "Decision-Ready Export Reports"
+            ],
+            impact:
+              "Earlier detection of operational fragility and integrity risks, improved negotiation leverage, and stronger resilience planning."
           }
         },
         {
-          id: "insider",
-          title: "Insider Threat",
-          desc: "Contextualizing user behavior to distinguish negligence from malice.",
-          protocol: "PROTOCOL_MOLE_HUNT",
-          clearance: "HR RESTRICTED",
+          id: "oncology_target_biomarker_to_trial",
+          title: "Oncology: Target/Biomarker-to-Trial Decision File",
+          desc: "Turn scattered oncology evidence into a traceable decision file that accelerates prioritization, validation, and trial design.",
+          protocol: "PROTOCOL_ONCO_RND",
+          clearance: "CONFIDENTIAL / IP-SENSITIVE",
           details: {
-             fullDesc: "A user downloads a large file. Is it work or theft? Tevel adds context: 'This user handed in their resignation yesterday' and 'They have never accessed this folder before'. It helps the analyst distinguish between a normal workflow and a data exfiltration attempt.",
-             capabilities: ["Behavioral context injection", "HR data correlation", "Intent analysis", "Access log correlation"],
-             impact: "Stopping data theft without blocking legitimate work."
-          }
-        },
-        {
-          id: "disinfo",
-          title: "Disinformation Analysis",
-          desc: "Tracing the origin of a narrative across platforms.",
-          protocol: "PROTOCOL_ECHO_CHAMBER",
-          clearance: "OPEN SOURCE",
-          details: {
-             fullDesc: "An analyst sees a viral fake news story. Tevel tracks it back to its source, showing the coordinated bot network that amplified it. It guides the analyst to the root actor manipulating the conversation.",
-             capabilities: ["Propagation tree mapping", "Bot cluster identification", "Origin tracing", "Deepfake detection"],
-             impact: "Exposing the architect behind the influence campaign."
-          }
-        },
-        {
-          id: "border",
-          title: "Border Control",
-          desc: "Enriching passenger profiles in real-time.",
-          protocol: "PROTOCOL_GATEKEEPER",
-          clearance: "OFFICIAL",
-          details: {
-             fullDesc: "A border agent scans a passport. Tevel instantly overlays the 'hidden dots': previous travel partners, ticket purchase methods, and open-source checks. It guides the agent to ask the right questions based on a rich context, not just a database hit/miss.",
-             capabilities: ["Real-time passenger enrichment", "Co-traveler analysis", "Risk scoring augmentation", "Biometric watchlist match"],
-             impact: "Smarter questioning and better decisions at the checkpoint."
-          }
-        },
-        {
-          id: "narcotics",
-          title: "Organized Crime",
-          desc: "Mapping the hierarchy from street dealers to kingpins.",
-          protocol: "PROTOCOL_KINGPIN",
-          clearance: "LAW ENFORCEMENT",
-          details: {
-             fullDesc: "Police arrest a street dealer. Tevel analyzes their phone data and reveals the communication patterns that link them to the mid-level distributor. The system guides the detective up the chain of command, building the case against the organization, not just the individual.",
-             capabilities: ["Hierarchy mapping", "Communication pattern analysis", "Network dismantling guidance", "Burner phone analysis"],
-             impact: "Strategic disruption of criminal organizations."
-          }
-        },
-        {
-          id: "vip",
-          title: "VIP Protection",
-          desc: "Dynamic risk assessment based on live context.",
-          protocol: "PROTOCOL_GUARDIAN",
-          clearance: "SECRET",
-          details: {
-             fullDesc: "A security detail plans a route. Tevel suggests alternatives by overlaying real-time social media sentiment and protest locations. It acts as an advance scout, guiding the team away from developing threats.",
-             capabilities: ["Route risk overlay", "Live sentiment monitoring", "Dynamic threat avoidance", "Emergency route planning"],
-             impact: "Proactive avoidance of security incidents."
+            fullDesc:
+              "In oncology drug development, the real bottleneck isn't lack of data—it's fragmented, inconsistent evidence: papers, patents, clinical readouts, CRISPR screens, multi-omics, internal assays, and lab narratives that don't align. Teams burn months manually answering: What is truly supported? In which patient subgroup? Which biomarker replicates? Where do results contradict and why? Tevel runs inside the customer environment (including fully offline/air-gapped when required), ingests internal + external sources, and converts them into a temporal evidence graph: Targets, Pathways, Tumor types, Biomarkers, Compounds, Indications, Endpoints, Dose regimens. It resolves synonyms, links every claim to supporting evidence, flags contradictions, and produces a traceable 'Decision File' for evidence-weighted candidate ranking, biomarker strategy definition, and trial design with dose rationale grounded in sources.",
+            capabilities: [
+              "Scientific Entity Resolution (Targets/Pathways/Biomarkers/Indications)",
+              "Temporal Evidence Graph + Relationship Mapping",
+              "Contradiction & Gap Detection (Replication Awareness)",
+              "Structured Synthesis: Target→Biomarker→Population→Endpoint",
+              "Dose Evidence Pack: Exposure–Response / Efficacy–Toxicity Rationale",
+              "Decision Pack Export: Narrative + Appendices + Traceable Citations"
+            ],
+            impact:
+              "Cuts evidence synthesis from months to days/weeks, reduces assumption-driven development with traceable evidence chains, improves biomarker selection and lowers validation risk, and enables more focused trials with defensible rationale."
           }
         }
       ]
     },
     market: {
-      title: "The Market",
-      value: "$23B",
-      desc: "Projected market for Decision Intelligence & Contextual Augmentation.",
-      audiences: ["Intelligence Units", "SOC / Cyber", "Field Operations", "Internal Investigations"]
+      title: "Market Opportunity (TAM)",
+      value: "$40B+",
+      desc: "3-Layer Strategy: 1) Narrow (AI Search $6B+). 2) Core (Context Engine $40B+). 3) Expanded (Risk/Analytics $100B+).",
+      audiences: ["Appliance Model (Offline)", "Research Production", "Investigative Analytics", "Risk Intelligence"]
     },
     footer: {
-      title: "Initialize Protocol",
-      subtitle: "Ready to see the hidden dots?",
-      inputName: "AGENT IDENTITY",
-      inputEmail: "SECURE COMM CHANNEL",
-      inputOrg: "AGENCY / ORGANIZATION",
-      btn: "INITIATE SEQUENCE"
+      title: "Initialize Tevel",
+      subtitle: "Ready to unify your research?",
+      inputName: "RESEARCHER ID",
+      inputEmail: "SECURE CHANNEL",
+      inputOrg: "ORGANIZATION",
+      btn: "START RESEARCH"
     },
     sidenav: {
       hero: "Terminal",
       dashboard: "System View",
-      problem: "The Blind Spot",
-      comparison: "Paradigm",
-      solution: "Methodology",
-      usecases: "Scenarios",
-      market: "The Market",
+      problem: "Context Gap",
+      comparison: "Landscape",
+      solution: "Mechanism",
+      usecases: "Applications",
+      market: "Market",
       contact: "Access"
     },
     chaos: {
-      before: "SILOED DATA",
-      after: "FULL CONTEXT"
+      before: "DATA SILOS",
+      after: "RESEARCH INFRASTRUCTURE"
     }
   },
   he: {
@@ -327,321 +408,509 @@ export const content = {
       subtitle: "מנוע ההקשרים"
     },
     hero: {
-      terminalPrefix: "מאתחל פרוטוקול חקירה...",
-      titleMain: "להפוך מידע למודיעין.",
-      titleSub: "מכאוס להקשר אופרטיבי.",
-      subtitle: "מכפיל הכוח האולטימטיבי לחוקר. Tevel אינה מחליפה את האנליסט – היא מחברת את הנקודות הנסתרות ומנחה את החקירה מקצה חוט בודד ועד לתמונה המלאה.",
+      terminalPrefix: "מאתחל תשתית מחקר...",
+      titleMain: "מכאוס מידע לקונטקסט.",
+      titleSub: "מידע לקונטקסט.",
+      subtitle: "טבל היא מערכת מחקר קונטקסטואלית מבוססת AI שנבנתה כדי לפתור את הבעיה המרכזית של העולם המודרני: לא 'איך למצוא מידע', אלא איך להפוך הררי מידע מפוזר לתמונה אחת ברורה, מדויקת וברת־פעולה.",
       ctaStart: "הפעלת סביבת מחקר",
       ctaDemo: "בקשת גישה למערכת"
     },
     dashboard: {
-      version: "TEVEL_OS גרסה 2.5.0 // מבצעי",
-      high: "חקירה פעילה",
-      targetAcquired: "התאמת הקשר: 98%",
-      eventAnalysis: "עיבוי וניתוח הקשרים",
-      anomaly: "זוהתה זיקה נסתרת",
-      entityAnalysis: "פרופיל יעד",
-      origin: "מקורות מידע",
-      class: "סיווג ביטחוני",
-      threat: "רמת סיכון",
+      version: "TEVEL_OS v3.3.0 // תשתית מחקר",
+      high: "בעיבוד",
+      targetAcquired: "התאמת הקשר: 99.8%",
+      eventAnalysis: "ריבוד קונטקסטואלי",
+      anomaly: "זוהתה חריגה",
+      entityAnalysis: "התרת ישויות",
+      origin: "קליטת מקורות",
+      class: "סיווג",
+      threat: "רלוונטיות",
       certainty: "רמת ודאות",
       vals: {
-        iran: "סיגינט / אוסינט / יומינט",
-        military: "גורם עוין / מדינתי",
+        iran: "אקדמיה / ממשל / עסקי",
+        military: "יעד מחקר",
         critical: "קריטי"
       },
       logs: [
-        "מנתח צומת מידע #882...",
-        "חיבור מאובטח הושלם [192.168.1.10]",
-        "מטא-דאטה חולץ: 4kb",
-        "זיהוי ישות: TARGET_ALPHA",
-        "הצלבה מול מאגר: NSA_LEAKS",
-        "רמת התאמת דפוס: 98%",
-        "מעדכן טופולוגיית גרף...",
-        "ניתוח סנטימנט: עוין"
+        "קולט זרמי מידע גולמי...",
+        "מפרק ישויות: אדם, ארגון, מיקום...",
+        "מנרמל זהויות (לולאת רזולוציה)...",
+        "בונה גרף הקשרים...",
+        "מזהה סתירות בציר הזמן...",
+        "מייצר נתיבי ראיות...",
+        "תשתית מחקר פעילה."
       ]
     },
     problem: {
-      titlePrefix: "הפער המודיעיני:",
-      title: "בעיית 'הנקודות הנעלמות'",
-      description: "בארגונים מורכבים, המידע מבוזר באיים נפרדים (Silos). החוקרים עובדים עם קצות חוט חלקיים. אתם רואים את הנקודות, אך הקשרים הסמויים ביניהן נותרים בלתי נראים.",
+      titlePrefix: "הקריסה:",
+      title: "עשירים במידע, עניים בקונטקסט",
+      description: "ארגונים הפכו למכונות שמייצרות מידע: מסמכים, דוחות, טבלאות. אבל בדיוק שם נוצרת הקריסה. כשהמידע מפוצל בין אלפי מקורות, ו'המשמעות' נמצאת בין השורות, המחקר הופך לעבודה ידנית, איטית ותלויה בזיכרון האנושי.",
       stats: [
-        { value: 85, suffix: "%", label: "מזמן האנליסט מבוזבז על איסוף ידני של מידע חסר" },
-        { value: 60, suffix: "דק", label: "עיכוב ממוצע בהבנת 'התמונה הגדולה' באירוע" },
-        { value: 100, suffix: "%", label: "תלות במערכות נפרדות שאינן מתקשרות ביניהן" },
-        { value: 18, suffix: "+", label: "חלונות דפדפן פתוחים לאימות ישות בודדת" }
+        { value: 80, suffix: "%", label: "מהמידע הארגוני אינו מובנה (PDF, מיילים, מסמכים)" },
+        { value: 8.2, suffix: "שעות", label: "מבוזבזות בשבוע לעובד על חיפוש ושחזור מידע קיים" },
+        { value: 5, suffix: "M$+", label: "הפסד שנתי מוערך בארגונים עקב איכות נתונים ירודה" },
+        { value: 60, suffix: "%", label: "מזמן המחקר מושקע רק בניקוי, ארגון והכנת הדאטה" }
       ],
-      result: "התוצאה: החוקר מחזיק במידע, אך מחמיץ את התובנה המסתתרת בתוכו."
+      result: "התוצאה: יש לך את כל הנקודות, אבל אי אפשר לראות את התמונה."
     },
     comparison: {
-      title: "שינוי פרדיגמה",
-      subtitle: "Tevel: הקוקפיט של האנליסט",
-      description: "בניגוד לפתרונות 'קופסה שחורה' המנסים להחליף את שיקול הדעת האנושי, Tevel פועלת כ'קופסה לבנה'. היא מנגישה את המידע, מעבה אותו ומציעה כיווני חקירה, אך משאירה את ההחלטה בידי החוקר.",
-      highlight: "לא מחליפים את האדם. מעניקים לו עליונות מודיעינית.",
-      columns: ["יכולת מבצעית", "TEVEL (העצמה ועיבוי)", "Palantir Foundry", "Maltego", "Recorded Future"],
-      rows: [
-        { feature: "גישת המערכת", tevel: "מונחית חקירה (Guided)", palantir: "הנדסת נתונים", maltego: "ויזואליזציה ידנית", rf: "הזנת מידע (Feed)" },
-        { feature: "עיבוי מידע (Enrichment)", tevel: "אוטומטי ומובנה", palantir: "אינטגרציה מותאמת", maltego: "ידני / לפי פעולה", rf: "מאגר סגור" },
-        { feature: "בניית סיפור המעשה", tevel: "מחולל נרטיב", palantir: "אין", maltego: "אין", rf: "אין" },
-        { feature: "חשיפת קשרים עקיפים", tevel: "מנוע הקשרים סמנטי", palantir: "מבוסס שאילתות", maltego: "ויזואלי בלבד", rf: "התרעות איומים" },
-        { feature: "חווית משתמש (UX)", tevel: "מותאם לחוקר", palantir: "מותאם למהנדס", maltego: "טכני / גרף קשרים", rf: "דשבורד" },
-        { feature: "זמן הטמעה (TTV)", tevel: "ימים בודדים", palantir: "חודשים ארוכים", maltego: "מיידי", rf: "מיידי" },
-        { feature: "היתוך מידע (Fusion)", tevel: "אוטומטי (Cross-Silo)", palantir: "דורש פיתוח", maltego: "טרנספורם ידני", rf: "לא רלוונטי" },
-        { feature: "נגישות ועלות", tevel: "ROI גבוה ומהיר", palantir: "Enterprise בלבד", maltego: "נגיש", rf: "פרימיום" }
+      title: "המציאות: 3 פרדיגמות שונות",
+      subtitle: "למה 'חיפוש' זה לא מחקר.",
+      description: "רוב הכלים הם או שטחיים מדי (Search/RAG) או כבדים מדי (Legacy Intel). טבל היא מכונת המחקר האוטונומית היחידה.",
+      highlight: "טבל מספקת עומק של אנליסט אנושי במהירות של בינה מלאכותית.",
+      tables: [
+        {
+          id: "investor",
+          label: "השוואה עסקית / משקיעים",
+          columns: ["ממד", "TEVEL (בינה מחקרית)", "חיפוש / RAG (גנרי)", "מערכות ביון (Legacy)", "סטאק עצמאי (Vector/LLM)"],
+          rows: [
+            { feature: "תוצר מרכזי: תיק חקירה מלא", values: ["✓", "✗", "✓", "✗"] },
+            { feature: "עקיבות מלאה (Source→Audit)", values: ["✓", "✗", "✓", "✗"] },
+            { feature: "גרף ישויות + ציר זמן (ליבה)", values: ["✓", "✗", "✓", "✗"] },
+            { feature: "פריסה אופליין / Air-gapped", values: ["✓", "✗", "✓", "✓"] },
+            { feature: "Time-to-Value 'Day-1'", values: ["✓", "✓", "✗", "✗"] },
+            { feature: "תמחור (Appliance/Compute)", values: ["✓", "✗", "✗", "✗"] },
+          ]
+        },
+        {
+          id: "customer",
+          label: "השוואה ללקוחות / פריסה",
+          columns: ["פתרון", "On-Prem אצל הלקוח", "עבודה ללא אינטרנט", "שירות ענן", "Residency אצל הלקוח", "יצוא תוצרים (דוח/תיק)", "מתאים לכל דומיין"],
+          rows: [
+            { feature: "TEVEL On-Prem 'מפלצת' ($200K/y)", values: ["✓", "✓", "✗", "✓", "✓", "✓"] },
+            { feature: "TEVEL On-Prem 'לייט' ($150K/y)", values: ["✓", "✓", "✗", "✓", "✓", "✓"] },
+            { feature: "TEVEL Cloud ($100K/y)", values: ["✗", "✗", "✓", "✗", "✓", "✓"] },
+            { feature: "Search/RAG SaaS 'טיפוסי'", values: ["✗", "✗", "✓", "✗", "✗", "✗"] },
+            { feature: "Legacy Intel 'טיפוסי' (פרויקט)", values: ["✓", "✓", "✗", "✓", "✓", "✗"] },
+          ]
+        },
+        {
+          id: "competitor",
+          label: "מטריצת מתחרים",
+          columns: ["מוצר / חברה", "On-Prem / Offline", "Search/RAG כליבה", "Entity Graph כליבה", "תיק חקירה מובנה", "פריסה מהירה / Agile"],
+          rows: [
+            { feature: "TEVEL (הסטנדרט)", values: ["✓", "✓", "✓", "✓", "✓"] },
+            { feature: "Glean", values: ["✗", "✓", "✗", "✗", "✓"] },
+            { feature: "Microsoft (Copilot Search)", values: ["✗", "✓", "✗", "✗", "✓"] },
+            { feature: "Google (Vertex AI Search)", values: ["✗", "✓", "✗", "✗", "✓"] },
+            { feature: "Palantir", values: ["✓", "✓", "✓", "✓", "✗"] },
+            { feature: "Quantexa", values: ["✓", "✗", "✓", "✓", "✗"] },
+            { feature: "i2 Group (Analyst's Notebook)", values: ["✓", "✗", "✓", "✗", "✓"] },
+            { feature: "DataWalk", values: ["✓", "✗", "✓", "✓", "✗"] },
+            { feature: "Neo4j (Graph DB)", values: ["✓", "✗", "✓", "✗", "✗"] },
+          ]
+        }
       ]
     },
     solution: {
-      badge: "מתודולוגיה",
-      titleGlitch: "חקירה",
-      titleSub: "מונחית מחשב",
-      description1: "Tevel משמשת כשכבת בינה מעל המידע הארגוני. החוקר מזין קצה חוט, והמערכת",
-      descriptionHighlight: "מעשירה את הישות,",
-      description2: "בונים את סיפור המעשה אחורה וקדימה בזמן.",
+      badge: "המנגנון",
+      titleGlitch: "מפעל",
+      titleSub: "המחקר",
+      description1: "טבל פועלת כ",
+      descriptionHighlight: "'מפעל מחקר',",
+      description2: "בולעת כאוס גולמי ומייצרת תשתית ידע מאורגנת ועקבית.",
       cards: [
-        { title: "1. קצה החוט (The Lead)", desc: "החוקר מתחיל עם נתון בודד (מספר טלפון, שם, IP). המערכת סורקת מיידית את כל המאגרים המחוברים." },
-        { title: "2. העיבוי (Enrichment)", desc: "המערכת מצליבה מידע ממקורות גלויים (OSINT), פנימיים ושותפים כדי ליצור פרופיל 360 מעלות." },
-        { title: "3. הקשר (The Link)", desc: "מנוע ההקשרים חושף זיקות לישויות אחרות, ארגונים או אירועים שהיו נסתרים מהעין." },
-        { title: "4. הנרטיב (The Story)", desc: "המידע הגולמי מעובד לסיפור אופרטיבי, ציר זמן והמלצות לפעולה מיידית." }
+        { title: "1. קליטה וניקוי", desc: "קולטת כל פורמט (PDF, דוחות, טבלאות). מנקה ומארגנת את התוכן כדי לעבוד על 'משמעות' ולא על בלגן של פורמטים." },
+        { title: "2. איחוד זהויות (Resolution)", desc: "האתגר הכי קשה: להבין ש-'ד״ר כהן', 'משה כהן' ו-'מ. כהן' הם אותו אדם. צמצום כפילויות ווריאציות." },
+        { title: "3. גרף קשרים וזמן", desc: "מיפוי הרשת. מי קשור למי? מה גרם למה? ומה השתנה לאורך זמן? הופכת נתונים לסיפור עם התחלה ואמצע." },
+        { title: "4. תוצרים בני-פעולה", desc: "לא עוד 'סתם מסך'. הפקת תיקי ישויות, טיימליין חכם, ותובנות מאומתות שניתן לעבוד איתן." }
       ],
       nodes: {
-        rawData: { 
-          title: "מידע גולמי", 
-          desc: "אאיסוף ונירמול מאסיבי של מידע מובנה ולא-מובנה. המערכת שואבת נתונים מכלל מאגרי הארגון (Silos), לוגים טכניים ומקורות חיצוניים, ויוצרת 'אגם נתונים' אחיד ומוכן לניתוח."
+        rawData: {
+          title: "קליטה",
+          desc: "קליטת מידע גולמי מכל מקור. עבודה 100% לוקאלית (Offline) ללא אינטרנט. המידע לא יוצא מהארגון."
         },
-        enrichment: { 
-          title: "העשרה", 
-          desc: "עעיבוי אוטומטי של ישויות. על כל פיסת מידע, המערכת מפעילה סוכני איסוף וירטואליים המצליבים נתונים מול מקורות גלויים (OSINT), רשתות חברתיות, מאגרי דלף והיסטוריה ארגונית כדי לייצר פרופיל עומק."
+        enrichment: {
+          title: "פענוח",
+          desc: "חילוץ ישויות ונורמליזציה. בניית 'מודל עולם' מתוך הטקסט, תוך הבנת הקשרים ושפה מקצועית."
         },
-        context: { 
-          title: "הקשר", 
-          desc: "בבניית הגרף הסמנטי. המערכת מזהה וממפה את הקשרים הסמויים בין ישויות שונות (אנשים, חברות, כתובות IP) כדי להפוך רשימת נתונים אקראית לתמונת מצב מחוברת והגיונית."
+        context: {
+          title: "חיבור",
+          desc: "בניית הגרף. זיהוי קשרים עקיפים ורצפים כרונולוגיים שמחקר ידני מפספס."
         },
-        guidance: { 
-          title: "הכוונה", 
-          desc: "ההיגוי חקירה מבוסס AI. האלגוריתם מנתח את כיווני החקירה האפשריים וממליץ לחוקר על הצעד הבא בעל הסבירות הגבוהה ביותר להנבת מודיעין, תוך מניעת 'מבוי סתום'."
+        guidance: {
+          title: "ניתוח",
+          desc: "זיהוי דפוסים. איתור חריגות, חזרתיות ו'דגלים אדומים' על פני כל הדאטה-סט."
         },
-        fusion: { 
-          title: "היתוך", 
-          desc: "ממיזוג מודיעין רב-תחומי (Cross-Domain Fusion). שבירת המחיצות בין עולמות הסייבר, המודיעין הפיזי (HUMINT) והפיננסי. המערכת מתיכה אינדיקציות נפרדות לכדי ישות אחת ברורה בעלת זהות, מיקום וכוונה."
+        fusion: {
+          title: "שמירה",
+          desc: "זיכרון מוסדי. הידע הופך לתשתית ארגונית נשמרת, ולא נעלם יחד עם החוקר שעוזב."
         },
-        insight: { 
-          title: "תובנה", 
-          desc: "ההפקת תובנות מערכה. תרגום מפת הקשרים המורכבת לשורה תחתונה אופרטיבית: זיהוי דפוסים חריגים, הערכת סיכונים, ומתן ציון רלוונטיות לתמיכה מהירה בקבלת החלטות קריטיות."
+        insight: {
+          title: "תוצר",
+          desc: "יצוא תוצרים שקופים ('קופסה לבנה'). ראיות עקיבות, ציר זמן ברור, ותובנות לקבלת החלטות."
         }
       }
     },
     useCases: {
-      title: "תרחישים מבצעיים",
+      title: "יישומים אסטרטגיים חוצי-תעשיות",
       cases: [
         {
-          id: "terror",
-          title: "סיכול טרור (CT)",
-          desc: "מקצה חוט בודד לחשיפת רשת הסייענים המלאה.",
-          protocol: "פרוטוקול SHADOW_NET",
-          clearance: "סודי ביותר",
+          id: "fincrime_aml",
+          title: "פיננסים (AML) והונאות מורכבות בקנה מידה עצום",
+          desc: "חשיפת רשתות נסתרות מאחורי הלבנות הון, חשבונות מולים והונאות מתואמות.",
+          protocol: "PROTOCOL_FINCRIME",
+          clearance: "סודי / רגולטורי",
           details: {
-            fullDesc: "במהלך ניטור שגרתי, נקלטה שיחת 'ברזלים' קצרה ממספר לא מוכר באזור גבול. במקום להתעלם, Tevel ביצעה העשרה מיידית ומצאה כי המכשיר נרכש באותה חנות ובאותו יום שבו נרכשו מכשירים ששימשו לפיגוע קודם. המערכת הצליבה מיקומי אנטנות וזיהתה דפוס מפגשים חוזר עם סייען לוגיסטי מוכר. המודיעין הפך מ'רעש' להתרעה קונקרטית על תא רדום בהכנות לפעולה.",
-            capabilities: ["היתוך סיגינט/ויזינט", "זיהוי דפוסים חריגים (Anomaly)", "ניתוח רשתות קשר", "דירוג סיכון חזוי"],
-            impact: "מעבר ממודיעין בדיעבד לסיכול מנע בזמן אמת."
+            fullDesc:
+              "חקירות פשיעה פיננסית טובעות בסיגנלים מפוזרים: טרנזקציות, מסמכי KYC, מיילים, צ׳אטים, חדשות שליליות, ותיעוד תיקים. טבל קולטת מקורות פנימיים וחיצוניים, מאחדת זהויות (אנשים, חברות, חשבונות, מכשירים), ובונה גרף קשרים טמפורלי שמבליט מבני טבעת, תשתיות משותפות ודפוסי פעולה מתפתחים. במקום עוד תוצאות חיפוש, החוקר מקבל נרטיב החלטתי עם ראיות ניתנות לאימות.",
+            capabilities: [
+              "איחוד ישויות וזהויות (KYC + מזהים)",
+              "ניתוח רשתות וקשרים בקנה מידה",
+              "זיהוי דפוסים לאורך זמן",
+              "הצלבה בין מקורות שונים",
+              "עקיבות ראייתית (Audit Trail)",
+              "ייצוא תיק חקירה (דוחות / נספחים)"
+            ],
+            impact:
+              "יותר תיקים נסגרים לכל אנליסט, גילוי מהיר של טבעות הונאה, פחות False Positives, ותוצרים שניתנים להגנה מול רגולטור ואכיפה."
           }
         },
         {
-          id: "cyber",
-          title: "חקירות סייבר (DFIR)",
-          desc: "זיהוי תוקף מתוחכם (APT) בתוך הרשת הארגונית.",
-          protocol: "פרוטוקול ZERO_DAY",
-          clearance: "שמור / מוגבל",
+          id: "market_abuse",
+          title: "מניפולציות שוק וסחר במידע פנים",
+          desc: "חיבור בין מסחר, תקשורת ואירועים כדי לזהות תיאום חשוד והפרות.",
+          protocol: "PROTOCOL_MARKET_ABUSE",
+          clearance: "סודי / רגולטורי",
           details: {
-            fullDesc: "צוות ה-SOC זיהה הרצת סקריפט PowerShell בשרת זניח. לכאורה אירוע מינורי. Tevel חיברה את הנקודות: הסקריפט הורץ 5 דקות לאחר שמשתמש מורשה (שנפרץ) התחבר מכתובת VPN במדינה עוינת. המערכת בנתה את ציר הזמן לאחור וגילתה שהתוקף מבצע 'תנועה רוחבית' (Lateral Movement) שקטה כבר חודשיים, בדרך למאגר הליבה. המערכת סיפקה תמונת נזק מלאה (Blast Radius) תוך שניות.",
-            capabilities: ["שחזור Kill-Chain אוטומטי", "ייחוס תוקף (Attribution)", "זיהוי גניבת זהות", "מיפוי טקטיקות תקיפה (TTP)"],
-            impact: "בלימת מתקפה אסטרטגית לפני דלף מידע קריטי."
+            fullDesc:
+              "תיקי Market Abuse דורשים תפירה של טיימליין רועש: עסקאות, פקודות, אירועי חברה, דוחות כספיים, צ׳אטים, ופגישות. טבל בונה ציר זמן אחוד, מאתרת חריגות סביב אירועים רגישים, ומקשרת גורמים דרך ערוצי תקשורת ותבניות התנהגות חוזרות. התוצאה היא שרשרת מוסברת: אירוע → התנהגות → ראיות, ברמת קשיחות שמתאימה גם לביקורת רגולטורית.",
+            capabilities: [
+              "שחזור טיימליין אירועים",
+              "כרייה של רצפי התנהגות חשודים",
+              "קישור תקשורת ↔ מסחר",
+              "גרף ישויות עם רמות ביטחון",
+              "חבילות ראיות מוסברות",
+              "התראות (כללים + AI)"
+            ],
+            impact:
+              "קיצור חקירות משבועות לימים, עלייה בהגנתיות (defensibility), ופחות תלות בזיכרון ארגוני של יחידים."
           }
         },
         {
-          id: "finance",
-          title: "הלבנת הון (AML)",
-          desc: "חשיפת רשת חברות קש חוצת יבשות.",
-          protocol: "פרוטוקול MONEY_TRAIL",
-          clearance: "סודי עסקי",
+          id: "insurance_claims",
+          title: "הונאות ביטוח וקנוניה בין תביעות וספקים",
+          desc: "איתור הונאות מתואמות החבויות לאורך שנים ובין קווי מוצר שונים.",
+          protocol: "PROTOCOL_INSURANCE_FRAUD",
+          clearance: "סודי / רגולטורי",
           details: {
-             fullDesc: "בנק זיהה העברה בנקאית גדולה אך לגיטימית לכאורה לחברת ייבוא. Tevel ביצעה בדיקת נאותות עמוקה (Deep Due Diligence) וגילתה שהחברה רשומה במקלט מס, והדירקטור שלה הוא למעשה איש קש המופיע ב-50 חברות אחרות. המערכת עקבה אחרי נתיב הכסף וגילתה שהוא מתפצל וחוזר לחשבון הקשור לארגון פשיעה. המערכת חשפה את מנגנון ה-'Layering' המורכב.",
-             capabilities: ["קילוף ישויות משפטיות (UBO)", "ניתוח גרף עסקאות", "זיהוי אנשי קש", "זיהוי חברות קש"],
-             impact: "מניעת הלבנת הון במיליונים ועמידה ברגולציה."
+            fullDesc:
+              "הונאת ביטוח לא מופיעה בתביעה אחת — היא מסתתרת ברשת. טבל מחברת תביעות, נתוני ספקים, חשבוניות, מטא-דאטה של תמונות, תמלולי שיחות ותיקי עבר לגרף אחד. היא מדגישה חזרות חשודות (כתובות/טלפונים חוזרים, ספקים שחוזרים, תזמון חריג, תבניות ניסוח דומות) ומייצרת סיפור עקיב ובר-אימות עבור SIU ומשפטנים.",
+            capabilities: [
+              "קישור ישויות בין תביעות שונות",
+              "מיפוי רשת ספקים וקבלני משנה",
+              "זיהוי דפוסי הונאה טמפורליים",
+              "Document Intelligence לחשבוניות/PDF",
+              "הצלבת מטא-דאטה רב-מקורית",
+              "דוח עם ציטוטים/מקורות"
+            ],
+            impact:
+              "חשיפה מוקדמת של רשתות קנוניה, תעדוף חכם של תיקים, והפחתת הפסדים עם תוצרים שניתנים לעמידה משפטית."
           }
         },
         {
-          id: "crypto",
-          title: "מודיעין קריפטו",
-          desc: "פיצוח זהות של סוחט כופרה (Ransomware).",
-          protocol: "פרוטוקול BLOCK_TRACE",
-          clearance: "סודי",
+          id: "pharma_drug_discovery",
+          title: "ביולוגיה ותרופות: גילוי תרופות ו-R&D לחברות ענק",
+          desc: "הפיכת ספרות מדעית עצומה ונתונים פנימיים להשערות מחקר ישימות.",
+          protocol: "PROTOCOL_DRUG_DISCOVERY",
+          clearance: "סודי / רגיש לקניין רוחני",
           details: {
-             fullDesc: "ארגון נפגע מכופרה ונדרש לשלם בביטקוין. כתובת הארנק הייתה אנונימית לחלוטין. Tevel עקבה אחר תנועת המטבעות דרך שלושה שירותי ערבול (Mixers) שונים, עד לנקודת יציאה (Off-Ramp) בבורסת קריפטו מפוקחת ברוסיה. המערכת הצליבה את מועד המשיכה עם הדלפות מפורומים בדארק-נט וחשפה את כתובת האימייל והזהות האמיתית של ההאקר.",
-             capabilities: ["דה-אנונימיזציה של ארנקים", "מעקב חוצה-בלוקצ'יין", "מודיעין דארק-נט", "ביקורת חוזים חכמים"],
-             impact: "ייחוס פלילי לארנק דיגיטלי והשבת כספים."
+            fullDesc:
+              "מחקר פארמה הוא ים של מאמרים, פטנטים, ניסויים, תוצאות פרה-קליניות, ותיעוד מעבדה. טבל מאחדת ישויות כמו מטרות (targets), מסלולים ביולוגיים, מולקולות, אסאים ותוצאות — ובונה גרף ידע טמפורלי שמחבר בין פרסומים לנתונים פנימיים. החוקרים מקבלים ממצאים מובנים עם מקורות, סתירות והזדמנויות שמודגשות בצורה שקופה.",
+            capabilities: [
+              "מיפוי ישויות מדעיות ואונטולוגיות",
+              "זיהוי סתירות ופערי ידע",
+              "גרפים Target–Pathway–Compound",
+              "טיימליין פטנטים/פרסומים",
+              "סיכומים מבוססי-מקור (Traceable)",
+              "הרצה לוקאלית/On-Prem מאובטחת"
+            ],
+            impact:
+              "האצת סקירות ספרות ובניית היפותזות, הפחתת עבודה כפולה, ושיפור החלטות בתעדוף קווי מחקר."
           }
         },
         {
-          id: "maritime",
-          title: "מודיעין ימי",
-          desc: "איתור מכלית נפט המפרה סנקציות בינלאומיות.",
-          protocol: "פרוטוקול GHOST_SHIP",
-          clearance: "סודי",
+          id: "pharmacovigilance",
+          title: "Pharmacovigilance: ניטור בטיחות וזיהוי סיגנלים מוקדמים",
+          desc: "חיבור תופעות לוואי, נרטיבים של מטופלים ושינויים במוצר לתובנות בטיחות.",
+          protocol: "PROTOCOL_SAFETY_SIGNAL",
+          clearance: "סודי / רגולטורי-בריאותי",
           details: {
-             fullDesc: "מכלית נפט כיבתה את משדר ה-AIS בלב ים ונעלמה. Tevel הפעילה אלגוריתם לחיזוי נתיב וסרקה תצלומי לוויין (SAR) באזור החשוד. המערכת זיהתה את המכלית מבצעת העברת נפט ספינה-לספינה (STS) עם מכלית אחרת בלב ים, בחסות החשיכה. המערכת הפיקה דוח מפליל הכולל את זיהוי הספינות, נפח ההעברה והיעד הסופי של הנפט המוברח.",
-             capabilities: ["ניתוח תצלומי לוויין (GEOINT)", "זיהוי דפוסי הפלגה חריגים", "חשיפת רשתות הברחה", "זיהוי זיוף מיקום (AIS)"],
-             impact: "אכיפת סנקציות ומניעת מימון טרור."
+            fullDesc:
+              "צוותי בטיחות חייבים לקשר דיווחי תופעות לוואי, תמלילי מוקד, הערות קליניות, רישומי אצוות ושינויים בתוויות — לעיתים בשפות שונות ולאורך שנים. טבל בונה טיימליין של סיגנלים, מאגדת נרטיבים דומים, ומקשרת אותם לאצוות, גיאוגרפיות ושינויים תפעוליים. התוצרים מותאמים לביקורת ולדיווח רגולטורי.",
+            capabilities: [
+              "אשכול נרטיבים ונרמול מונחים",
+              "טרנדינג וזיהוי שינוי לאורך זמן",
+              "קישור Lot/Batch ↔ אירועים",
+              "עקיבות ראייתית מלאה",
+              "ייצוא דוחות רגולטוריים",
+              "פריסה לוקאלית עם פרטיות"
+            ],
+            impact:
+              "גילוי מוקדם של סיגנלים משמעותיים, פחות טריאז׳ ידני, וחבילות ראיות מסודרות לרגולטור."
           }
         },
         {
-          id: "uav",
-          title: "הגנה אווירית (UAV)",
-          desc: "איתור מפעיל הרחפן טרם פגיעה.",
-          protocol: "פרוטוקול SKY_EYE",
-          clearance: "סודי ביותר",
+          id: "cyber_threat_intel",
+          title: "סייבר: מודיעין איומים וקורלציה של אירועים ותקריות",
+          desc: "קישור בין אינדיקטורים, קמפיינים וטלמטריה פנימית למפת חקירה אחת.",
+          protocol: "PROTOCOL_CYBER_INTEL",
+          clearance: "סודי / אבטחת מידע",
           details: {
-             fullDesc: "מכ\"ם זיהה חתימה חלשה. ציפור או רחפן? Tevel התיכה את נתוני המכ\"ם עם סנסורים אקוסטיים ואישרה את האיום. בו-זמנית, המערכת ביצעה הצלבה מיידית מול יירוטי סיגינט של תדרי שליטה ושיח בטלגרם על 'חבילה בדרך', וביצעה איכון מדויק של מיקום המפעיל בזמן אמת, עוד לפני שהרחפן חצה את הגדר.",
-             capabilities: ["היתוך סנסורים (מכ\"ם/אקוסטי)", "איכון בזמן אמת", "זיהוי דפוס מפעיל", "איכון משולש של אותות"],
-             impact: "נטרול האיום במקור ולא רק ביירוט."
+            fullDesc:
+              "חקירות סייבר דורשות לחבר לוגים, התראות, טיקטים, פידים מודיעיניים, דוחות נוזקות והערות אנליסטים. טבל מאחדת ישויות כמו IP, דומיינים, hashes, כלי תקיפה ושחקנים, בונה טיימליין של קמפיין, ומבליטה תשתיות משותפות ו-TTP חוזרים. האנליסט מקבל סיפור קוהרנטי + ראיות, שמאיץ בלימה ותחקיר.",
+            capabilities: [
+              "איחוד ישויות IOC/TTP",
+              "טיימליין קמפיינים וגרף קשרים",
+              "הצלבה בין לוגים וטיקטים",
+              "שחזור נרטיב (מה קרה מתי)",
+              "חבילות ראיות לדוח IR",
+              "תמיכה ב-Air-Gapped / On-Prem"
+            ],
+            impact:
+              "קיצור זמן לזיהוי שורש (RCA), צמצום dwell time, ושימור ידע ארגוני בין תקריות."
           }
         },
         {
-          id: "trafficking",
-          title: "סחר בבני אדם",
-          desc: "חשיפת רשת ההברחה ממודעה אחת ברשת.",
-          protocol: "פרוטוקול BROKEN_CHAIN",
-          clearance: "משטרתי / מוגבל",
+          id: "critical_infrastructure",
+          title: "תשתיות קריטיות: חשמל/תקשורת/תחבורה – חקירת תקלות ושורש בעיה",
+          desc: "איתור סיבת שורש על פני נתוני תפעול, תחזוקה, ספקים ודוחות שטח.",
+          protocol: "PROTOCOL_CRITICAL_INFRA",
+          clearance: "פנימי / סודי",
           details: {
-             fullDesc: "המשטרה זיהתה מודעה חשודה ברשת. Tevel שאבה את מספר הטלפון וחיברה אותו לסוכנות נסיעות שרוכשת כרטיסי טיסה בכיוון אחד בסיטונאות. המערכת קישרה את הכרטיסים הללו לשירות העברת כספים המשמש ארגון פשיעה מוכר, ובכך חשפה את צינור ההברחה המלא - מהגיוס ועד לניצול.",
-             capabilities: ["ניתוח טביעת רגל דיגיטלית", "זיהוי דפוסי נסיעה", "ניתוח קשרים פיננסיים", "בניית פרופיל קורבנות"],
-             impact: "חילוץ קורבנות ומעצר ראשי הרשת."
+            fullDesc:
+              "בעת תקלה או השפלה תפעולית, המידע מפוזר בין יצואי SCADA, יומני תחזוקה, PDF של ספקים, הערות שטח ומיילים. טבל בונה טיימליין אירועים, מקשרת מזהי ציוד, אתרים, צוותים והזמנות עבודה, ומזהה דפוסים שחוזרים בין אתרים. היא הופכת תחקירים מורכבים לתוכנית תיקון מונחית-ראיות.",
+            capabilities: [
+              "שחזור טיימליין תפעולי",
+              "גרף נכסים/אתרים/צוותים",
+              "זיהוי דפוסי כשל חוזרים",
+              "עיבוד מסמכי ספקים (PDF)",
+              "אוטומציה לדוחות תחקיר",
+              "עיבוד לוקאלי מלא"
+            ],
+            impact:
+              "קיצור זמני חקירה ו-MTTR, שיפור תחזוקה מונעת, והגברת שקיפות ואחריות עם ראיות."
           }
         },
         {
-          id: "espionage",
-          title: "ריגול נגדי",
-          desc: "חשיפת חפרפרת בלב הארגון.",
-          protocol: "פרוטוקול DOUBLE_AGENT",
-          clearance: "עינייך בלבד",
+          id: "defense_intelligence_fusion",
+          title: "צבאי/מודיעיני: מיזוג רב-מקורי בסביבה מבודדת (Air-Gapped)",
+          desc: "חיבור מקורות שונים לתמונה מבצעית מוסברת, בלי להוציא מידע החוצה.",
+          protocol: "PROTOCOL_DEFENSE_FUSION",
+          clearance: "סודי / סודי ביותר",
           details: {
-             fullDesc: "קובץ מסווג נפתח בשעה חריגה. Tevel לא רק התריעה, אלא בנתה הקשר: העובד שפתח את הקובץ נכנס לחובות הימורים לאחרונה (פיננסים), חזר מנסיעה למדינה עוינת (ביקורת גבולות), ונפגש עם נספח זר (מודיעין). המערכת סימנה מיידית חשד להפעלה על בסיס מניעי MICE (כסף/אידיאולוגיה/כפייה/אגו).",
-             capabilities: ["דירוג סיכון פנימי", "ניתוח התנהגות חוצה-דומיינים", "מיפוי מניעי ריגול", "חריגות מטא-דאטה"],
-             impact: "הגנה על נכסים לאומיים מפני בגידה מבפנים."
+            fullDesc:
+              "מודיעין מבצעי נשען על חיבור מהיר בין אנשים, מקומות, אירועים ונכסים על פני זרמי מידע שונים. טבל רצה 100% אופליין בתוך רשת מאובטחת, ממירה דיווחים גולמיים לגרף ישויות וטיימליין, ומסייעת לזהות סיגנלים חלשים וקשרים עקיפים. התוצרים נשארים עקיבים למקור כדי לשמור על קשיחות אנליטית ולצמצם סיכון של מסקנות לא מבוססות.",
+            capabilities: [
+              "פריסה מבודדת והרצה לוקאלית",
+              "גרף ישויות וקשרים בקנה מידה",
+              "מיזוג טמפורלי וזיהוי שינוי",
+              "דה-קונפליקטציה בין דיווחים",
+              "עקיבות ראייתית בשליטת אנליסט",
+              "ייצוא מובנה למערכות המשך"
+            ],
+            impact:
+              "הבנה מהירה יותר של מצב, עקביות אנליטית גבוהה יותר, ושמירה מלאה על סודיות הנתונים בתוך הסביבה המאובטחת."
           }
         },
         {
-          id: "audit",
-          title: "ביקורת וחקירות פנים",
-          desc: "חשיפת הונאת רכש על ידי עובד בכיר.",
-          protocol: "פרוטוקול INSIDE_LOOK",
-          clearance: "פנימי - רגיש",
+          id: "legal_regulatory_investigations",
+          title: "משפטים ורגולציה: גילוי מסמכים וחקירות רגולטוריות",
+          desc: "הפיכת הררי מסמכים לנרטיב מבוסס-ישויות וטיימליין שמחזיק בביקורת.",
+          protocol: "PROTOCOL_LEGAL_DISCOVERY",
+          clearance: "סודי / חסוי-עו״ד",
           details: {
-             fullDesc: "חשד עלה לגבי מכרז רכש גדול. Tevel סרקה את כלל המיילים, המסמכים והקבלות בארגון. היא מצאה קשר נסתר: סמנכ\"ל הרכש והספק הזוכה למדו באותו מחזור באוניברסיטה (מידע שנשאב מלינקדאין), והם חולקים כתובת מגורים היסטורית. המערכת הציפה חשבוניות מנופחות שאושרו בשעות חריגות, והוכיחה קנוניה להוצאת כספים במרמה.",
-             capabilities: ["ניתוח רשתות חברתיות ארגוניות", "זיהוי ניגוד עניינים", "פורנזיקה של מסמכים", "פורנזיקה של חשבוניות"],
-             impact: "הפסקת עושק הקופה הציבורית והחזרת כספים."
+            fullDesc:
+              "בסכסוכים וחומרי גילוי יש מיליוני עמודים, שרשורי מייל, חוזים ונספחים. טבל מאחדת צדדים, חברות-בת, פרויקטים ואירועים מרכזיים; בונה טיימליין; ומסמנת סתירות בין גרסאות. הצוות מקבל דפוסי עובדות ותיקי ראיות שמקצרים דרמטית את זמן הביקורת והכתיבה המשפטית.",
+            capabilities: [
+              "ניתוח חוזים ושרשורי מייל",
+              "איחוד ישויות/כינויים (צדדים/חברות)",
+              "טיימליין וזיהוי סתירות בין גרסאות",
+              "עיבוד לוקאלי מודע-פריבילגיה",
+              "יצירת תיקי ראיות",
+              "מרחב עבודה חיפוש+מחקר"
+            ],
+            impact:
+              "הפחתה משמעותית בזמן review, עקביות עובדתית גבוהה, ותוצרים ניתנים להגשה/ביקורת עם עקיבות למקורות."
           }
         },
         {
-          id: "supply",
-          title: "סיכוני שרשרת אספקה",
-          desc: "זיהוי רכיב קריטי המיוצר במפעל שקרס.",
-          protocol: "פרוטוקול CHAIN_REACTION",
-          clearance: "מסחרי",
+          id: "supply_chain_procurement",
+          title: "שרשרת אספקה ורכש: סיכוני תלות, קנוניית ספקים ושבריריות תפעולית",
+          desc: "חשיפת תלות נסתרת, רשתות ספקים בעייתיות ונקודות כשל קריטיות.",
+          protocol: "PROTOCOL_SUPPLY_CHAIN",
+          clearance: "פנימי / סודי",
           details: {
-             fullDesc: "חברה ביטחונית נערכה לייצור המוני. Tevel מיפתה את שרשרת האספקה עד לרמת הרכיב הבודד (N-Tier). המערכת התריעה כי שבב קריטי במערכת מיוצר במפעל בטאיוואן שנפגע ברעידת אדמה יום קודם לכן. בעוד המתחרים המתינו להודעה רשמית, המערכת אפשרה למנהלי הרכש לאתר ספק חלופי ולשריין מלאי, ובכך למנוע השבתת קו ייצור של מיליונים.",
-             capabilities: ["מיפוי תלויות עמוק", "מודיעין עסקי בזמן אמת", "ניהול משברים פרואקטיבי", "התרעות סיכון גיאופוליטי"],
-             impact: "רציפות עסקית ועליונות תחרותית."
+            fullDesc:
+              "שרשראות אספקה נשברות במקום שבו התלות סמויה: קבלני משנה משותפים, תנאים שמשתנים בשקט, תקלות שחוזרות או נקודת כשל יחידה. טבל מחברת חוזים, היסטוריית הזמנות, אירועי שילוח, דוחות איכות ותקשורת לסיפור אחד עם גרף וטיימליין. היא מדגישה ריכוזיות סיכון, דפוסי כשל חוזרים ורשתות ספקים חשודות — ומייצאת תוכניות מיטיגציה ברורות.",
+            capabilities: [
+              "מיפוי רשת ספקים וקבלני משנה",
+              "זיהוי תלות וריכוזיות (Concentration Risk)",
+              "קורלציה בין אירועי איכות/תקלות לאורך זמן",
+              "עיבוד מסמכי חוזה ו-SOW",
+              "זיהוי דפוסים ואנומליות",
+              "ייצוא דוחות החלטתיים"
+            ],
+            impact:
+              "זיהוי מוקדם של שבריריות ותלות מסוכנת, חיזוק יכולת מו״מ, ותכנון חוסן תפעולי מבוסס-ראיות."
           }
         },
         {
-          id: "insider",
-          title: "איום פנימי (Insider Threat)",
-          desc: "סיכול גניבת קניין רוחני (IP) על ידי עובד עוזב.",
-          protocol: "פרוטוקול MOLE_HUNT",
-          clearance: "רגיש ביותר",
+          id: "esg_csrd_audit",
+          title: "ESG / CSRD: עמידה ברגולציה והגנה מפני Greenwashing",
+          desc: "הפיכת טענות קיימות לקובץ ראיות עקיב, מוכן לביקורת ולדוח רגולטורי.",
+          protocol: "PROTOCOL_ESG",
+          clearance: "סודי / רגולטורי",
           details: {
-             fullDesc: "מהנדס תוכנה הגיש התפטרות. לכאורה תהליך סטנדרטי. Tevel זיהתה דפוס חריג שקדם להודעה: שלושה שבועות לפני העזיבה, העובד החל לגשת לתיקיות קוד שאינן קשורות לפרויקט שלו, והעביר קבצים מוצפנים לשירות ענן פרטי בשעות הלילה. המערכת הצליבה את המידע עם שיחות צ'אט שבהן הביע תסכול, והתריעה לקב\"ט על גניבת IP בטרם העובד עזב את הבניין.",
-             capabilities: ["ניתוח התנהגות משתמש (UEBA)", "זיהוי אנומליות בגישה לקבצים", "פרופיילינג פסיכולוגי", "קורלציית לוגים של גישה"],
-             impact: "הגנה על נכסי הליבה של הארגון."
+            fullDesc:
+              "דוחות ESG הם שדה מוקשים: PDFs מספקים, גיליונות פליטות, רכש, מיילים והצהרות צד ג׳ כמעט אף פעם לא מסתדרים אחד עם השני. טבל בונה לכל מדד וטענה שרשרת ראיות עקיבה, מסמנת סתירות בין גרסאות, ומשחזרת ציר זמן של מה השתנה ומדוע. התוצר הוא תיק ESG מוכן לביקורת שמצמצם חשיפה ל-greenwashing ומקצר משמעותית את מחזור הדיווח.",
+            capabilities: [
+              "עקיבות מלאה מטענה → מקור → מדד",
+              "גרף ראיות ספקים (tiers ותלויות)",
+              "זיהוי סתירות וקונפליקטים בין גרסאות",
+              "טיימליין שינויים במדיניות/מדדים",
+              "חבילות ראיות לאודיטורים",
+              "אפשרות On-Prem / Offline לנתונים רגישים"
+            ],
+            impact:
+              "דיווח מהיר יותר עם פחות 'הפתעות', עמידה חזקה יותר בביקורת, ונרטיב ESG שמבוסס על מקורות."
           }
         },
         {
-          id: "disinfo",
-          title: "לוחמת תודעה (CIB)",
-          desc: "חשיפת קמפיין השפעה זר בזמן בחירות.",
-          protocol: "פרוטוקול ECHO_CHAMBER",
-          clearance: "בלמ\"ס / מחקר",
+          id: "systematic_reviews",
+          title: "סקירות שיטתיות וסינתזה של ראיות (אקדמיה / רפואה / מדיניות)",
+          desc: "קיצור חודשים של סקירת ספרות לימים—בלי לאבד עקיבות וציטוטים.",
+          protocol: "PROTOCOL_EVIDENCE_SYNTHESIS",
+          clearance: "ציבורי / פנימי",
           details: {
-             fullDesc: "נרטיב שקרי על זיוף קלפיות החל לצבור תאוצה ברשת. Tevel ניתחה את דפוס ההפצה וזיהתה ש-80% מהמפיצים הראשוניים הם חשבונות שנפתחו באותו שבוע ופועלים בתיאום זמנים מחשיד (Botnet). המערכת עקבה אחרי מקור התוכן לשרתים במדינה זרה, וחשפה שמדובר במבצע השפעה מאורגן ולא במחאה אותנטית. המערכת סיפקה למדינה יכולת להזים את השמועה עם הוכחות.",
-             capabilities: ["ניתוח רשתות ההפצה", "זיהוי בוטים ואוטומציה", "ניתוח סנטימנט ונרטיב", "זיהוי תוכן מסונתז (Deepfake)"],
-             impact: "שמירה על טוהר הבחירות ויציבות שלטונית."
+            fullDesc:
+              "סקירות שיטתיות נופלות על קנה מידה: אלפי מאמרים, מונחים לא אחידים, וסינון ידני ששורף צוותים חודשים. טבל מנרמלת ישויות (התערבויות, תוצאות, אוכלוסיות), ממפה ראיות לאורך זמן, מסמנת סתירות ופערים, ומייצרת סיכומים מובנים עם עקיבות למקורות. כל מסקנה נשענת על מסלול ציטוט ברור—קריטי לפרסום ולמדיניות.",
+            capabilities: [
+              "נרמול ישויות (התערבות/תוצאה/אוכלוסייה)",
+              "גרף ראיות ואשכולות",
+              "מיפוי סתירות/שחזורי ניסוי (replication)",
+              "עקיבות בסגנון PRISMA (כולל רציונל סינון)",
+              "ייצוא מובנה (טבלאות, נספחים)",
+              "בסיס ידע חוזר לשימוש בסקירות עתידיות"
+            ],
+            impact:
+              "קיצור דרמטי של זמן סקירה, עקביות גבוהה יותר, ותיק ראיות שמחזיק ביקורת עמיתים או רגולציה."
           }
         },
         {
-          id: "border",
-          title: "ביקורת גבולות",
-          desc: "זיהוי גורם עוין בזהות בדויה במעבר גבול.",
-          protocol: "פרוטוקול GATEKEEPER",
-          clearance: "רשמי",
+          id: "construction_claims",
+          title: "מגה-פרויקטים: תביעות בנייה, עיכובים וסכסוכי Change Orders",
+          desc: "שחזור מדויק של מה קרה מתי—בין RFIs, פרוטוקולים, חוזים וגרסאות תכנון.",
+          protocol: "PROTOCOL_PROJECT_CLAIMS",
+          clearance: "סודי / משפטי",
           details: {
-             fullDesc: "תייר תמים למראה הגיע לביקורת דרכונים. בדיקה רגילה לא העלתה דבר. Tevel ביצעה העשרה מהירה וגילתה שתמונת הפנים שלו מופיעה ברשת חברתית תחת שם אחר, כשהוא אוחז בנשק באזור קרבות. בנוסף, כרטיס הטיסה נרכש במזומן במדינה שלישית. המערכת הציפה חשבוניות מנופחות שאושרו בשעות חריגות, והוכיחה קנוניה להוצאת כספים במרמה.",
-             capabilities: ["ביומטריה והתאמת פנים", "אימות מסמכים", "הערכת סיכון בזמן אמת", "התאמה ביומטרית לרשימות"],
-             impact: "מניעת כניסת גורמי טרור למדינה."
+            fullDesc:
+              "סכסוכי בנייה גדולים מוכרעים על כרונולוגיה ותיעוד: RFIs, אישורים, פרוטוקולים, יומני אתר, מיילים, שרטוטים וגרסאות חוזה. טבל משחזרת טיימליין בר-אימות, מקשרת החלטות לגורמים ולחובות חוזיות, ומבליטה שרשראות סיבתיות שמסבירות עיכובים וחריגות תקציב. התוצרים נארזים כחבילות ראיות למו״מ, בוררות או בית משפט.",
+            capabilities: [
+              "שחזור טיימליין (אירועים, החלטות, אישורים)",
+              "השוואות גרסאות (חוזים/מפרטים/שרטוטים)",
+              "קישור ישויות (קבלנים, ספקים, חבילות עבודה)",
+              "שרשראות סיבתיות (drivers לעיכובים ותלויות)",
+              "חבילות ראיות לצוותים משפטיים",
+              "עיבוד אופליין לפרויקטים רגישים"
+            ],
+            impact:
+              "עמידה משפטית חזקה יותר, סגירת מחלוקות מהר יותר, ופחות 'דיג מסמכים' יקר ומתיש."
           }
         },
         {
-          id: "narcotics",
-          title: "פשיעה חמורה",
-          desc: "פירוק קרטל סמים באמצעות ניתוח תקשורת.",
-          protocol: "פרוטוקול KINGPIN",
-          clearance: "משטרתי",
+          id: "workplace_investigations",
+          title: "חקירות פנים וציות ארגוני (HR / אתיקה)",
+          desc: "בניית תיק חקירה רגיש ומובנה, עם עקיבות ותהליך הוגן.",
+          protocol: "PROTOCOL_WORKPLACE_COMPLIANCE",
+          clearance: "סודי ביותר / חסוי-עו״ד",
           details: {
-             fullDesc: "המשטרה תפסה סוחר סמים זוטר עם טלפון 'מבצעי'. Tevel שאבה את נתוני המיקום והשיחות, והצליבה אותם עם אלפי טלפונים אחרים במאגר. המערכת זיהתה דפוס של 'טלפונים מבצעיים' שמתחלפים כל שבוע, אך כולם מתקשרים למספר אחד קבוע - הבוס הגדול. המערכת מיפתה את ההיררכיה המלאה של הארגון, מהרחוב ועד למלבין הכספים בחו\"ל, ואפשרה גל מעצרים מתואם.",
-             capabilities: ["ניתוח מחקרי תקשורת (CDR)", "מיפוי ארגוני פשיעה", "מודיעין גיאוגרפי (GEOINT)", "ניתוח טלפונים מבצעיים"],
-             impact: "ריסוק תשתיות פשיעה מאורגנת."
+            fullDesc:
+              "חקירות פנים מתפרקות כשיש פיזור ראיות ואמון נמוך: מיילים, צ׳אטים, תלונות, סיכומי ראיונות, לוגים ומדיניות. טבל בונה תיק חקירה מובנה ומודע-פרטיות: טיימליין ברור, מיפוי חיזוקים/סתירות, והפניות עקיבות למקורות. אפשר להריץ 100% On-Prem כדי למנוע דליפת מידע.",
+            capabilities: [
+              "טיימליין תיק + מיפוי חיזוקים/קורובורציה",
+              "קישור מדיניות ↔ אירוע",
+              "בקרות מידע רגיש (סגמנטציה/אדאקטציה תהליכית)",
+              "זיהוי חוסר עקביות ופערים נרטיביים",
+              "ייצוא דוחות ברמת ביקורת",
+              "פריסה On-Prem / Air-gapped"
+            ],
+            impact:
+              "חקירות עקביות יותר, פחות סיכון משפטי, סגירה מהירה יותר, ותיעוד שמחזיק רגולטור/בית משפט."
           }
         },
         {
-          id: "vip",
-          title: "אבטחת אישים",
-          desc: "סיכול התנקשות באמצעות מודיעין ממקורות גלויים.",
-          protocol: "פרוטוקול GUARDIAN",
-          clearance: "סודי",
+          id: "brand_crisis_intel",
+          title: "משברי מותג/תקשורת: מודיעין נרטיבים ומעקב טענות",
+          desc: "זיהוי מוקדם, מיפוי נרטיבים, והפקת בריפים תגובתיים מבוססי ראיות.",
+          protocol: "PROTOCOL_NARRATIVE_INTEL",
+          clearance: "פנימי / סודי",
           details: {
-             fullDesc: "לקראת ביקור אישיות בכירה, Tevel סרקה את הרשתות החברתיות באזור. המערכת זיהתה עלייה חריגה בשיח שנאה (Sentiment Analysis) הממוקד במיקום ספציפי בנתיב השיירה. במקביל, זוהה רחפן לא מזוהה שטס באזור יום קודם לכן. המערכת התריעה על 'אזור השמדה' פוטנציאלי והמליצה על שינוי נתיב מיידי, דקות לפני יציאת השיירה.",
-             capabilities: ["ניטור איומים בזמן אמת", "היתוך סנסורים (רחפנים/מצלמות)", "ניהול סיכונים דינמי", "תכנון נתיבי מילוט"],
-             impact: "הגנה על חיי אדם ומניעת תקרית דיפלומטית."
+            fullDesc:
+              "במשבר, הבעיה היא לא כמות אלא מבנה הנרטיב: מי התחיל, אילו טענות מתפשטות, ואיפה הראיות באמת. טבל מחברת תקשורת פנימית, כתבות, דוחות והצהרות בעלי עניין לטיימליין + מפת השפעה. היא מבודדת את הטענות המרכזיות, מקורותיהן, וסתירות—כדי שהנהלה תגיב בדיוק ולא בפאניקה.",
+            capabilities: [
+              "טיימליין נרטיב ומעקב טענות",
+              "מיפוי בעלי עניין/משפיענים",
+              "הדגשת אמינות מקור וסתירות",
+              "ייצור בריפים הנהלתיים",
+              "הצלבה בין ערוצים (פנימי + חיצוני)",
+              "ענן או On-Prem לפי רמת רגישות"
+            ],
+            impact:
+              "איתור מוקדם יותר, סנכרון מהיר בין צוותים, ותגובה שמבוססת על עובדות מאומתות ומקורות עקיבים."
+          }
+        },
+        {
+          id: "oncology_target_biomarker_to_trial",
+          title: "אונקולוגיה: מ-Target/Biomarker לתיק החלטה ולתכנון ניסוי",
+          desc: "חיבור ספרות, פטנטים ונתונים פנימיים לתיק מחקר עקיב שמקצר בחירה, ולידציה ותכנון ניסוי.",
+          protocol: "PROTOCOL_ONCO_RND",
+          clearance: "סודי / רגיש לקניין רוחני",
+          details: {
+            fullDesc:
+              "בפיתוח תרופות לסרטן, צוואר הבקבוק האמיתי אינו 'חוסר מידע' אלא עודף מידע לא עקיב: מאמרים, פטנטים, תוצאות ניסויים, מסכי CRISPR, פרופילים מולטי-אומיים, נתוני תגובת תרופה וקבצי מעבדה פנימיים. צוותים מבזבזים חודשים על סינתזה ידנית: מה באמת מוכח? באיזו אוכלוסיית חולים? איזה Biomarker מחזיק? אילו תוצאות סותרות ומה ההסבר האפשרי? טבל רצה אצל הלקוח (כולל אופליין/אייר-גאפד אם צריך), קולטת את מקורות הידע הפנימיים והחיצוניים, וממירה אותם לגרף ישויות וטיימליין: Targets, Pathways, Tumor types, Biomarkers, Compounds, Indications, Endpoints, Dose regimens. היא מאחדת שמות/סינונימים, מקשרת טענה לראיה, מסמנת סתירות בין מחקרים וגרסאות, ומייצרת 'תיק החלטה' אחד שמאפשר: (1) דירוג מועמדים אמיתי לפי חוזק ראיות, (2) הגדרת אסטרטגיית Biomarker/Companion Diagnostic, (3) תכנון ניסוי (כולל רציונל מינון) שמגובה במקורות.",
+            capabilities: [
+              "Entity Resolution מדעי (Targets/Pathways/Biomarkers/Indications)",
+              "גרף ראיות טמפורלי + מיפוי קשרים (מי קשור למה ומדוע)",
+              "זיהוי סתירות/פערים ושחזור 'למה זה לא משתחזר'",
+              "סינתזה מובנית: Target→Biomarker→אוכלוסייה→Endpoint",
+              "תיק מינון: קשר חשיפה-תגובה/יעילות-רעילות כראיות תומכות",
+              "ייצוא 'Decision Pack' לוועדות: דוח + נספחים + מקורות"
+            ],
+            impact:
+              "קיצור דרמטי של זמן סינתזת ידע (חודשים → ימים/שבועות), פחות 'פיתוח על הנחות' ויותר החלטות על בסיס ראיות עקיבות, בחירת Biomarker מדויקת יותר והפחתת סיכוני ולידציה, ותכנון ניסויים ממוקד יותר (אוכלוסייה/מינון/Endpoints) עם סיפור ראיות ברור."
           }
         }
+
       ]
     },
     market: {
-      title: "פוטנציאל השוק",
-      value: "$23B",
-      desc: "השוק העולמי למודיעין קבלת החלטות (DI) והעשרה הקשרית.",
-      audiences: ["קהילת המודיעין", "מרכזי SOC וסייבר", "גופי אכיפה", "יחידות חקירה ארגוניות"]
+      title: "הזדמנות שוק (TAM)",
+      value: "$40B+",
+      desc: "אסטרטגיית שוק תלת-שכבתית: 1) צר (AI Search): $6B+. 2) ליבה (מנוע קונטקסט): $40B+. 3) מורחב (סיכונים/אנליטיקה): $100B+.",
+      audiences: ["מודל תשתית (Offline Appliance)", "ייצור נכסי מחקר", "אנליטיקה חקירתית", "מודיעין סיכונים"]
     },
     footer: {
-      title: "יצירת קשר",
-      subtitle: "מוכנים לחשוף את הנקודות הנסתרות?",
-      inputName: "שם מלא / כינוי",
-      inputEmail: "ערוץ התקשרות",
-      inputOrg: "ארגון / יחידה",
-      btn: "אתחול יצירת קשר"
+      title: "אתחול מערכת טבל",
+      subtitle: "מוכנים לאחד את המחקר?",
+      inputName: "מזהה חוקר",
+      inputEmail: "ערוץ מאובטח",
+      inputOrg: "ארגון",
+      btn: "התחל חקירה"
     },
     sidenav: {
       hero: "טרמינל",
-      dashboard: "מבט על",
-      problem: "הפער",
-      comparison: "הפתרון",
-      solution: "מתודולוגיה",
-      usecases: "תרחישים",
-      market: "השוק",
+      dashboard: "מבט מערכת",
+      problem: "פער הקונטקסט",
+      comparison: "תחרות",
+      solution: "מנגנון",
+      usecases: "יישומים",
+      market: "שוק",
       contact: "גישה"
     },
     chaos: {
-      before: "מידע מבודד (SILOS)",
-      after: "מודיעין הקשרי (CONTEXT)"
+      before: "איי מידע (SILOS)",
+      after: "תשתית מחקר"
     }
   }
 };

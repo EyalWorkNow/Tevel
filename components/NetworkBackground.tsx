@@ -15,20 +15,25 @@ const NetworkBackground: React.FC = () => {
     canvas.width = width;
     canvas.height = height;
 
-    const particles: { x: number; y: number; vx: number; vy: number; size: number }[] = [];
-    const particleCount = 70;
-    const connectionDistance = 150;
-    const mouseDistance = 200;
+    const particles: { x: number; y: number; vx: number; vy: number; size: number; baseX: number; baseY: number }[] = [];
+    const particleCount = 100; // Increased count
+    const connectionDistance = 120;
+    const mouseDistance = 250;
+    const magneticForce = 0.08; // Strength of pull
 
     let mouse = { x: -1000, y: -1000 };
 
     for (let i = 0; i < particleCount; i++) {
+      const x = Math.random() * width;
+      const y = Math.random() * height;
       particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        vx: (Math.random() - 0.5) * 0.5,
-        vy: (Math.random() - 0.5) * 0.5,
-        size: Math.random() * 2 + 1,
+        x,
+        y,
+        baseX: x, // Store base position for returning
+        baseY: y,
+        vx: (Math.random() - 0.5) * 0.8, // Slightly faster
+        vy: (Math.random() - 0.5) * 0.8,
+        size: Math.random() * 2 + 0.5,
       });
     }
 
@@ -49,9 +54,10 @@ const NetworkBackground: React.FC = () => {
 
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
-      
+
       // Update and draw particles
       particles.forEach((p, i) => {
+        // Basic movement
         p.x += p.vx;
         p.y += p.vy;
 
@@ -59,24 +65,22 @@ const NetworkBackground: React.FC = () => {
         if (p.x < 0 || p.x > width) p.vx *= -1;
         if (p.y < 0 || p.y > height) p.vy *= -1;
 
-        // Mouse interaction
+        // Mouse Interaction (Magnetic Pull)
         const dx = mouse.x - p.x;
         const dy = mouse.y - p.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
 
         if (dist < mouseDistance) {
-          const forceDirectionX = dx / dist;
-          const forceDirectionY = dy / dist;
+          const angle = Math.atan2(dy, dx);
           const force = (mouseDistance - dist) / mouseDistance;
-          p.vx += forceDirectionX * force * 0.05;
-          p.vy += forceDirectionY * force * 0.05;
+
+          // Move towards mouse
+          p.x += Math.cos(angle) * force * magneticForce * 20;
+          p.y += Math.sin(angle) * force * magneticForce * 20;
         }
 
-        // Friction
-        p.vx *= 0.99;
-        p.vy *= 0.99;
-
-        ctx.fillStyle = '#10b981'; // Emerald 500
+        // Draw Particle
+        ctx.fillStyle = `rgba(16, 185, 129, ${0.5 + Math.random() * 0.5})`; // Twinkling effect
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
         ctx.fill();
@@ -89,7 +93,9 @@ const NetworkBackground: React.FC = () => {
           const dist2 = Math.sqrt(dx2 * dx2 + dy2 * dy2);
 
           if (dist2 < connectionDistance) {
-            ctx.strokeStyle = `rgba(16, 185, 129, ${1 - dist2 / connectionDistance})`;
+            // Opacity based on distance AND random pulse
+            const opacity = (1 - dist2 / connectionDistance) * 0.4;
+            ctx.strokeStyle = `rgba(16, 185, 129, ${opacity})`;
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
