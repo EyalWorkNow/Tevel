@@ -114,27 +114,27 @@ export const content = {
       nodes: {
         rawData: {
           title: "INGEST",
-          desc: "Raw data input from any source. Works 100% Offline / On-Premise. Your data never leaves your perimeter."
+          desc: "RRaw data input from any source. Works 100% Offline / On-Premise. Your data never leaves your perimeter."
         },
         enrichment: {
           title: "DECODE",
-          desc: "Extracting entities and normalizing identities. Building a 'World Model' from the text."
+          desc: "EExtracting entities and normalizing identities. Building a 'World Model' from the text."
         },
         context: {
           title: "CONNECT",
-          desc: "Building the graph. Identifying hidden indirect links and timeline sequences that manual research misses."
+          desc: "BBuilding the graph. Identifying hidden indirect links and timeline sequences that manual research misses."
         },
         guidance: {
           title: "ANALYZE",
-          desc: "Pattern detection. Identifying anomalies, repetitions, and 'Red Flags' across the entire dataset."
+          desc: "PPattern detection. Identifying anomalies, repetitions, and 'Red Flags' across the entire dataset."
         },
         fusion: {
           title: "STORE",
-          desc: "Institutional Memory. Knowledge becomes infrastructure, not just a fleeting thought in an analyst's head."
+          desc: "IInstitutional Memory. Knowledge becomes infrastructure, not just a fleeting thought in an analyst's head."
         },
         insight: {
           title: "DELIVER",
-          desc: "White-box outputs. Traceable evidence, clear timelines, and verified insights for decision making."
+          desc: "WWhite-box outputs. Traceable evidence, clear timelines, and verified insights for decision making."
         }
       }
     },
@@ -518,23 +518,23 @@ export const content = {
       nodes: {
         rawData: {
           title: "קליטה",
-          desc: "קליטת מידע גולמי מכל מקור. עבודה 100% לוקאלית (Offline) ללא אינטרנט. המידע לא יוצא מהארגון."
+          desc: "קקליטת מידע גולמי מכל מקור. עבודה 100% לוקאלית (Offline) ללא אינטרנט. המידע לא יוצא מהארגון."
         },
         enrichment: {
           title: "פענוח",
-          desc: "חילוץ ישויות ונורמליזציה. בניית 'מודל עולם' מתוך הטקסט, תוך הבנת הקשרים ושפה מקצועית."
+          desc: "חחילוץ ישויות ונורמליזציה. בניית 'מודל עולם' מתוך הטקסט, תוך הבנת הקשרים ושפה מקצועית."
         },
         context: {
           title: "חיבור",
-          desc: "בניית הגרף. זיהוי קשרים עקיפים ורצפים כרונולוגיים שמחקר ידני מפספס."
+          desc: "בבניית הגרף. זיהוי קשרים עקיפים ורצפים כרונולוגיים שמחקר ידני מפספס."
         },
         guidance: {
           title: "ניתוח",
-          desc: "זיהוי דפוסים. איתור חריגות, חזרתיות ו'דגלים אדומים' על פני כל הדאטה-סט."
+          desc: "זזיהוי דפוסים. איתור חריגות, חזרתיות ו'דגלים אדומים' על פני כל הדאטה-סט."
         },
         fusion: {
           title: "שמירה",
-          desc: "זיכרון מוסדי. הידע הופך לתשתית ארגונית נשמרת, ולא נעלם יחד עם החוקר שעוזב."
+          desc: "זזיכרון מוסדי. הידע הופך לתשתית ארגונית נשמרת, ולא נעלם יחד עם החוקר שעוזב."
         },
         insight: {
           title: "תוצר",
