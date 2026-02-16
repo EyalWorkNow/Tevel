@@ -1,7 +1,10 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
-import { Network, ScanLine, AlertCircle, Share2, Activity, Terminal, ShieldAlert, Wifi } from 'lucide-react';
+import { 
+    Network, ScanLine, AlertCircle, Share2, Activity, Terminal, ShieldAlert, Wifi, 
+    FileText, Mail, Database, FileJson, AlertTriangle, CheckCircle2 
+} from 'lucide-react';
 
 interface DashboardMockupProps {
     t: any;
@@ -161,49 +164,52 @@ const DashboardMockup: React.FC<DashboardMockupProps> = ({ t, isRtl }) => {
                             </div>
                         </div>
 
-                        {/* Left Sidebar / Data Feed - Hidden on Mobile */}
+                        {/* Left Sidebar / Data Ingestion - Hidden on Mobile */}
                         <div className="col-span-3 border-r border-white/5 p-6 hidden md:flex flex-col gap-6 bg-[#080a0e] relative overflow-hidden">
                             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500/50 to-transparent animate-scan-slow"></div>
 
                             <div className="flex items-center justify-between border-b border-white/5 pb-4">
                                 <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                                    {isRtl ? 'זרם מודיעין חי' : 'Live Intel'}
+                                    {isRtl ? 'קליטת מקורות' : 'Data Ingestion'}
                                 </span>
                                 <Activity size={14} className="text-emerald-500 animate-pulse" />
                             </div>
 
-                            {/* Live Logs */}
-                            <div className={`flex-1 font-mono text-[10px] text-emerald-500/70 space-y-2 overflow-hidden flex flex-col justify-end ${isRtl ? 'text-right' : 'text-left'}`} dir="ltr">
-                                <AnimatePresence>
-                                    {logs.map((log, i) => (
-                                        <motion.div
-                                            key={i}
-                                            initial={{ opacity: 0, x: -10 }}
-                                            animate={{ opacity: 1, x: 0 }}
-                                            className={`truncate border-l-2 border-emerald-500/20 pl-2 ${isRtl ? 'border-r-2 border-l-0 pr-2 pl-0 text-right' : ''}`}
-                                        >
-                                            {log}
-                                        </motion.div>
-                                    ))}
-                                </AnimatePresence>
-                            </div>
-
-                            <div className="space-y-3 pt-4 border-t border-white/5">
-                                {[1, 2].map((i) => (
-                                    <div key={i} className="p-3 bg-white/[0.02] rounded border border-white/5 flex gap-3 items-center">
-                                        <div className="w-8 h-8 rounded bg-slate-800/50 flex items-center justify-center">
-                                            <ShieldAlert size={14} className="text-amber-500" />
+                            {/* Ingestion Stream */}
+                            <div className="flex-1 space-y-3 overflow-hidden flex flex-col justify-end">
+                                {[
+                                    { icon: FileText, name: "Police_Report_882.pdf", size: "2.4MB", status: "ok" },
+                                    { icon: Mail, name: "Email_Chain_Thread.msg", size: "128KB", status: "ok" },
+                                    { icon: Database, name: "Transaction_Log_DB.sql", size: "450MB", status: "process" },
+                                    { icon: Terminal, name: "Signal_Intercept_Raw.txt", size: "12KB", status: "ok" },
+                                ].map((file, i) => (
+                                    <motion.div
+                                        key={i}
+                                        initial={{ opacity: 0, x: -20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        transition={{ delay: i * 0.2 }}
+                                        className="p-2 border border-white/5 rounded bg-white/[0.02] flex items-center gap-3"
+                                    >
+                                        <div className={`p-1.5 rounded ${file.status === 'process' ? 'bg-amber-500/10 text-amber-500' : 'bg-emerald-500/10 text-emerald-500'}`}>
+                                            <file.icon size={12} />
                                         </div>
-                                        <div className="flex-1">
-                                            <div className="h-1.5 w-16 bg-slate-700 rounded mb-1.5"></div>
-                                            <div className="h-1.5 w-10 bg-slate-800 rounded"></div>
+                                        <div className="flex-1 min-w-0">
+                                            <div className="text-[10px] text-slate-300 truncate font-mono">{file.name}</div>
+                                            <div className="flex justify-between items-center mt-0.5">
+                                                <span className="text-[8px] text-slate-500">{file.size}</span>
+                                                {file.status === 'process' ? (
+                                                    <span className="text-[8px] text-amber-500 animate-pulse">PROCESSING...</span>
+                                                ) : (
+                                                    <span className="text-[8px] text-emerald-500">INGESTED</span>
+                                                )}
+                                            </div>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
                         </div>
 
-                        {/* Main Visual - Context Graph & Map Analysis */}
+                        {/* Main Visual - Context Graph & Entity Resolution */}
                         <div className="col-span-12 md:col-span-6 relative group overflow-hidden border-b md:border-b-0 md:border-r border-white/5 bg-black h-[50vh] md:h-auto">
                             {/* Background Map Effect */}
                             <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop')] bg-cover bg-center opacity-30 grayscale mix-blend-screen pointer-events-none"></div>
@@ -219,64 +225,58 @@ const DashboardMockup: React.FC<DashboardMockupProps> = ({ t, isRtl }) => {
                             {/* Grid Overlay */}
                             <div className="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.03)_1px,transparent_1px)] bg-[size:50px_50px] pointer-events-none"></div>
 
-                            {/* Graph Nodes Overlay */}
+                            {/* Entity Resolution Stage */}
                             <div className="absolute inset-0 z-20 p-8 flex items-center justify-center">
-                                <div className="relative w-full h-full max-h-[250px] md:max-h-[350px]">
-                                    {/* Central Entity - Floating */}
-                                    <motion.div
-                                        initial={{ scale: 0 }}
-                                        whileInView={{ scale: 1 }}
-                                        viewport={{ once: false }}
-                                        animate={{ y: [0, -10, 0] }}
-                                        transition={{
-                                            scale: { duration: 0.5 },
-                                            y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
-                                        }}
-                                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20"
-                                    >
-                                        <div className="relative group/center cursor-pointer">
-                                            <div className="w-24 h-24 md:w-32 md:h-32 rounded-full border border-emerald-500/30 bg-emerald-900/10 flex items-center justify-center backdrop-blur-sm group-hover/center:bg-emerald-900/20 transition-colors shadow-[0_0_30px_rgba(16,185,129,0.2)]">
-                                                <div className="absolute inset-0 rounded-full border border-emerald-500/20 animate-ping-slow"></div>
-                                                <ScanLine size={32} className="text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.8)] md:w-10 md:h-10" />
-                                            </div>
-                                            <div className="absolute -bottom-8 md:-bottom-10 left-1/2 -translate-x-1/2 whitespace-nowrap bg-black/90 text-emerald-400 font-mono text-[8px] md:text-[10px] px-2 py-1 md:px-3 rounded-full tracking-wider shadow-lg border border-emerald-500/30">
-                                                {t.targetAcquired}
-                                            </div>
-                                        </div>
-                                    </motion.div>
+                                <div className="relative w-full h-full max-h-[250px] md:max-h-[350px] flex items-center justify-center">
 
-                                    {/* Satellite Nodes */}
-                                    {[
-                                        { top: '10%', left: '10%', icon: Share2, label: "Social", delay: 0.2 },
-                                        { top: '10%', right: '10%', icon: Network, label: "Network", delay: 0.4 },
-                                        { bottom: '10%', left: '15%', icon: AlertCircle, label: "Intel", delay: 0.6 }
-                                    ].map((node, idx) => (
+                                    {/* Central Merging Core */}
+                                    <div className="relative">
                                         <motion.div
-                                            key={idx}
-                                            initial={{ scale: 0, opacity: 0 }}
-                                            whileInView={{ scale: 1, opacity: 1 }}
-                                            viewport={{ once: false }}
-                                            transition={{ delay: node.delay }}
-                                            className="absolute flex flex-col items-center group/node cursor-pointer"
-                                            style={{ top: node.top, left: node.left, right: node.right, bottom: node.bottom }}
+                                            className="absolute inset-0 bg-emerald-500/20 blur-xl rounded-full"
+                                            animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
+                                            transition={{ duration: 3, repeat: Infinity }}
+                                        />
+
+                                        {/* Resolved Entity */}
+                                        <motion.div
+                                            initial={{ scale: 0.8, opacity: 0 }}
+                                            animate={{ scale: 1, opacity: 1 }}
+                                            transition={{ duration: 0.5 }}
+                                            className="w-24 h-24 md:w-32 md:h-32 rounded-full border border-emerald-500/30 bg-emerald-900/10 flex flex-col items-center justify-center backdrop-blur-sm z-30 relative shadow-[0_0_30px_rgba(16,185,129,0.3)]"
                                         >
-                                            <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/80 border border-white/10 flex items-center justify-center mb-2 z-10 group-hover/node:border-emerald-500/50 group-hover/node:scale-110 transition-all duration-300 group-hover/node:shadow-[0_0_20px_rgba(16,185,129,0.4)]">
-                                                <node.icon size={16} className="text-slate-400 group-hover/node:text-emerald-400 transition-colors md:w-5 md:h-5" />
+                                            <ScanLine size={32} className="text-emerald-400 mb-2" />
+                                            <div className="text-[10px] font-mono text-emerald-400 bg-black/80 px-2 py-0.5 rounded border border-emerald-500/30">
+                                                RESOLVED
                                             </div>
-                                            {/* Animated Connector Lines */}
-                                            <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] h-[200px] md:w-[300px] md:h-[300px] pointer-events-none -z-10 opacity-40">
-                                                <line
-                                                    x1="50%"
-                                                    y1="50%"
-                                                    x2={node.left ? "0%" : "100%"}
-                                                    y2={node.top ? "0%" : "100%"}
-                                                    stroke="#10b981"
-                                                    strokeWidth="1"
-                                                    strokeDasharray="4 4"
-                                                />
-                                            </svg>
                                         </motion.div>
-                                    ))}
+
+                                        {/* Fragments Flying In */}
+                                        {[
+                                            { label: "J. Doe", x: -80, y: -60, delay: 0 },
+                                            { label: "Phone: +972...", x: 80, y: -40, delay: 1 },
+                                            { label: "DevID: 88A2", x: 0, y: 80, delay: 2 }
+                                        ].map((frag, i) => (
+                                            <motion.div
+                                                key={i}
+                                                initial={{ x: frag.x * 2, y: frag.y * 2, opacity: 0 }}
+                                                animate={{
+                                                    x: [frag.x * 2, 0],
+                                                    y: [frag.y * 2, 0],
+                                                    opacity: [0, 1, 0],
+                                                    scale: [1, 0.5]
+                                                }}
+                                                transition={{
+                                                    duration: 3,
+                                                    repeat: Infinity,
+                                                    delay: frag.delay,
+                                                    ease: "easeInOut"
+                                                }}
+                                                className="absolute top-1/2 left-1/2 w-12 h-12 -ml-6 -mt-6 rounded-full border border-slate-600 bg-black/60 flex items-center justify-center text-[8px] text-slate-300 font-mono z-20"
+                                            >
+                                                {frag.label}
+                                            </motion.div>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
 
@@ -298,43 +298,53 @@ const DashboardMockup: React.FC<DashboardMockupProps> = ({ t, isRtl }) => {
                             </div>
                         </div>
 
-                        {/* Right Stats Panel - Stacks on Mobile */}
-                        <div className="col-span-12 md:col-span-3 p-4 md:p-6 bg-[#080a0e] flex flex-col gap-4 md:gap-8 h-auto">
-                            <div className="text-[10px] md:text-xs font-bold text-slate-400 uppercase tracking-widest border-b border-white/5 pb-2 md:pb-4">
-                                {t.entityAnalysis}
+                        {/* Right Stats Panel - Research Outcomes */}
+                        <div className="col-span-12 md:col-span-3 p-4 md:p-6 bg-[#080a0e] flex flex-col gap-4 h-auto md:border-l border-white/5">
+                            <div className="flex items-center justify-between border-b border-white/5 pb-4">
+                                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">
+                                    {isRtl ? 'תוצרי מחקר' : 'Research Outcomes'}
+                                </span>
+                                <FileJson size={14} className="text-emerald-500" />
                             </div>
 
-                            <div className="grid grid-cols-2 md:grid-cols-1 gap-3 md:gap-4">
+                            {/* Timeline - Verified Events */}
+                            <div className="space-y-3">
                                 {[
-                                    { label: t.origin, val: t.vals.iran, color: "text-emerald-400" },
-                                    { label: t.class, val: t.vals.military, color: "text-amber-400" },
-                                    { label: t.threat, val: t.vals.critical, color: "text-red-500 font-black tracking-widest" },
+                                    { time: "10:42", event: "Payment Detected", status: "verified" },
+                                    { time: "10:45", event: "Location Mismatch", status: "conflict" },
+                                    { time: "10:48", event: "Device ID Match", status: "verified" },
                                 ].map((item, idx) => (
-                                    <div key={idx} className="bg-white/[0.02] p-3 md:p-4 rounded-lg border border-white/5 hover:bg-white/[0.04] transition-colors hover:border-emerald-500/20 cursor-default">
-                                        <div className="text-slate-500 text-[8px] md:text-[9px] uppercase tracking-wider mb-1 md:mb-2">{item.label}</div>
-                                        <div className={`text-xs md:text-sm font-bold ${item.color} truncate`}>{item.val}</div>
+                                    <div key={idx} className="flex gap-3 items-start relative group/item">
+                                        {/* Timeline Line */}
+                                        {idx !== 2 && <div className="absolute top-2 left-[5px] w-[1px] h-full bg-white/10 group-hover/item:bg-emerald-500/30 transition-colors"></div>}
+
+                                        <div className={`w-2.5 h-2.5 rounded-full mt-1.5 flex-shrink-0 ${item.status === 'conflict' ? 'bg-red-500 animate-pulse shadow-[0_0_8px_rgba(239,68,68,0.4)]' : 'bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.4)]'}`}></div>
+                                        <div>
+                                            <div className="text-[10px] font-mono text-slate-500">{item.time}</div>
+                                            <div className={`text-xs font-bold ${item.status === 'conflict' ? 'text-red-400' : 'text-slate-200'}`}>
+                                                {item.event}
+                                            </div>
+                                        </div>
                                     </div>
                                 ))}
                             </div>
 
-                            {/* Confidence Meter */}
-                            <div className="mt-auto pt-4 md:pt-0">
-                                <div className="flex justify-between text-xs mb-2 md:mb-3">
-                                    <span className="text-slate-400 uppercase tracking-wider text-[10px] md:text-xs">{t.certainty}</span>
-                                    <span className="text-emerald-400 font-mono font-bold">98.4%</span>
+                            {/* Conflict Alert Box */}
+                            <div className="mt-auto bg-red-500/5 border border-red-500/20 p-3 rounded-lg">
+                                <div className="flex items-center gap-2 mb-1">
+                                    <AlertTriangle size={12} className="text-red-500" />
+                                    <span className="text-[10px] uppercase font-bold text-red-400 tracking-wider">Conflict Detected</span>
                                 </div>
-                                <div className="h-1.5 md:h-2 w-full bg-slate-800 rounded-full overflow-hidden">
-                                    <motion.div
-                                        initial={{ width: 0 }}
-                                        whileInView={{ width: '98.4%' }}
-                                        viewport={{ once: false }}
-                                        transition={{ duration: 1.5, ease: "easeOut" }}
-                                        className="h-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)] relative"
-                                    >
-                                        <div className="absolute right-0 top-0 bottom-0 w-2 bg-white/50 blur-[2px]"></div>
-                                    </motion.div>
+                                <div className="text-[10px] text-slate-400 leading-tight">
+                                    Payment location (CY) contradicts Device GPS (UK).
                                 </div>
                             </div>
+
+                            {/* Export Action */}
+                            <button className="w-full py-2 bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-xs font-bold rounded flex items-center justify-center gap-2 transition-all group/btn">
+                                <CheckCircle2 size={14} />
+                                <span>{isRtl ? 'ייצוא דוח החלטה' : 'Export Decision Pack'}</span>
+                            </button>
                         </div>
 
                     </motion.div>
