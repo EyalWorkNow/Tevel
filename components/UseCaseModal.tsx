@@ -1,11 +1,12 @@
 
-import React, { useEffect } from 'react';
-import { motion, AnimatePresence, Variants } from 'framer-motion';
+import React, { useEffect, useState, useRef } from 'react';
+import { motion, AnimatePresence, Variants, useAnimation } from 'framer-motion';
 // Iconsax imports
 import {
     CloseSquare, TickCircle, ShieldSecurity, Gps, Folder, Activity,
     DocumentText, ArrowRight2, Flash, CommandSquare, Scan, Cpu,
-    Warning2, FingerScan, Code1, Data, Layer, Hierarchy, Profile2User
+    Warning2, FingerScan, Code1, Data, Layer, Hierarchy, Profile2User,
+    Global, Radar
 } from 'iconsax-react';
 
 interface UseCaseModalProps {
@@ -15,6 +16,78 @@ interface UseCaseModalProps {
     isRtl: boolean;
     icon: React.ReactNode;
 }
+
+// --- Digital Decrypt Text Component ---
+const DecryptText: React.FC<{ text: string; className?: string; revealDelay?: number }> = ({ text, className, revealDelay = 0 }) => {
+    const [display, setDisplay] = useState('');
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%&";
+
+    useEffect(() => {
+        let iteration = 0;
+        let interval: NodeJS.Timeout;
+
+        const startDecryption = () => {
+            interval = setInterval(() => {
+                setDisplay(prev =>
+                    text.split("").map((letter, index) => {
+                        if (index < iteration) {
+                            return text[index];
+                        }
+                        return chars[Math.floor(Math.random() * chars.length)];
+                    }).join("")
+                );
+
+                if (iteration >= text.length) {
+                    clearInterval(interval);
+                }
+
+                iteration += 1 / 3;
+            }, 30);
+        };
+
+        const timer = setTimeout(startDecryption, revealDelay * 1000);
+
+        return () => {
+            clearTimeout(timer);
+            clearInterval(interval);
+        };
+    }, [text, revealDelay]);
+
+    return <span className={className}>{display}</span>;
+};
+
+
+// --- Particle Grid Background ---
+const ParticleGrid = () => {
+    return (
+        <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
+            <div className="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.05)_1px,transparent_1px)] bg-[size:40px_40px] opacity-20 transform perspective-1000 rotateX(60deg) scale-150 origin-top animate-[grid-move_20s_linear_infinite]"></div>
+            {/* Floating particles */}
+            {[...Array(15)].map((_, i) => (
+                <motion.div
+                    key={i}
+                    className="absolute w-1 h-1 bg-emerald-400 rounded-full opacity-0"
+                    initial={{
+                        x: Math.random() * 100 + "%",
+                        y: Math.random() * 100 + "%",
+                        opacity: 0
+                    }}
+                    animate={{
+                        y: [null, Math.random() * -100],
+                        opacity: [0, 0.6, 0]
+                    }}
+                    transition={{
+                        duration: Math.random() * 5 + 5,
+                        repeat: Infinity,
+                        ease: "linear",
+                        delay: Math.random() * 5
+                    }}
+                />
+            ))}
+        </div>
+    );
+};
+
 
 const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRtl, icon }) => {
 
@@ -35,19 +108,25 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
             opacity: 1,
             transition: {
                 staggerChildren: 0.1,
-                delayChildren: 0.2
+                delayChildren: 0.1
             }
         }
     };
 
-    const itemVariants: Variants = {
-        hidden: { opacity: 0, x: -20, filter: 'blur(10px)' },
+    const panelVariants: Variants = {
+        hidden: { opacity: 0, scale: 0.95, filter: 'blur(10px)' },
         visible: {
             opacity: 1,
-            x: 0,
+            scale: 1,
             filter: 'blur(0px)',
-            transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-        }
+            transition: { duration: 0.5, ease: "circOut" }
+        },
+        exit: { opacity: 0, scale: 0.95, filter: 'blur(10px)', transition: { duration: 0.3 } }
+    };
+
+    const itemVariants: Variants = {
+        hidden: { opacity: 0, x: -10 },
+        visible: { opacity: 1, x: 0, transition: { duration: 0.4 } }
     };
 
     return (
@@ -60,238 +139,271 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center p-0 md:p-8"
+                        className="fixed inset-0 bg-black/90 backdrop-blur-md z-[100] flex items-center justify-center p-0 md:p-6"
                     >
-                        {/* Modal Container */}
+                        {/* Holographic Container */}
                         <motion.div
-                            initial={{ scale: 0.95, opacity: 0, y: 20 }}
-                            animate={{ scale: 1, opacity: 1, y: 0 }}
-                            exit={{ scale: 0.95, opacity: 0, y: 20 }}
-                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                            variants={panelVariants}
+                            initial="hidden"
+                            animate="visible"
+                            exit="exit"
                             onClick={(e) => e.stopPropagation()}
                             className={`
-                                relative w-full md:max-w-6xl h-full md:h-[85vh] flex flex-col md:flex-row 
-                                bg-[#030303] md:rounded-3xl overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)]
-                                border border-white/10 ring-1 ring-white/5
+                                relative w-full md:max-w-7xl h-full md:h-[90vh] flex flex-col md:flex-row 
+                                bg-[#020202]/80 backdrop-blur-3xl overflow-hidden rounded-none md:rounded-2xl
+                                border border-emerald-500/30 shadow-[0_0_50px_rgba(16,185,129,0.15)]
                                 ${isRtl ? 'text-right' : 'text-left'}
                             `}
                             dir={isRtl ? 'rtl' : 'ltr'}
                         >
-                            {/* Cinematic Glow Behind */}
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-emerald-500/10 blur-[120px] pointer-events-none rounded-full" />
+                            <ParticleGrid />
 
-                            {/* Close Button */}
+                            {/* Scanning Border Effect */}
+                            <div className="absolute inset-0 pointer-events-none z-50 rounded-2xl border border-emerald-500/10"></div>
+                            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent animate-[scan-fast_3s_linear_infinite] shadow-[0_0_15px_rgba(16,185,129,0.8)] z-50 pointer-events-none"></div>
+
+                            {/* Close Button (Floating) */}
                             <button
                                 onClick={onClose}
-                                className={`absolute top-4 md:top-6 ${isRtl ? 'left-4 md:left-6' : 'right-4 md:right-6'} z-50 p-2 group flex items-center justify-center rounded-full bg-black/40 border border-white/10 hover:bg-white/10 hover:border-white/20 transition-all duration-300 backdrop-blur-md`}
+                                className={`absolute top-6 ${isRtl ? 'left-6' : 'right-6'} z-[60] p-2 group flex items-center justify-center rounded-sm border border-emerald-500/30 bg-black/40 hover:bg-emerald-500/20 hover:border-emerald-400 transition-all duration-300 backdrop-blur-md`}
                             >
-                                <CloseSquare size={24} variant="Bold" className="text-slate-400 group-hover:text-white transition-colors" />
+                                <CloseSquare size={20} variant="Bold" className="text-emerald-500/70 group-hover:text-emerald-400 transition-colors" />
                             </button>
 
 
-                            {/* === LEFT COLUMN: THE DOSSIER (Metadata) === */}
-                            <div className="w-full md:w-[320px] lg:w-[380px] bg-[#050505]/80 backdrop-blur-xl border-b md:border-b-0 md:border-r border-white/5 relative flex flex-col shrink-0 z-20">
+                            {/* === LEFT COLUMN: HOLOGRAPHIC IDENTITY === */}
+                            <div className="w-full md:w-[400px] border-b md:border-b-0 md:border-r border-emerald-500/20 relative flex flex-col shrink-0 z-20 bg-gradient-to-b from-emerald-950/10 to-transparent overflow-y-auto custom-scrollbar">
 
-                                {/* Header / Identity */}
-                                <div className="p-6 md:p-10 pb-0 md:pb-6 relative">
-                                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-emerald-500/30 to-transparent"></div>
+                                {/* Header */}
+                                <div className="p-8 pb-0 relative">
+                                    <div className="mb-8 relative group perspective-1000">
+                                        <div className="absolute -inset-10 bg-emerald-500/20 blur-[60px] rounded-full opacity-60 animate-pulse"></div>
 
-                                    <div className="mb-6 md:mb-10 relative group">
-                                        <div className="absolute -inset-4 bg-emerald-500/10 blur-2xl rounded-full opacity-0 md:opacity-100 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                        {/* 3D Floating Icon Container */}
+                                        <motion.div
+                                            initial={{ rotateX: 0, rotateY: 0 }}
+                                            whileHover={{ rotateX: 10, rotateY: 10 }}
+                                            transition={{ type: "spring", stiffness: 300 }}
+                                            className="relative w-24 h-24 rounded-xl bg-black/40 border border-emerald-500/40 flex items-center justify-center shadow-[0_0_30px_rgba(16,185,129,0.2)] backdrop-blur-md"
+                                        >
+                                            {/* Corner Brackets */}
+                                            <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-emerald-400"></div>
+                                            <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-emerald-400"></div>
+                                            <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-emerald-400"></div>
+                                            <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-emerald-400"></div>
 
-                                        {/* Scanner Ring Animation */}
-                                        <div className="absolute -inset-[2px] rounded-2xl border border-emerald-500/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                            <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500/50 shadow-[0_0_10px_rgba(16,185,129,0.8)] animate-[scan_2s_linear_infinite]"></div>
-                                        </div>
-
-                                        <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-2xl bg-gradient-to-br from-emerald-950/50 to-black border border-emerald-500/30 flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform duration-500">
-                                            <div className="text-emerald-400 drop-shadow-[0_0_15px_rgba(16,185,129,0.5)] group-hover:text-emerald-300 transition-colors">
-                                                {React.cloneElement(icon as React.ReactElement<any>, { size: 32, variant: 'Bulk' })}
+                                            <div className="text-emerald-400 drop-shadow-[0_0_10px_rgba(16,185,129,0.8)]">
+                                                {React.cloneElement(icon as React.ReactElement<any>, { size: 40, variant: 'Bulk' })}
                                             </div>
-                                            {/* Corner Accents */}
-                                            <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-emerald-500/50"></div>
-                                            <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-emerald-500/50"></div>
-                                        </div>
+                                        </motion.div>
                                     </div>
 
-                                    <div className="space-y-2">
-                                        <div className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-mono text-emerald-400 w-fit uppercase tracking-widest mb-2 flex items-center gap-2">
-                                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                                    <div className="space-y-4">
+                                        <div className="px-3 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-mono text-emerald-300 w-fit uppercase tracking-widest flex items-center gap-2 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                                            <Radar size={12} className="animate-spin-slow" />
                                             {isRtl ? 'סיווג: שמור' : 'RESTRICTED ACCESS'}
                                         </div>
-                                        <h2 className="text-2xl md:text-3xl font-bold text-white leading-tight uppercase tracking-tight">
-                                            {data.title}
+
+                                        <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-100 to-emerald-400 leading-tight uppercase tracking-tight" style={{ textShadow: '0 0 30px rgba(16,185,129,0.3)' }}>
+                                            <DecryptText text={data.title} revealDelay={0.2} />
                                         </h2>
-                                        <div className="flex items-center gap-3 font-mono text-xs text-slate-500 pt-2">
-                                            <span className="text-emerald-500/60">ID://</span>
-                                            <span>{data.id.toUpperCase()}_REV_04</span>
+
+                                        <div className="flex flex-col gap-1 font-mono text-xs text-emerald-500/60 pt-4 border-t border-emerald-500/20 w-full">
+                                            <span>ID://</span>
+                                            <span className="text-emerald-400 break-all leading-relaxed bg-emerald-500/5 p-2 rounded border border-emerald-500/10"><DecryptText text={`${data.id.toUpperCase()}_REV_04`} revealDelay={0.8} /></span>
                                         </div>
                                     </div>
                                 </div>
 
-                                {/* Meta Grid */}
-                                <div className="p-6 md:p-10 space-y-6 md:mt-auto">
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <div className="p-3 rounded-lg bg-white/[0.03] border border-white/5 hover:border-emerald-500/20 transition-colors group">
-                                            <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                                                <Hierarchy size={10} className="text-emerald-500/50" />
+                                {/* Meta Stats - HUD Style */}
+                                <div className="p-8 space-y-6 mt-auto">
+                                    <div className="space-y-4">
+                                        <div className="flex justify-between items-center group">
+                                            <div className="text-[10px] text-emerald-500/60 uppercase tracking-widest flex items-center gap-2">
+                                                <Hierarchy size={10} />
                                                 {isRtl ? 'פרוטוקול' : 'PROTOCOL'}
                                             </div>
-                                            <div className="font-mono text-sm text-slate-200 group-hover:text-emerald-400 transition-colors">
-                                                {data.protocol || 'STD-88'}
+                                            <div className="font-mono text-sm text-white group-hover:text-emerald-300 transition-colors shadow-emerald-500/20 break-all text-right pl-4">
+                                                <DecryptText text={data.protocol || 'STD-88'} revealDelay={1} />
                                             </div>
                                         </div>
-                                        <div className="p-3 rounded-lg bg-white/[0.03] border border-white/5 hover:border-emerald-500/20 transition-colors group">
-                                            <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                                                <Activity size={10} className="text-emerald-500/50" />
+                                        <div className="h-px bg-emerald-500/10 w-full"></div>
+
+                                        <div className="flex justify-between items-center group">
+                                            <div className="text-[10px] text-emerald-500/60 uppercase tracking-widest flex items-center gap-2">
+                                                <Activity size={10} />
                                                 {isRtl ? 'סטטוס' : 'STATUS'}
                                             </div>
                                             <div className="font-mono text-sm text-emerald-400 font-bold flex items-center gap-2">
                                                 {isRtl ? 'פעיל' : 'ACTIVE'}
-                                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse box-content border border-emerald-500/20 shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+                                                <div className="flex space-x-0.5">
+                                                    <span className="w-1 h-3 bg-emerald-500 animate-[pulse_1s_ease-in-out_infinite]"></span>
+                                                    <span className="w-1 h-3 bg-emerald-500 animate-[pulse_1s_ease-in-out_0.2s_infinite]"></span>
+                                                    <span className="w-1 h-3 bg-emerald-500 animate-[pulse_1s_ease-in-out_0.4s_infinite]"></span>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div className="p-3 rounded-lg bg-white/[0.03] border border-white/5 hover:border-emerald-500/20 transition-colors group col-span-2">
-                                            <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-1 flex items-center gap-1.5">
-                                                <ShieldSecurity size={10} className="text-emerald-500/50" />
-                                                {isRtl ? 'רמת הצפנה' : 'SECURITY LEVEL'}
+                                        <div className="h-px bg-emerald-500/10 w-full"></div>
+
+                                        <div className="flex justify-between items-center group">
+                                            <div className="text-[10px] text-emerald-500/60 uppercase tracking-widest flex items-center gap-2">
+                                                <ShieldSecurity size={10} />
+                                                {isRtl ? 'הצפנה' : 'ENCRYPTION'}
                                             </div>
-                                            <div className="font-mono text-sm text-slate-200 group-hover:text-white transition-colors">
-                                                TS/SCI // NOFORN
+                                            <div className="font-mono text-sm text-emerald-200">
+                                                AES-256-GCM
                                             </div>
                                         </div>
+                                        {/* Spacer for bottom scroll */}
+                                        <div className="h-4"></div>
                                     </div>
                                 </div>
                             </div>
 
 
-                            {/* === RIGHT COLUMN: CONTENT === */}
-                            <div className="flex-1 relative overflow-y-auto custom-scrollbar bg-gradient-to-b from-[#080808] to-[#030303]">
-                                {/* Grid Background */}
-                                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none opacity-50"></div>
-
+                            {/* === RIGHT COLUMN: DATA STREAM === */}
+                            <div className="flex-1 relative overflow-y-auto custom-scrollbar">
                                 <motion.div
                                     variants={containerVariants}
                                     initial="hidden"
                                     animate="visible"
-                                    className="p-6 md:p-12 space-y-8 md:space-y-12 relative z-10"
+                                    className="p-8 md:p-16 space-y-12 relative z-10"
                                 >
 
                                     {/* 1. Mission Brief */}
-                                    <motion.div variants={itemVariants} className="max-w-3xl">
-                                        <div className="flex items-center gap-3 mb-4">
-                                            <div className="h-px w-8 bg-emerald-500/50"></div>
-                                            <h3 className="text-xs font-bold text-emerald-500 uppercase tracking-[0.2em]">
+                                    <motion.div variants={itemVariants} className="max-w-4xl">
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <div className="h-px w-12 bg-emerald-500"></div>
+                                            <h3 className="text-sm font-bold text-emerald-400 uppercase tracking-[0.3em] shadow-emerald-500/50 drop-shadow-[0_0_5px_rgba(16,185,129,0.5)]">
                                                 {isRtl ? 'תקציר מנהלים' : 'MISSION BRIEF'}
                                             </h3>
                                         </div>
-                                        <p className="text-lg md:text-2xl text-slate-200 font-light leading-relaxed">
+                                        <p className="text-xl md:text-3xl text-emerald-50 font-extralight leading-relaxed" style={{ textShadow: '0 0 10px rgba(16,185,129,0.2)' }}>
                                             "{data.desc}"
                                         </p>
                                     </motion.div>
 
-                                    <div className="h-px w-full bg-gradient-to-r from-white/5 to-transparent"></div>
 
-                                    {/* 2. Intelligence Data (Terminal) */}
+                                    {/* 2. Intelligence Data (Holographic Terminal) */}
                                     <motion.div variants={itemVariants}>
-                                        <div className="flex items-center gap-2 mb-4 text-slate-400">
+                                        <div className="flex items-center gap-2 mb-4 text-emerald-500/50">
                                             <CommandSquare size={16} />
                                             <h3 className="text-xs font-bold uppercase tracking-[0.2em]">
-                                                {isRtl ? 'נתוני מודיעין' : 'INTELLIGENCE DATA'}
+                                                {isRtl ? 'נתוני מודיעין' : 'RAW INTELLIGENCE'}
                                             </h3>
                                         </div>
-                                        <div className="bg-[#0A0A0A] rounded-xl border border-white/10 p-5 md:p-6 font-mono text-sm text-slate-300 shadow-inner group relative overflow-hidden">
-                                            <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:via-emerald-500/50 transition-all duration-700"></div>
-                                            <div className="flex gap-3 relative z-10">
-                                                <div className="flex flex-col gap-1 text-slate-600 text-[10px] pt-1 select-none">
-                                                    <span>01</span>
-                                                    <span>02</span>
-                                                    <span>03</span>
+                                        <div className="bg-black/40 rounded-sm border border-emerald-500/20 p-6 font-mono text-sm relative overflow-hidden backdrop-blur-sm group hover:border-emerald-500/40 transition-colors duration-500">
+                                            <div className="absolute top-0 right-0 p-2 text-[10px] text-emerald-500/40">JSON_VIEWER_V2.1</div>
+
+                                            <div className="space-y-2 text-emerald-100/80">
+                                                <div className="flex">
+                                                    <span className="text-emerald-600 mr-4">01</span>
+                                                    <span><span className="text-purple-400">const</span> <span className="text-blue-400">targetData</span> = <span className="text-yellow-400">{'{'}</span></span>
                                                 </div>
-                                                <div className="flex-1 space-y-1">
-                                                    <div className="text-slate-500">
-                                                        <span className="text-purple-400">const</span> <span className="text-blue-400">intelData</span> = <span className="text-yellow-300">{'{'}</span>
-                                                    </div>
-                                                    <div className="pl-4">
-                                                        <span className="text-slate-400">source:</span> <span className="text-green-400">"CLASSIFIED_FEED"</span>,
-                                                    </div>
-                                                    <div className="pl-4 text-slate-200">
-                                                        {data.details?.fullDesc}
-                                                    </div>
-                                                    <div className="text-yellow-300">{'}'}</div>
+                                                <div className="flex">
+                                                    <span className="text-emerald-600 mr-4">02</span>
+                                                    <span className="pl-6"><span className="text-emerald-300">"type"</span>: <span className="text-orange-300">"SIGINT_COLLECTION"</span>,</span>
+                                                </div>
+                                                <div className="flex">
+                                                    <span className="text-emerald-600 mr-4">03</span>
+                                                    <span className="pl-6"><span className="text-emerald-300">"payload"</span>: <span className="text-orange-300">"{data.details?.fullDesc}"</span>,</span>
+                                                </div>
+                                                <div className="flex">
+                                                    <span className="text-emerald-600 mr-4">04</span>
+                                                    <span className="pl-6"><span className="text-emerald-300">"confidence"</span>: <span className="text-emerald-400">0.9892</span></span>
+                                                </div>
+                                                <div className="flex">
+                                                    <span className="text-emerald-600 mr-4">05</span>
+                                                    <span className="text-yellow-400">{'}'}</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </motion.div>
 
-                                    {/* 3. Capabilities Cards - Enhanced */}
+                                    {/* 3. Capabilities Cards - Glass Panels */}
                                     <motion.div variants={itemVariants}>
-                                        <div className="flex items-center gap-2 mb-4 text-slate-400">
+                                        <div className="flex items-center gap-2 mb-6 text-emerald-500/50">
                                             <Cpu size={16} />
                                             <h3 className="text-xs font-bold uppercase tracking-[0.2em]">
                                                 {isRtl ? 'יכולות ליבה' : 'CORE CAPABILITIES'}
                                             </h3>
                                         </div>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             {data.details?.capabilities?.map((cap: string, i: number) => (
                                                 <motion.div
                                                     key={i}
-                                                    whileHover={{ scale: 1.02, backgroundColor: "rgba(255,255,255,0.03)" }}
-                                                    className="group p-4 rounded-xl border border-white/5 bg-white/[0.01] hover:border-emerald-500/40 transition-all duration-300 relative overflow-hidden cursor-default"
+                                                    whileHover={{ scale: 1.02 }}
+                                                    className="group relative p-6 rounded-xl bg-gradient-to-br from-white/[0.03] to-transparent border border-white/5 hover:border-emerald-400/50 transition-all duration-300 overflow-hidden"
                                                 >
-                                                    <div className="absolute top-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform group-hover:translate-x-0 translate-x-2">
-                                                        <ArrowRight2 size={14} className="text-emerald-500" />
+                                                    <div className="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+
+                                                    <div className="flex justify-between items-start mb-4 relative z-10">
+                                                        <Flash size={20} variant="Bulk" className="text-emerald-500 group-hover:drop-shadow-[0_0_8px_rgba(16,185,129,0.8)] transition-all" />
+                                                        <span className="text-[10px] font-mono text-emerald-500/40">MOD_0{i + 1}</span>
                                                     </div>
-                                                    <div className="flex items-center gap-3 mb-2">
-                                                        <div className="w-6 h-6 rounded bg-emerald-500/10 flex items-center justify-center text-emerald-500 border border-emerald-500/20 group-hover:bg-emerald-500/20 transition-colors">
-                                                            <Flash size={12} variant="Bold" />
-                                                        </div>
-                                                        <div className="text-[10px] font-mono text-slate-500">0{i + 1} // MOD</div>
-                                                    </div>
-                                                    <div className="text-sm font-medium text-slate-200 group-hover:text-white transition-colors pr-6">
+
+                                                    <h4 className="text-lg font-medium text-emerald-50 group-hover:text-white transition-colors relative z-10">
                                                         {cap}
+                                                    </h4>
+
+                                                    {/* Animated Corner */}
+                                                    <div className="absolute bottom-0 right-0 w-8 h-8 bg-emerald-500/10 rounded-tl-2xl translate-y-4 translate-x-4 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-300"></div>
+                                                </motion.div>
+                                            ))}
+                                        </div>
+                                    </motion.div>
+
+                                    {/* 4. Related Entities (Network Graph) */}
+                                    <motion.div variants={itemVariants} className="pt-2">
+                                        <div className="flex items-center gap-2 mb-4 text-emerald-500/50">
+                                            <Profile2User size={16} />
+                                            <h3 className="text-xs font-bold uppercase tracking-[0.2em]">
+                                                {isRtl ? 'ישויות מקושרות' : 'RELATED ENTITIES'}
+                                            </h3>
+                                        </div>
+                                        <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
+                                            {[1, 2, 3].map((_, i) => (
+                                                <motion.div
+                                                    key={i}
+                                                    whileHover={{ y: -5 }}
+                                                    className="flex items-center gap-4 p-4 pr-8 rounded-lg border border-white/5 bg-black/40 min-w-[220px] backdrop-blur-md hover:border-emerald-500/40 transition-colors cursor-pointer"
+                                                >
+                                                    <div className="relative">
+                                                        <div className="w-10 h-10 rounded-full bg-slate-900 border border-emerald-500/20 flex items-center justify-center text-[10px] font-mono text-slate-400">
+                                                            EN-0{i + 1}
+                                                        </div>
+                                                        <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-black rounded-full flex items-center justify-center">
+                                                            <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex flex-col">
+                                                        <span className="text-sm text-emerald-100 font-medium">Target Alpha</span>
+                                                        <span className="text-[10px] text-emerald-500 font-mono">CONFIDENCE: 98%</span>
                                                     </div>
                                                 </motion.div>
                                             ))}
                                         </div>
                                     </motion.div>
 
-                                    {/* 4. Related Entities (New Section) */}
-                                    <motion.div variants={itemVariants} className="pt-2">
-                                        <div className="flex items-center gap-2 mb-4 text-slate-400">
-                                            <Profile2User size={16} />
-                                            <h3 className="text-xs font-bold uppercase tracking-[0.2em]">
-                                                {isRtl ? 'ישויות מקושרות' : 'RELATED ENTITIES'}
-                                            </h3>
-                                        </div>
-                                        <div className="flex gap-4 overflow-x-auto pb-2">
-                                            {[1, 2, 3].map((_, i) => (
-                                                <div key={i} className="flex items-center gap-3 p-2 pr-4 rounded-lg border border-white/5 bg-white/[0.02] min-w-[180px]">
-                                                    <div className="w-8 h-8 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center text-[10px] font-mono text-slate-400">
-                                                        EN-0{i + 1}
+                                    {/* 5. Impact (Holographic Stamp) */}
+                                    <motion.div variants={itemVariants} className="pt-8 pb-12">
+                                        <div className="relative rounded-xl overflow-hidden p-[1px] bg-gradient-to-r from-emerald-500/40 via-emerald-900/10 to-transparent group">
+                                            <div className="bg-[#030303]/90 rounded-xl p-8 md:p-10 relative overflow-hidden">
+                                                <div className="absolute -right-20 -top-20 w-64 h-64 bg-emerald-500/10 blur-[80px] rounded-full pointer-events-none group-hover:bg-emerald-500/20 transition-colors duration-700"></div>
+
+                                                <div className="relative z-10 flex flex-col md:flex-row gap-6 items-start md:items-center">
+                                                    <div className="p-3 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
+                                                        <Flash size={24} variant="Bold" />
                                                     </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-xs text-slate-300">Target Alpha</span>
-                                                        <span className="text-[9px] text-emerald-500 font-mono">98% MATCH</span>
+                                                    <div>
+                                                        <h4 className="text-sm font-bold text-emerald-400 uppercase tracking-widest mb-2">
+                                                            {isRtl ? 'אימפקט אסטרטגי' : 'STRATEGIC IMPACT'}
+                                                        </h4>
+                                                        <p className="text-emerald-100/80 leading-relaxed font-light text-lg">
+                                                            {data.details?.impact}
+                                                        </p>
                                                     </div>
                                                 </div>
-                                            ))}
-                                        </div>
-                                    </motion.div>
-
-                                    {/* 5. Impact (Bottom Highlight) */}
-                                    <motion.div variants={itemVariants} className="pt-4">
-                                        <div className="relative rounded-2xl overflow-hidden p-[1px] bg-gradient-to-r from-emerald-500/20 via-white/5 to-transparent group hover:from-emerald-500/40 transition-all duration-500">
-                                            <div className="bg-[#050505] rounded-2xl p-6 md:p-8 relative">
-                                                <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 blur-[50px] rounded-full pointer-events-none group-hover:bg-emerald-500/20 transition-colors duration-500"></div>
-
-                                                <h4 className="text-sm font-bold text-white uppercase tracking-widest mb-3 flex items-center gap-2">
-                                                    <Flash size={16} variant="Bold" className="text-emerald-500" />
-                                                    {isRtl ? 'אימפקט אסטרטגי' : 'STRATEGIC IMPACT'}
-                                                </h4>
-                                                <p className="text-slate-300 leading-relaxed max-w-2xl font-light group-hover:text-white transition-colors duration-300">
-                                                    {data.details?.impact}
-                                                </p>
                                             </div>
                                         </div>
                                     </motion.div>
