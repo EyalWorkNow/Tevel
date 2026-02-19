@@ -283,6 +283,61 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                         </p>
                                     </motion.div>
 
+                                    {/* 1.5. Strategic Impact — THE VERDICT (Premium) */}
+                                    {data.details?.impact && (
+                                        <motion.div variants={itemVariants} className="max-w-4xl">
+                                            <div className="relative rounded-2xl overflow-hidden group">
+                                                {/* Outer Glow */}
+                                                <div className="absolute -inset-[1px] bg-gradient-to-r from-emerald-500/60 via-emerald-400/30 to-emerald-500/60 rounded-2xl blur-[2px] opacity-70 group-hover:opacity-100 transition-opacity duration-500" />
+
+                                                {/* Card Body */}
+                                                <div className="relative bg-[#020a06]/95 rounded-2xl border border-emerald-500/30 overflow-hidden">
+                                                    {/* Top Accent Bar */}
+                                                    <div className="h-[2px] w-full bg-gradient-to-r from-transparent via-emerald-400 to-transparent shadow-[0_0_20px_rgba(16,185,129,0.6)]" />
+
+                                                    {/* Background Glow Orbs */}
+                                                    <div className="absolute -right-16 -top-16 w-48 h-48 bg-emerald-500/8 blur-[80px] rounded-full pointer-events-none group-hover:bg-emerald-500/15 transition-all duration-700" />
+                                                    <div className="absolute -left-16 -bottom-16 w-48 h-48 bg-emerald-500/5 blur-[60px] rounded-full pointer-events-none" />
+
+                                                    <div className="relative z-10 p-8 md:p-10">
+                                                        {/* Header Row */}
+                                                        <div className="flex items-center gap-4 mb-6">
+                                                            {/* Pulsing Icon */}
+                                                            <div className="relative">
+                                                                <div className="absolute inset-0 bg-emerald-500/30 rounded-xl blur-md animate-pulse" />
+                                                                <div className="relative p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 shadow-[0_0_25px_rgba(16,185,129,0.3)]">
+                                                                    <Flash size={26} variant="Bold" />
+                                                                </div>
+                                                            </div>
+
+                                                            <div className="flex-1">
+                                                                {/* Badge */}
+                                                                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 mb-2">
+                                                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_6px_rgba(16,185,129,0.8)]" />
+                                                                    <span className="text-[10px] font-mono font-bold text-emerald-300 uppercase tracking-[0.2em]">
+                                                                        {isRtl ? 'שורה תחתונה' : 'BOTTOM LINE'}
+                                                                    </span>
+                                                                </div>
+                                                                {/* Title */}
+                                                                <h4 className="text-xl md:text-2xl font-black text-emerald-300 uppercase tracking-wide" style={{ textShadow: '0 0 20px rgba(16,185,129,0.4)' }}>
+                                                                    {isRtl ? 'אימפקט אסטרטגי' : 'STRATEGIC IMPACT'}
+                                                                </h4>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Divider */}
+                                                        <div className="h-px w-full bg-gradient-to-r from-emerald-500/40 via-emerald-500/20 to-transparent mb-6" />
+
+                                                        {/* Impact Text */}
+                                                        <p className="text-lg md:text-xl text-emerald-50/90 leading-relaxed font-light" style={{ textShadow: '0 0 8px rgba(16,185,129,0.15)' }}>
+                                                            {data.details?.impact}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    )}
+
 
                                     {/* 2. Intelligence Data (Holographic Terminal - CLEAN READABILITY) */}
                                     <motion.div variants={itemVariants}>
@@ -425,28 +480,7 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                         </div>
                                     </motion.div>
 
-                                    {/* 5. Impact (Holographic Stamp) */}
-                                    <motion.div variants={itemVariants} className="pt-8 pb-12">
-                                        <div className="relative rounded-xl overflow-hidden p-[1px] bg-gradient-to-r from-emerald-500/40 via-emerald-900/10 to-transparent group">
-                                            <div className="bg-[#030303]/90 rounded-xl p-8 md:p-10 relative overflow-hidden">
-                                                <div className="absolute -right-20 -top-20 w-64 h-64 bg-emerald-500/10 blur-[80px] rounded-full pointer-events-none group-hover:bg-emerald-500/20 transition-colors duration-700"></div>
 
-                                                <div className="relative z-10 flex flex-col md:flex-row gap-6 items-start md:items-center">
-                                                    <div className="p-3 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.3)]">
-                                                        <Flash size={24} variant="Bold" />
-                                                    </div>
-                                                    <div>
-                                                        <h4 className="text-sm font-bold text-emerald-400 uppercase tracking-widest mb-2">
-                                                            {isRtl ? 'אימפקט אסטרטגי' : 'STRATEGIC IMPACT'}
-                                                        </h4>
-                                                        <p className="text-emerald-100/80 leading-relaxed font-light text-lg">
-                                                            {data.details?.impact}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </motion.div>
 
                                 </motion.div>
                             </div>
