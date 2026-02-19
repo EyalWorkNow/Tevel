@@ -6,7 +6,7 @@ import {
     Map, I3Dcube, UserTick, Code1, Cpu,
     ExportSquare, Lock1, Activity, ArrowLeft2, ArrowRight2,
     Radar, Profile2User, Eye, Flash, Judge, Briefcase,
-    Wifi, Anchor, Airplane, Danger, Warning2, Gps
+    Wifi, Airplane, Danger, Warning2, Gps
 } from 'iconsax-react';
 import UseCaseModal from './UseCaseModal';
 
@@ -22,14 +22,21 @@ const themeMap: Record<string, { color: string, bg: string, border: string, glow
     critical_infrastructure: { color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20', glow: 'shadow-amber-500/20', accent: 'bg-amber-500' },
     defense_intelligence_fusion: { color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', glow: 'shadow-emerald-500/20', accent: 'bg-emerald-500' },
     legal_regulatory_investigations: { color: 'text-indigo-400', bg: 'bg-indigo-500/10', border: 'border-indigo-500/20', glow: 'shadow-indigo-500/20', accent: 'bg-indigo-500' },
-    supply_chain_procurement: { color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20', glow: 'shadow-purple-500/20', accent: 'bg-purple-500' },
+    supply_chain_procurement: { color: 'text-orange-400', bg: 'bg-orange-500/10', border: 'border-orange-500/20', glow: 'shadow-orange-500/20', accent: 'bg-orange-500' },
     // New Cases
     esg_csrd_audit: { color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', glow: 'shadow-emerald-500/20', accent: 'bg-emerald-500' },
     systematic_reviews: { color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20', glow: 'shadow-blue-500/20', accent: 'bg-blue-500' },
-    construction_claims: { color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20', glow: 'shadow-amber-500/20', accent: 'bg-amber-500' },
+    construction_claims: { color: 'text-yellow-400', bg: 'bg-yellow-500/10', border: 'border-yellow-500/20', glow: 'shadow-yellow-500/20', accent: 'bg-yellow-500' },
     workplace_investigations: { color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20', glow: 'shadow-purple-500/20', accent: 'bg-purple-500' },
     brand_crisis_intel: { color: 'text-red-500', bg: 'bg-red-500/10', border: 'border-red-500/20', glow: 'shadow-red-500/20', accent: 'bg-red-500' },
     oncology_target_biomarker_to_trial: { color: 'text-pink-400', bg: 'bg-pink-500/10', border: 'border-pink-500/20', glow: 'shadow-pink-500/20', accent: 'bg-pink-500' },
+    insurance_claims: { color: 'text-rose-400', bg: 'bg-rose-500/10', border: 'border-rose-500/20', glow: 'shadow-rose-500/20', accent: 'bg-rose-500' },
+    market_abuse: { color: 'text-cyan-400', bg: 'bg-cyan-500/10', border: 'border-cyan-500/20', glow: 'shadow-cyan-500/20', accent: 'bg-cyan-500' },
+    fincrime_aml: { color: 'text-teal-400', bg: 'bg-teal-500/10', border: 'border-teal-500/20', glow: 'shadow-teal-500/20', accent: 'bg-teal-500' },
+    competitor_intelligence: { color: 'text-violet-400', bg: 'bg-violet-500/10', border: 'border-violet-500/20', glow: 'shadow-violet-500/20', accent: 'bg-violet-500' },
+    mergers_acquisitions: { color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', glow: 'shadow-emerald-500/20', accent: 'bg-emerald-500' },
+    pharma_drug_safety: { color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20', glow: 'shadow-blue-500/20', accent: 'bg-blue-500' },
+    academic_grant_intelligence: { color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20', glow: 'shadow-amber-500/20', accent: 'bg-amber-500' }
 };
 
 // Iconsax Mapping
@@ -47,6 +54,13 @@ const iconMap: Record<string, React.ReactNode> = {
     workplace_investigations: <Profile2User variant="TwoTone" size={32} />,
     brand_crisis_intel: <Warning2 variant="TwoTone" size={32} />,
     oncology_target_biomarker_to_trial: <Activity variant="TwoTone" size={32} />,
+    insurance_claims: <Danger variant="TwoTone" size={32} />,
+    market_abuse: <Activity variant="TwoTone" size={32} />,
+    fincrime_aml: <Bank variant="TwoTone" size={32} />,
+    competitor_intelligence: <Radar variant="TwoTone" size={32} />,
+    mergers_acquisitions: <Briefcase variant="TwoTone" size={32} />,
+    pharma_drug_safety: <Activity variant="TwoTone" size={32} />,
+    academic_grant_intelligence: <Verify variant="TwoTone" size={32} />,
     // Fallbacks
     terror: <ShieldSecurity variant="TwoTone" size={32} />,
     cyber: <Code1 variant="TwoTone" size={32} />,

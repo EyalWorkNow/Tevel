@@ -6,7 +6,7 @@ import {
     CloseSquare, TickCircle, ShieldSecurity, Gps, Folder, Activity,
     DocumentText, ArrowRight2, Flash, CommandSquare, Scan, Cpu,
     Warning2, FingerScan, Code1, Data, Layer, Hierarchy, Profile2User,
-    Global, Radar
+    Global, Radar, Bank, Lock1 // Proper single import block
 } from 'iconsax-react';
 
 interface UseCaseModalProps {
@@ -172,7 +172,7 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
 
 
                             {/* === LEFT COLUMN: HOLOGRAPHIC IDENTITY === */}
-                            <div className="w-full md:w-[400px] border-b md:border-b-0 md:border-r border-emerald-500/20 relative flex flex-col shrink-0 z-20 bg-gradient-to-b from-emerald-950/10 to-transparent overflow-y-auto custom-scrollbar">
+                            <div className="w-full md:w-[400px] border-b md:border-b-0 md:border-r border-emerald-500/20 relative flex flex-col shrink-0 z-20 bg-gradient-to-b from-emerald-950/10 to-transparent overflow-y-auto overflow-x-hidden custom-scrollbar">
 
                                 {/* Header */}
                                 <div className="p-8 pb-0 relative">
@@ -204,7 +204,7 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                             {isRtl ? 'סיווג: שמור' : 'RESTRICTED ACCESS'}
                                         </div>
 
-                                        <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-100 to-emerald-400 leading-tight uppercase tracking-tight" style={{ textShadow: '0 0 30px rgba(16,185,129,0.3)' }}>
+                                        <h2 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-100 to-emerald-400 leading-tight uppercase tracking-tight shadow-emerald-500/20 drop-shadow-lg">
                                             <DecryptText text={data.title} revealDelay={0.2} />
                                         </h2>
 
@@ -284,7 +284,7 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                     </motion.div>
 
 
-                                    {/* 2. Intelligence Data (Holographic Terminal) */}
+                                    {/* 2. Intelligence Data (Holographic Terminal - CLEAN READABILITY) */}
                                     <motion.div variants={itemVariants}>
                                         <div className="flex items-center gap-2 mb-4 text-emerald-500/50">
                                             <CommandSquare size={16} />
@@ -292,35 +292,43 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                                 {isRtl ? 'נתוני מודיעין' : 'RAW INTELLIGENCE'}
                                             </h3>
                                         </div>
-                                        <div className="bg-black/40 rounded-sm border border-emerald-500/20 p-6 font-mono text-sm relative overflow-hidden backdrop-blur-sm group hover:border-emerald-500/40 transition-colors duration-500">
-                                            <div className="absolute top-0 right-0 p-2 text-[10px] text-emerald-500/40">JSON_VIEWER_V2.1</div>
+                                        <div className="bg-[#050505] rounded-lg border border-white/10 p-6 font-mono text-xs md:text-sm relative overflow-hidden group hover:border-emerald-500/30 transition-colors duration-500 shadow-inner">
+                                            <div className="absolute top-0 right-0 p-3 flex gap-2">
+                                                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                                                <span className="text-[9px] text-emerald-500/60 font-bold tracking-widest">LIVE FEED</span>
+                                            </div>
 
-                                            <div className="space-y-2 text-emerald-100/80">
-                                                <div className="flex">
-                                                    <span className="text-emerald-600 mr-4">01</span>
-                                                    <span><span className="text-purple-400">const</span> <span className="text-blue-400">targetData</span> = <span className="text-yellow-400">{'{'}</span></span>
+                                            {/* Data Lines - Table Style */}
+                                            <div className="space-y-3 relative z-10">
+                                                <div className="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-4 items-baseline border-b border-white/5 pb-2">
+                                                    <span className="text-slate-500 uppercase text-[10px] tracking-widest">Source_Type</span>
+                                                    <span className="text-emerald-300">SIGINT_COLLECTION</span>
                                                 </div>
-                                                <div className="flex">
-                                                    <span className="text-emerald-600 mr-4">02</span>
-                                                    <span className="pl-6"><span className="text-emerald-300">"type"</span>: <span className="text-orange-300">"SIGINT_COLLECTION"</span>,</span>
+                                                <div className="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-4 items-baseline border-b border-white/5 pb-2">
+                                                    <span className="text-slate-500 uppercase text-[10px] tracking-widest">Payload</span>
+                                                    <span className="text-slate-300 leading-relaxed">"{data.details?.fullDesc?.substring(0, 120)}..."</span>
                                                 </div>
-                                                <div className="flex">
-                                                    <span className="text-emerald-600 mr-4">03</span>
-                                                    <span className="pl-6"><span className="text-emerald-300">"payload"</span>: <span className="text-orange-300">"{data.details?.fullDesc}"</span>,</span>
+                                                <div className="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-4 items-baseline border-b border-white/5 pb-2">
+                                                    <span className="text-slate-500 uppercase text-[10px] tracking-widest">Confidence</span>
+                                                    <div className="flex items-center gap-2">
+                                                        <div className="h-1.5 w-24 bg-slate-800 rounded-full overflow-hidden">
+                                                            <div className="h-full bg-emerald-500 w-[98%] shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                                                        </div>
+                                                        <span className="text-emerald-400 font-bold">98.9%</span>
+                                                    </div>
                                                 </div>
-                                                <div className="flex">
-                                                    <span className="text-emerald-600 mr-4">04</span>
-                                                    <span className="pl-6"><span className="text-emerald-300">"confidence"</span>: <span className="text-emerald-400">0.9892</span></span>
-                                                </div>
-                                                <div className="flex">
-                                                    <span className="text-emerald-600 mr-4">05</span>
-                                                    <span className="text-yellow-400">{'}'}</span>
+                                                <div className="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-4 items-baseline">
+                                                    <span className="text-slate-500 uppercase text-[10px] tracking-widest">Encryption</span>
+                                                    <span className="text-emerald-500/70 flex items-center gap-2">
+                                                        <ShieldSecurity size={12} />
+                                                        AES-256-GCM (VERIFIED)
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
                                     </motion.div>
 
-                                    {/* 3. Capabilities Cards - Glass Panels */}
+                                    {/* 3. Capabilities Cards - Glass Panels (Redesigned) */}
                                     <motion.div variants={itemVariants}>
                                         <div className="flex items-center gap-2 mb-6 text-emerald-500/50">
                                             <Cpu size={16} />
@@ -328,57 +336,89 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                                 {isRtl ? 'יכולות ליבה' : 'CORE CAPABILITIES'}
                                             </h3>
                                         </div>
-                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                            {data.details?.capabilities?.map((cap: string, i: number) => (
-                                                <motion.div
-                                                    key={i}
-                                                    whileHover={{ scale: 1.02 }}
-                                                    className="group relative p-6 rounded-xl bg-gradient-to-br from-white/[0.03] to-transparent border border-white/5 hover:border-emerald-400/50 transition-all duration-300 overflow-hidden"
-                                                >
-                                                    <div className="absolute inset-0 bg-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                            {data.details?.capabilities?.map((cap: string, i: number) => {
+                                                // Dynamic colors for variety
+                                                const colors = [
+                                                    'from-emerald-500/10 to-transparent border-emerald-500/20 hover:border-emerald-400',
+                                                    'from-blue-500/10 to-transparent border-blue-500/20 hover:border-blue-400',
+                                                    'from-purple-500/10 to-transparent border-purple-500/20 hover:border-purple-400',
+                                                    'from-amber-500/10 to-transparent border-amber-500/20 hover:border-amber-400',
+                                                    'from-cyan-500/10 to-transparent border-cyan-500/20 hover:border-cyan-400',
+                                                    'from-rose-500/10 to-transparent border-rose-500/20 hover:border-rose-400'
+                                                ];
+                                                const colorClass = colors[i % colors.length];
+                                                const iconColor = colorClass.split(' ')[0].replace('from-', 'text-').replace('/10', '');
 
-                                                    <div className="flex justify-between items-start mb-4 relative z-10">
-                                                        <Flash size={20} variant="Bulk" className="text-emerald-500 group-hover:drop-shadow-[0_0_8px_rgba(16,185,129,0.8)] transition-all" />
-                                                        <span className="text-[10px] font-mono text-emerald-500/40">MOD_0{i + 1}</span>
-                                                    </div>
+                                                return (
+                                                    <motion.div
+                                                        key={i}
+                                                        whileHover={{ y: -2, scale: 1.01 }}
+                                                        className={`group relative p-5 rounded-xl bg-gradient-to-br ${colorClass} border transition-all duration-300 overflow-hidden flex flex-col justify-between min-h-[100px]`}
+                                                    >
+                                                        <div className="flex justify-between items-start mb-2 relative z-10">
+                                                            <div className={`p-2 rounded-lg bg-black/40 border border-white/5 ${iconColor}`}>
+                                                                <Flash size={18} variant="Bulk" />
+                                                            </div>
+                                                            <span className="text-[9px] font-mono text-slate-500 opacity-50">0{i + 1}</span>
+                                                        </div>
 
-                                                    <h4 className="text-lg font-medium text-emerald-50 group-hover:text-white transition-colors relative z-10">
-                                                        {cap}
-                                                    </h4>
-
-                                                    {/* Animated Corner */}
-                                                    <div className="absolute bottom-0 right-0 w-8 h-8 bg-emerald-500/10 rounded-tl-2xl translate-y-4 translate-x-4 group-hover:translate-y-0 group-hover:translate-x-0 transition-transform duration-300"></div>
-                                                </motion.div>
-                                            ))}
+                                                        <h4 className="text-sm font-semibold text-slate-200 group-hover:text-white transition-colors relative z-10 leading-tight">
+                                                            {cap}
+                                                        </h4>
+                                                    </motion.div>
+                                                );
+                                            })}
                                         </div>
                                     </motion.div>
 
-                                    {/* 4. Related Entities (Network Graph) */}
-                                    <motion.div variants={itemVariants} className="pt-2">
-                                        <div className="flex items-center gap-2 mb-4 text-emerald-500/50">
-                                            <Profile2User size={16} />
-                                            <h3 className="text-xs font-bold uppercase tracking-[0.2em]">
+                                    {/* 4. Related Entities (Vertical Network List) */}
+                                    <motion.div variants={itemVariants} className="pt-8 mb-8">
+                                        <div className="flex items-center gap-2 mb-6 text-emerald-400">
+                                            <Profile2User size={20} variant="Bold" />
+                                            <h3 className="text-sm font-black uppercase tracking-[0.2em]">
                                                 {isRtl ? 'ישויות מקושרות' : 'RELATED ENTITIES'}
                                             </h3>
                                         </div>
-                                        <div className="flex gap-4 overflow-x-auto pb-4 custom-scrollbar">
-                                            {[1, 2, 3].map((_, i) => (
+
+                                        <div className="relative pl-6 md:pl-8 border-l-2 border-emerald-500/20 space-y-4 md:space-y-6">
+                                            {/* Root Node Mockup */}
+                                            <div className="absolute -left-[9px] -top-1 w-4 h-4 rounded-full bg-emerald-500 border-4 border-black box-content shadow-[0_0_15px_rgba(16,185,129,0.5)] z-20"></div>
+
+                                            {['Finance_Dept', 'Offshore_LLC', 'Crypto_Wallet_X'].map((entity, i) => (
                                                 <motion.div
                                                     key={i}
-                                                    whileHover={{ y: -5 }}
-                                                    className="flex items-center gap-4 p-4 pr-8 rounded-lg border border-white/5 bg-black/40 min-w-[220px] backdrop-blur-md hover:border-emerald-500/40 transition-colors cursor-pointer"
+                                                    initial={{ opacity: 0, x: -20 }}
+                                                    whileInView={{ opacity: 1, x: 0 }}
+                                                    transition={{ delay: i * 0.1 }}
+                                                    className="relative group"
                                                 >
-                                                    <div className="relative">
-                                                        <div className="w-10 h-10 rounded-full bg-slate-900 border border-emerald-500/20 flex items-center justify-center text-[10px] font-mono text-slate-400">
-                                                            EN-0{i + 1}
+                                                    {/* Connector Line */}
+                                                    <div className="absolute -left-[34px] md:-left-[42px] top-1/2 w-6 md:w-8 h-[2px] bg-emerald-500/20 group-hover:bg-emerald-500 group-hover:shadow-[0_0_10px_rgba(16,185,129,0.5)] transition-all duration-300"></div>
+                                                    <div className="absolute -left-[36px] md:-left-[44px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-black border-2 border-emerald-500/50 group-hover:border-emerald-400 group-hover:bg-emerald-500 transition-colors z-10"></div>
+
+                                                    <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.08] hover:border-emerald-500/30 transition-all cursor-pointer flex items-center gap-4 md:gap-5 group-hover:translate-x-1 duration-300">
+                                                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/40 border border-white/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 text-slate-300 group-hover:text-emerald-400 group-hover:border-emerald-500/30">
+                                                            {i === 0 ? <Global size={20} variant="Bulk" /> : i === 1 ? <Bank size={20} variant="Bulk" /> : <Lock1 size={20} variant="Bulk" />}
                                                         </div>
-                                                        <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-black rounded-full flex items-center justify-center">
-                                                            <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></div>
+
+                                                        <div className="flex-1 min-w-0">
+                                                            <h4 className="text-base md:text-lg font-bold text-slate-200 group-hover:text-white truncate transition-colors mb-0.5">
+                                                                {entity}
+                                                            </h4>
+                                                            <div className="flex items-center gap-2 md:gap-3 text-[10px] md:text-xs font-mono text-slate-500 group-hover:text-emerald-400/80 transition-colors">
+                                                                <span className="uppercase tracking-wider">Type: {i === 0 ? 'ORG' : i === 1 ? 'BANK' : 'ASSET'}</span>
+                                                                <span className="w-1 h-1 rounded-full bg-slate-600"></span>
+                                                                <span className="flex items-center gap-1">
+                                                                    LINK: {98 - (i * 12)}%
+                                                                    <div className="w-8 md:w-12 h-1 bg-slate-700 rounded-full overflow-hidden">
+                                                                        <div className="h-full bg-emerald-500" style={{ width: `${98 - (i * 12)}%` }}></div>
+                                                                    </div>
+                                                                </span>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div className="flex flex-col">
-                                                        <span className="text-sm text-emerald-100 font-medium">Target Alpha</span>
-                                                        <span className="text-[10px] text-emerald-500 font-mono">CONFIDENCE: 98%</span>
+
+                                                        <ArrowRight2 size={18} className="text-slate-600 group-hover:text-emerald-400 -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
                                                     </div>
                                                 </motion.div>
                                             ))}

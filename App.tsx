@@ -763,6 +763,24 @@ const App: React.FC = () => {
         </div>
       </section>
 
+      {/* Use Cases Section - New Infinite Carousel */}
+      <section id="usecases" className="py-16 md:py-20 relative">
+        <div className="w-full">
+          <ScrollReveal>
+            <div className="max-w-7xl mx-auto px-6 mb-8 md:mb-12 text-center">
+              <h2 className="text-3xl md:text-6xl font-black mb-4 md:mb-6 text-white tracking-tight">{t.useCases.title}</h2>
+              <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">
+                {isRtl ? 'חקור מגוון תרחישי שימוש מבצעיים המתאימים למערכת' : 'Explore diverse operational scenarios suitable for the system'}
+              </p>
+            </div>
+          </ScrollReveal>
+
+          {/* The Infinite Carousel Component */}
+          <UseCaseCarousel cases={t.useCases.cases} isRtl={isRtl} />
+
+        </div>
+      </section>
+
       {/* Comparison Section */}
       <section id="comparison" className="py-20 md:py-40 px-4 md:px-6 bg-[#0a0c10] relative">
         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20 mix-blend-overlay"></div>
@@ -834,23 +852,7 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* Use Cases Section - New Infinite Carousel */}
-      <section id="usecases" className="py-16 md:py-20 relative">
-        <div className="w-full">
-          <ScrollReveal>
-            <div className="max-w-7xl mx-auto px-6 mb-8 md:mb-12 text-center">
-              <h2 className="text-3xl md:text-6xl font-black mb-4 md:mb-6 text-white tracking-tight">{t.useCases.title}</h2>
-              <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base">
-                {isRtl ? 'חקור מגוון תרחישי שימוש מבצעיים המתאימים למערכת' : 'Explore diverse operational scenarios suitable for the system'}
-              </p>
-            </div>
-          </ScrollReveal>
 
-          {/* The Infinite Carousel Component */}
-          <UseCaseCarousel cases={t.useCases.cases} isRtl={isRtl} />
-
-        </div>
-      </section>
 
       {/* Market / Audience - PHENOMENAL UI REDESIGN (PILL STYLE) */}
       <section id="market" ref={marketRef} className="py-20 md:py-40 px-4 md:px-6 bg-slate-950/50 border-y border-white/5 relative overflow-hidden group/market">
