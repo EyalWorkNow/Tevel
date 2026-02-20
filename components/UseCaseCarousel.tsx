@@ -6,7 +6,8 @@ import {
     Map, I3Dcube, UserTick, Code1, Cpu,
     ExportSquare, Lock1, Activity, ArrowLeft2, ArrowRight2,
     Radar, Profile2User, Eye, Flash, Judge, Briefcase,
-    Wifi, Airplane, Danger, Warning2, Gps
+    Wifi, Airplane, Danger, Warning2, Gps,
+    Heart, Buildings, DocumentText
 } from 'iconsax-react';
 import UseCaseModal from './UseCaseModal';
 
@@ -36,7 +37,29 @@ const themeMap: Record<string, { color: string, bg: string, border: string, glow
     competitor_intelligence: { color: 'text-violet-400', bg: 'bg-violet-500/10', border: 'border-violet-500/20', glow: 'shadow-violet-500/20', accent: 'bg-violet-500' },
     mergers_acquisitions: { color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', glow: 'shadow-emerald-500/20', accent: 'bg-emerald-500' },
     pharma_drug_safety: { color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20', glow: 'shadow-blue-500/20', accent: 'bg-blue-500' },
-    academic_grant_intelligence: { color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20', glow: 'shadow-amber-500/20', accent: 'bg-amber-500' }
+    academic_grant_intelligence: { color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20', glow: 'shadow-amber-500/20', accent: 'bg-amber-500' },
+    // ─── 8 New Cases ───
+    aml_bank_fraud: { color: 'text-teal-400', bg: 'bg-teal-500/10', border: 'border-teal-500/20', glow: 'shadow-teal-500/20', accent: 'bg-teal-500' },
+    pharma_rnd_gaps: { color: 'text-pink-400', bg: 'bg-pink-500/10', border: 'border-pink-500/20', glow: 'shadow-pink-500/20', accent: 'bg-pink-500' },
+    power_grid_root_cause: { color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20', glow: 'shadow-amber-500/20', accent: 'bg-amber-500' },
+    soc_noise_reduction: { color: 'text-cyan-400', bg: 'bg-cyan-500/10', border: 'border-cyan-500/20', glow: 'shadow-cyan-500/20', accent: 'bg-cyan-500' },
+    ediscovery_legal: { color: 'text-indigo-400', bg: 'bg-indigo-500/10', border: 'border-indigo-500/20', glow: 'shadow-indigo-500/20', accent: 'bg-indigo-500' },
+    insurance_fraud_complex: { color: 'text-rose-400', bg: 'bg-rose-500/10', border: 'border-rose-500/20', glow: 'shadow-rose-500/20', accent: 'bg-rose-500' },
+    urban_planning_transport: { color: 'text-violet-400', bg: 'bg-violet-500/10', border: 'border-violet-500/20', glow: 'shadow-violet-500/20', accent: 'bg-violet-500' },
+    supply_chain_quality: { color: 'text-orange-400', bg: 'bg-orange-500/10', border: 'border-orange-500/20', glow: 'shadow-orange-500/20', accent: 'bg-orange-500' },
+    // ─── 8 More Cases ───
+    hr_people_analytics: { color: 'text-purple-400', bg: 'bg-purple-500/10', border: 'border-purple-500/20', glow: 'shadow-purple-500/20', accent: 'bg-purple-500' },
+    real_estate_due_diligence: { color: 'text-yellow-400', bg: 'bg-yellow-500/10', border: 'border-yellow-500/20', glow: 'shadow-yellow-500/20', accent: 'bg-yellow-500' },
+    clinical_incident_hospital: { color: 'text-red-400', bg: 'bg-red-500/10', border: 'border-red-500/20', glow: 'shadow-red-500/20', accent: 'bg-red-500' },
+    renewable_energy_solar: { color: 'text-lime-400', bg: 'bg-lime-500/10', border: 'border-lime-500/20', glow: 'shadow-lime-500/20', accent: 'bg-lime-500' },
+    public_procurement_fraud: { color: 'text-amber-400', bg: 'bg-amber-500/10', border: 'border-amber-500/20', glow: 'shadow-amber-500/20', accent: 'bg-amber-500' },
+    consulting_war_room: { color: 'text-sky-400', bg: 'bg-sky-500/10', border: 'border-sky-500/20', glow: 'shadow-sky-500/20', accent: 'bg-sky-500' },
+    bigtech_security_compliance: { color: 'text-cyan-400', bg: 'bg-cyan-500/10', border: 'border-cyan-500/20', glow: 'shadow-cyan-500/20', accent: 'bg-cyan-500' },
+    pharma_rd_copilot: { color: 'text-pink-400', bg: 'bg-pink-500/10', border: 'border-pink-500/20', glow: 'shadow-pink-500/20', accent: 'bg-pink-500' },
+    // ─── 3 Science/Engineering Cases ───
+    materials_lab_battery: { color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20', glow: 'shadow-emerald-500/20', accent: 'bg-emerald-500' },
+    plasma_experimental_physics: { color: 'text-blue-400', bg: 'bg-blue-500/10', border: 'border-blue-500/20', glow: 'shadow-blue-500/20', accent: 'bg-blue-500' },
+    hpc_simulation_validation: { color: 'text-slate-300', bg: 'bg-slate-500/10', border: 'border-slate-500/20', glow: 'shadow-slate-500/20', accent: 'bg-slate-400' }
 };
 
 // Iconsax Mapping
@@ -61,6 +84,28 @@ const iconMap: Record<string, React.ReactNode> = {
     mergers_acquisitions: <Briefcase variant="TwoTone" size={32} />,
     pharma_drug_safety: <Activity variant="TwoTone" size={32} />,
     academic_grant_intelligence: <Verify variant="TwoTone" size={32} />,
+    // ─── 8 New Cases ───
+    aml_bank_fraud: <Bank variant="TwoTone" size={32} />,
+    pharma_rnd_gaps: <Heart variant="TwoTone" size={32} />,
+    power_grid_root_cause: <Flash variant="TwoTone" size={32} />,
+    soc_noise_reduction: <Code1 variant="TwoTone" size={32} />,
+    ediscovery_legal: <DocumentText variant="TwoTone" size={32} />,
+    insurance_fraud_complex: <ShieldSecurity variant="TwoTone" size={32} />,
+    urban_planning_transport: <Buildings variant="TwoTone" size={32} />,
+    supply_chain_quality: <TruckFast variant="TwoTone" size={32} />,
+    // ─── 8 More Cases ───
+    hr_people_analytics: <Profile2User variant="TwoTone" size={32} />,
+    real_estate_due_diligence: <Buildings variant="TwoTone" size={32} />,
+    clinical_incident_hospital: <Activity variant="TwoTone" size={32} />,
+    renewable_energy_solar: <Flash variant="TwoTone" size={32} />,
+    public_procurement_fraud: <Judge variant="TwoTone" size={32} />,
+    consulting_war_room: <Briefcase variant="TwoTone" size={32} />,
+    bigtech_security_compliance: <ShieldSecurity variant="TwoTone" size={32} />,
+    pharma_rd_copilot: <Heart variant="TwoTone" size={32} />,
+    // ─── 3 Science/Engineering Cases ───
+    materials_lab_battery: <I3Dcube variant="TwoTone" size={32} />,
+    plasma_experimental_physics: <Radar variant="TwoTone" size={32} />,
+    hpc_simulation_validation: <Cpu variant="TwoTone" size={32} />,
     // Fallbacks
     terror: <ShieldSecurity variant="TwoTone" size={32} />,
     cyber: <Code1 variant="TwoTone" size={32} />,

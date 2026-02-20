@@ -278,8 +278,8 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                                 {isRtl ? 'תקציר מנהלים' : 'MISSION BRIEF'}
                                             </h3>
                                         </div>
-                                        <p className="text-xl md:text-3xl text-emerald-50 font-extralight leading-relaxed" style={{ textShadow: '0 0 10px rgba(16,185,129,0.2)' }}>
-                                            "{data.desc}"
+                                        <p className="text-lg md:text-xl text-emerald-50/90 font-light leading-relaxed" style={{ textShadow: '0 0 10px rgba(16,185,129,0.2)' }}>
+                                            "{data.details?.fullDesc || data.desc}"
                                         </p>
                                     </motion.div>
 
@@ -361,7 +361,7 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                                 </div>
                                                 <div className="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-4 items-baseline border-b border-white/5 pb-2">
                                                     <span className="text-slate-500 uppercase text-[10px] tracking-widest">Payload</span>
-                                                    <span className="text-slate-300 leading-relaxed">"{data.details?.fullDesc?.substring(0, 120)}..."</span>
+                                                    <span className="text-slate-300 leading-relaxed">"{data.desc}"</span>
                                                 </div>
                                                 <div className="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-4 items-baseline border-b border-white/5 pb-2">
                                                     <span className="text-slate-500 uppercase text-[10px] tracking-widest">Confidence</span>
