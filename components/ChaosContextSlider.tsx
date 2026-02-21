@@ -1,12 +1,51 @@
 
 // Force Update v2
 import React, { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import {
     FileText, Database, Share2, AlertTriangle, Target, MapPin,
     Binary, ScanLine, XCircle, AlertOctagon, ShieldAlert, Cpu,
-    WifiOff, FileWarning, SearchX, ArrowRight
+    WifiOff, FileWarning, SearchX, ArrowRight, Brain, Network,
+    Lightbulb, TextSearch, Layers
 } from 'lucide-react';
+
+// --- 3D Tilt Wrapper Component ---
+const TiltCard = ({ children, className, style }: any) => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    const mouseXSpring = useSpring(x, { stiffness: 40, damping: 25, mass: 1.5 });
+    const mouseYSpring = useSpring(y, { stiffness: 40, damping: 25, mass: 1.5 });
+    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        x.set((mouseX / width) - 0.5);
+        y.set((mouseY / height) - 0.5);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return (
+        <motion.div
+            style={{ ...style, rotateX, rotateY, transformStyle: "preserve-3d" }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className={className}
+        >
+            <div style={{ transform: "translateZ(30px)" }} className="w-full h-full flex flex-col justify-between">
+                {children}
+            </div>
+        </motion.div>
+    );
+};
 
 interface ChaosContextSliderProps {
     t: { before: string; after: string };
@@ -57,13 +96,13 @@ const ChaosContextSlider: React.FC<ChaosContextSliderProps> = ({ t, isRtl }) => 
     const randomHex = () => Array.from({ length: 6 }, () => Math.floor(Math.random() * 16).toString(16)).join('').toUpperCase();
     const errorCodes = ["ERR_TIMEOUT", "404_NOT_FOUND", "CORRUPT_DATA", "ACCESS_DENIED", "PACKET_LOSS", "NULL_PTR"];
 
-    // Data Nodes Configuration
+    // Data Nodes Configuration - Aligned with Tevel Methodology
     const contextNodes = [
         {
             id: 1,
             icon: Database,
-            source: isRtl ? "מאגר סיגינט" : "SIGINT DB",
-            action: isRtl ? "חילוץ מזהים..." : "Extracting ID...",
+            source: isRtl ? "קליטת מידע גולמי" : "RAW DATA INGESTION",
+            action: isRtl ? "מחלץ ישויות..." : "Extracting Entities...",
             top: "20%",
             left: "20%",
             color: "text-blue-400",
@@ -71,9 +110,9 @@ const ChaosContextSlider: React.FC<ChaosContextSliderProps> = ({ t, isRtl }) => 
         },
         {
             id: 2,
-            icon: Share2,
-            source: isRtl ? "רשתות חברתיות" : "SOCIAL MEDIA",
-            action: isRtl ? "מיפוי גרף..." : "Mapping Graph...",
+            icon: Layers,
+            source: isRtl ? "היתוך חוצה-ארגון" : "CROSS-SILO FUSION",
+            action: isRtl ? "בניית פרופיל 360..." : "Resolving Identity...",
             top: "20%",
             left: "80%",
             color: "text-purple-400",
@@ -81,9 +120,9 @@ const ChaosContextSlider: React.FC<ChaosContextSliderProps> = ({ t, isRtl }) => 
         },
         {
             id: 3,
-            icon: FileText,
-            source: isRtl ? "דוח מודיעין" : "INTEL REPORT",
-            action: isRtl ? "ניתוח טקסט..." : "Parsing Text...",
+            icon: Network,
+            source: isRtl ? "גילוי זיקות סמויות" : "HIDDEN LINK DISCOVERY",
+            action: isRtl ? "מיפוי רשת קשרים..." : "Mapping Graph...",
             top: "80%",
             left: "20%",
             color: "text-amber-400",
@@ -91,12 +130,12 @@ const ChaosContextSlider: React.FC<ChaosContextSliderProps> = ({ t, isRtl }) => 
         },
         {
             id: 4,
-            icon: MapPin,
-            source: isRtl ? "גיאו-מרחבי" : "GEO-SPATIAL",
-            action: isRtl ? "איכון..." : "Triangulating...",
+            icon: FileText,
+            source: isRtl ? "הרכבת סיפור המעשה" : "NARRATIVE BUILDING",
+            action: isRtl ? "שחזור ציר זמן..." : "Generating Timeline...",
             top: "80%",
             left: "80%",
-            color: "text-rose-400",
+            color: "text-emerald-400",
             delay: 1.5
         },
     ];
@@ -121,9 +160,58 @@ const ChaosContextSlider: React.FC<ChaosContextSliderProps> = ({ t, isRtl }) => 
 
                         {/* Structured Graph Visualization */}
                         <div className="relative w-full h-full flex items-center justify-center">
-                            {/* Clean Grid */}
-                            <div className="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.03)_1px,transparent_1px)] bg-[size:40px_40px]"></div>
-                            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(16,185,129,0.15)_0%,rgba(16,185,129,0.05)_30%,transparent_70%)] animate-[pulse_4s_ease-in-out_infinite]"></div>
+                            {/* Deep Background Depth */}
+                            <div className="absolute inset-0 bg-[#020304]"></div>
+
+                            {/* Clean Grid Base */}
+                            <div className="absolute inset-0 bg-[linear-gradient(rgba(16,185,129,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(16,185,129,0.03)_1px,transparent_1px)] bg-[size:40px_40px] opacity-60"></div>
+
+                            {/* --- INTELLIGENCE FUSION CORE BACKGROUND --- */}
+                            <div className="absolute inset-0 overflow-hidden flex items-center justify-center pointer-events-none">
+                                {/* Core Pulsing Radial Glow */}
+                                <div className="absolute inset-0 bg-radial-gradient(circle_at_center,rgba(16,185,129,0.2)_0%,rgba(16,185,129,0.05)_40%,transparent_80%) animate-[pulse_4s_ease-in-out_infinite]"></div>
+
+                                {/* Radar Sweep Container */}
+                                <div className="absolute w-[600px] h-[600px] md:w-[1000px] md:h-[1000px] opacity-30 animate-[spin_8s_linear_infinite]">
+                                    <div className="absolute inset-0 rounded-full" style={{ background: 'conic-gradient(from 0deg, transparent 70%, rgba(16, 185, 129, 0.4) 100%)' }}></div>
+                                </div>
+
+                                {/* Concentric Data Rings (Processing Tracks) */}
+                                <div className="absolute w-[200px] h-[200px] md:w-[350px] md:h-[350px] border border-dashed border-emerald-500/20 rounded-full animate-[spin_30s_linear_infinite]"></div>
+                                <div className="absolute w-[300px] h-[300px] md:w-[550px] md:h-[550px] border border-emerald-500/10 rounded-full"></div>
+                                <div className="absolute w-[300px] h-[300px] md:w-[550px] md:h-[550px] border-l border-t border-emerald-500/30 rounded-full animate-[spin_20s_linear_reverse_infinite]"></div>
+                                <div className="absolute w-[450px] h-[450px] md:w-[800px] md:h-[800px] border border-dashed border-emerald-500/10 rounded-full animate-[spin_40s_linear_infinite]"></div>
+
+                                {/* Influx Data Particles (Simulating chaotic data flowing IN to the center) */}
+                                <svg className="absolute inset-0 w-full h-full opacity-40">
+                                    <defs>
+                                        <radialGradient id="particle-glow" cx="50%" cy="50%" r="50%">
+                                            <stop offset="0%" stopColor="#34d399" stopOpacity="1" />
+                                            <stop offset="100%" stopColor="#34d399" stopOpacity="0" />
+                                        </radialGradient>
+                                    </defs>
+                                    {[
+                                        { x1: "0%", y1: "20%", dur: "3s" },
+                                        { x1: "100%", y1: "30%", dur: "4s" },
+                                        { x1: "15%", y1: "0%", dur: "3.5s" },
+                                        { x1: "85%", y1: "100%", dur: "4.5s" },
+                                        { x1: "0%", y1: "80%", dur: "3.2s" },
+                                        { x1: "100%", y1: "70%", dur: "3.8s" },
+                                    ].map((particle, idx) => (
+                                        <motion.circle key={`p-${idx}`} r="1.5" fill="url(#particle-glow)">
+                                            <animateMotion
+                                                repeatCount="indefinite"
+                                                dur={particle.dur}
+                                                keyPoints="0;1"
+                                                keyTimes="0;1"
+                                                calcMode="linear"
+                                                path={`M ${particle.x1} ${particle.y1} L 50% 50%`}
+                                            />
+                                            <animate attributeName="opacity" values="0;1;0" dur={particle.dur} repeatCount="indefinite" />
+                                        </motion.circle>
+                                    ))}
+                                </svg>
+                            </div>
 
                             {/* Connecting Lines with Data Flow Animation */}
                             <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
@@ -155,24 +243,24 @@ const ChaosContextSlider: React.FC<ChaosContextSliderProps> = ({ t, isRtl }) => 
                             </svg>
 
                             {/* Center Node */}
-                            <motion.div initial={{ scale: 0 }} whileInView={{ scale: 1 }} className="z-10 bg-[#0a0c10] p-4 md:p-6 rounded-full border border-emerald-500 shadow-[0_0_60px_rgba(16,185,129,0.3)] backdrop-blur-md flex flex-col items-center relative group">
-                                <div className="absolute inset-0 rounded-full border border-emerald-500/30 animate-pulse"></div>
-                                <Target size={32} className="text-emerald-400 drop-shadow-[0_0_8px_rgba(16,185,129,0.8)] md:w-12 md:h-12" />
-                                <div className="absolute -bottom-8 md:-bottom-10 bg-emerald-950/90 text-emerald-400 text-[10px] md:text-xs font-mono px-3 md:px-4 py-1.5 rounded border border-emerald-500/50 whitespace-nowrap tracking-wider shadow-lg flex items-center gap-2">
-                                    <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full animate-pulse"></span>
-                                    {isRtl ? 'התאמה מאומתת' : 'MATCH_CONFIRMED'}
+                            <motion.div initial={{ scale: 0 }} whileInView={{ scale: 1 }} viewport={{ once: true }} className="z-10 bg-[#0a0c10]/90 backdrop-blur-xl p-4 md:p-6 rounded-full border border-emerald-500 shadow-[0_0_60px_rgba(16,185,129,0.5),inset_0_0_20px_rgba(16,185,129,0.2)] flex flex-col items-center relative group">
+                                <div className="absolute inset-0 rounded-full border-2 border-emerald-500/40 animate-ping opacity-50"></div>
+                                <Lightbulb size={32} className="text-emerald-400 drop-shadow-[0_0_12px_rgba(16,185,129,1)] md:w-12 md:h-12" />
+                                <div className="absolute -bottom-10 md:-bottom-12 bg-[#020304]/90 text-emerald-400 text-[10px] md:text-xs font-mono px-3 md:px-5 py-2 rounded-lg border border-emerald-500/50 whitespace-nowrap tracking-wider shadow-[0_0_15px_rgba(16,185,129,0.2)] flex items-center gap-2 backdrop-blur-md">
+                                    <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse shadow-[0_0_8px_rgba(16,185,129,1)]"></span>
+                                    {isRtl ? 'תובנה אופרטיבית' : 'ACTIONABLE_INSIGHT'}
                                 </div>
                             </motion.div>
 
                             {/* Detailed Data Nodes */}
                             {contextNodes.map((node, i) => (
-                                <div
+                                <TiltCard
                                     key={i}
-                                    className="absolute -translate-x-1/2 -translate-y-1/2 w-32 md:w-48 bg-[#0a0c10]/95 rounded-lg border border-white/10 shadow-xl backdrop-blur-md flex flex-col overflow-hidden group hover:border-emerald-500/50 transition-colors duration-300"
+                                    className="absolute -translate-x-1/2 -translate-y-1/2 w-32 md:w-48 bg-[#0a0c10]/95 rounded-lg border border-white/10 shadow-xl backdrop-blur-md flex flex-col overflow-hidden group hover:border-emerald-500/50 hover:shadow-[0_0_30px_rgba(16,185,129,0.2)] transition-colors duration-300"
                                     style={{ top: node.top, left: node.left }}
                                 >
                                     {/* Node Header */}
-                                    <div className="bg-white/5 p-2 flex items-center justify-between border-b border-white/5">
+                                    <div className="bg-white/5 p-2 flex items-center justify-between border-b border-white/5 relative z-10">
                                         <div className={`flex items-center gap-2 ${node.color}`}>
                                             <node.icon size={12} className="md:w-4 md:h-4" />
                                             <span className="text-[9px] md:text-[10px] font-bold tracking-wider">{node.source}</span>
@@ -181,7 +269,7 @@ const ChaosContextSlider: React.FC<ChaosContextSliderProps> = ({ t, isRtl }) => 
                                     </div>
 
                                     {/* Node Body */}
-                                    <div className="p-2 md:p-3">
+                                    <div className="p-2 md:p-3 relative z-10">
                                         <div className="flex items-center gap-2 mb-1">
                                             <div className="text-[8px] md:text-[9px] text-slate-500 uppercase tracking-wide">
                                                 {isRtl ? 'בתהליך עיבוד' : 'Processing'}
@@ -195,7 +283,7 @@ const ChaosContextSlider: React.FC<ChaosContextSliderProps> = ({ t, isRtl }) => 
 
                                     {/* Decorative Corner */}
                                     <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-emerald-500/50"></div>
-                                </div>
+                                </TiltCard>
                             ))}
                         </div>
                     </div>
@@ -259,31 +347,48 @@ const ChaosContextSlider: React.FC<ChaosContextSliderProps> = ({ t, isRtl }) => 
 
                     {/* ================= SLIDER HANDLE ================= */}
                     <div
-                        className="absolute top-0 bottom-0 w-1 cursor-ew-resize z-30 group-active:scale-105 transition-transform"
+                        className="absolute top-0 bottom-0 w-2 md:w-1 cursor-ew-resize z-30 group-active:scale-105 transition-transform"
                         style={{ left: `${sliderPosition}%` }}
                     >
                         {/* Vertical Beam */}
                         <div className="absolute inset-0 bg-white shadow-[0_0_20px_rgba(255,255,255,0.8)]"></div>
                         <div className="absolute inset-0 bg-gradient-to-b from-red-500 via-white to-emerald-500 opacity-80 blur-sm"></div>
 
-                        {/* Handle UI */}
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-12 md:w-12 md:h-20 bg-[#0F1115] border border-white/20 rounded-lg md:rounded-xl flex items-center justify-center shadow-[0_0_50px_rgba(255,255,255,0.3)] backdrop-blur-xl">
-                            <div className="flex gap-0.5 md:gap-1 items-center">
-                                <div className="w-0.5 h-6 md:h-8 bg-gradient-to-b from-red-500/50 to-transparent rounded-full"></div>
-                                <div className="w-0.5 md:w-1 h-8 md:h-10 bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,1)]"></div>
-                                <div className="w-0.5 h-6 md:h-8 bg-gradient-to-b from-transparent to-emerald-500/50 rounded-full"></div>
+                        {/* Handle UI - Enlarged for Mobile */}
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-16 md:w-12 md:h-20 bg-[#0F1115] border border-white/20 rounded-xl flex items-center justify-center shadow-[0_0_50px_rgba(255,255,255,0.3)] backdrop-blur-xl">
+                            <div className="flex gap-1 items-center">
+                                <div className="w-0.5 h-8 bg-gradient-to-b from-red-500/50 to-transparent rounded-full"></div>
+                                <div className="w-1 h-10 bg-white rounded-full shadow-[0_0_10px_rgba(255,255,255,1)]"></div>
+                                <div className="w-0.5 h-8 bg-gradient-to-b from-transparent to-emerald-500/50 rounded-full"></div>
                             </div>
                             {/* Arrows */}
-                            <div className="absolute -left-3 md:-left-4 top-1/2 -translate-y-1/2 text-white/50 text-[8px] md:text-[10px] animate-pulse">◄</div>
-                            <div className="absolute -right-3 md:-right-4 top-1/2 -translate-y-1/2 text-white/50 text-[8px] md:text-[10px] animate-pulse">►</div>
+                            <motion.div
+                                animate={{ x: [-2, 0, -2] }}
+                                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                                className="absolute -left-5 md:-left-6 top-1/2 -translate-y-1/2 text-white/80 text-[10px] md:text-xs font-bold"
+                            >◄</motion.div>
+                            <motion.div
+                                animate={{ x: [2, 0, 2] }}
+                                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+                                className="absolute -right-5 md:-right-6 top-1/2 -translate-y-1/2 text-white/80 text-[10px] md:text-xs font-bold"
+                            >►</motion.div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <p className="text-center text-slate-500 text-[10px] md:text-xs mt-4 md:mt-8 font-mono tracking-[0.2em] uppercase opacity-60">
-                {isRtl ? '◄ גרור לחשיפת ההקשר ►' : '◄ DRAG TO REVEAL CONTEXT ►'}
-            </p>
+            {/* Explicit Drag Hint */}
+            <motion.div
+                animate={{ opacity: [0.5, 1, 0.5] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="flex items-center justify-center gap-3 mt-4 md:mt-8"
+            >
+                <div className="h-px w-8 bg-gradient-to-r from-transparent to-slate-500/50" />
+                <p className="text-center text-slate-400 text-[10px] md:text-xs font-mono tracking-[0.2em] md:tracking-[0.3em] uppercase">
+                    {isRtl ? 'גרור לחשיפת ההקשר' : 'DRAG TO REVEAL CONTEXT'}
+                </p>
+                <div className="h-px w-8 bg-gradient-to-l from-transparent to-slate-500/50" />
+            </motion.div>
         </div>
     );
 };

@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useRef } from 'react';
-import { motion, AnimatePresence, Variants, useAnimation } from 'framer-motion';
+import { motion, AnimatePresence, Variants, useAnimation, useMotionValue, useSpring, useTransform } from 'framer-motion';
 // Iconsax imports
 import {
     CloseSquare, TickCircle, ShieldSecurity, Gps, Folder, Activity,
@@ -57,6 +57,44 @@ const DecryptText: React.FC<{ text: string; className?: string; revealDelay?: nu
 };
 
 
+// --- 3D Tilt Wrapper Component ---
+const TiltCard = ({ children, className }: any) => {
+    const x = useMotionValue(0);
+    const y = useMotionValue(0);
+    const mouseXSpring = useSpring(x, { stiffness: 40, damping: 25, mass: 1.5 });
+    const mouseYSpring = useSpring(y, { stiffness: 40, damping: 25, mass: 1.5 });
+    const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+    const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const width = rect.width;
+        const height = rect.height;
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        x.set((mouseX / width) - 0.5);
+        y.set((mouseY / height) - 0.5);
+    };
+
+    const handleMouseLeave = () => {
+        x.set(0);
+        y.set(0);
+    };
+
+    return (
+        <motion.div
+            style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            className={className}
+        >
+            <div style={{ transform: "translateZ(30px)" }} className="w-full h-full flex flex-col justify-between">
+                {children}
+            </div>
+        </motion.div>
+    );
+};
+
 // --- Particle Grid Background ---
 const ParticleGrid = () => {
     return (
@@ -91,6 +129,14 @@ const ParticleGrid = () => {
 
 const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRtl, icon }) => {
 
+    const [cachedData, setCachedData] = useState(data);
+
+    useEffect(() => {
+        if (isOpen && data) {
+            setCachedData(data);
+        }
+    }, [isOpen, data]);
+
     // Handle ESC key press
     useEffect(() => {
         const handleEsc = (e: KeyboardEvent) => {
@@ -100,7 +146,9 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
         return () => window.removeEventListener('keydown', handleEsc);
     }, [onClose]);
 
-    if (!data) return null;
+    const activeData = isOpen ? data : cachedData;
+
+    if (!activeData) return null;
 
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
@@ -139,20 +187,19 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         onClick={onClose}
-                        className="fixed inset-0 bg-black/90 backdrop-blur-md z-[100] flex items-center justify-center p-0 md:p-6"
+                        className="fixed inset-0 bg-black/90 backdrop-blur-md z-[100] flex items-center justify-center p-0 md:p-6 pb-0 md:pb-6"
                     >
                         {/* Holographic Container */}
                         <motion.div
-                            variants={panelVariants}
-                            initial="hidden"
-                            animate="visible"
-                            exit="exit"
+                            initial={{ opacity: 0, scale: 0.95, y: 30 }}
+                            animate={{ opacity: 1, scale: 1, y: 0 }}
+                            exit={{ opacity: 0, scale: 0.95, y: -30 }}
+                            transition={{ type: "spring", damping: 25, stiffness: 300 }}
                             onClick={(e) => e.stopPropagation()}
                             className={`
-                                relative w-full md:max-w-7xl h-full md:h-[90vh] flex flex-col md:flex-row 
+                                relative w-full md:max-w-7xl h-[100dvh] md:h-[90vh] flex flex-col md:flex-row 
                                 bg-[#020202]/80 backdrop-blur-3xl overflow-hidden rounded-none md:rounded-2xl
                                 border border-emerald-500/30 shadow-[0_0_50px_rgba(16,185,129,0.15)]
-                                ${isRtl ? 'text-right' : 'text-left'}
                             `}
                             dir={isRtl ? 'rtl' : 'ltr'}
                         >
@@ -162,21 +209,25 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                             <div className="absolute inset-0 pointer-events-none z-50 rounded-2xl border border-emerald-500/10"></div>
                             <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-emerald-400 to-transparent animate-[scan-fast_3s_linear_infinite] shadow-[0_0_15px_rgba(16,185,129,0.8)] z-50 pointer-events-none"></div>
 
-                            {/* Close Button (Floating) */}
-                            <button
-                                onClick={onClose}
-                                className={`absolute top-6 ${isRtl ? 'left-6' : 'right-6'} z-[60] p-2 group flex items-center justify-center rounded-sm border border-emerald-500/30 bg-black/40 hover:bg-emerald-500/20 hover:border-emerald-400 transition-all duration-300 backdrop-blur-md`}
-                            >
-                                <CloseSquare size={20} variant="Bold" className="text-emerald-500/70 group-hover:text-emerald-400 transition-colors" />
-                            </button>
+                            {/* Close Button (Floating/Sticky Mobile) */}
+                            <div className="absolute top-0 inset-inline-end-0 z-[70] p-4 md:p-6 w-full md:w-auto flex justify-end pointer-events-none mix-blend-difference">
+                                <motion.button
+                                    onClick={onClose}
+                                    whileHover={{ scale: 1.1, rotate: 90 }}
+                                    whileTap={{ scale: 0.9 }}
+                                    className={`pointer-events-auto p-2 md:p-3 group flex items-center justify-center rounded-xl bg-black/40 hover:bg-emerald-500/20 transition-all duration-300 backdrop-blur-md border border-white/10 hover:border-emerald-400 shadow-[0_0_15px_rgba(0,0,0,0.5)] hover:shadow-[0_0_20px_rgba(16,185,129,0.4)]`}
+                                >
+                                    <CloseSquare size={24} variant="Bold" className="text-white/80 group-hover:text-emerald-400 transition-colors" />
+                                </motion.button>
+                            </div>
 
 
                             {/* === LEFT COLUMN: HOLOGRAPHIC IDENTITY === */}
-                            <div className="w-full md:w-[400px] border-b md:border-b-0 md:border-r border-emerald-500/20 relative flex flex-col shrink-0 z-20 bg-gradient-to-b from-emerald-950/10 to-transparent overflow-y-auto overflow-x-hidden custom-scrollbar">
+                            <div className="w-full md:w-[400px] border-b md:border-b-0 md:border-r border-emerald-500/20 relative flex flex-col shrink-0 z-20 bg-gradient-to-b from-emerald-950/10 to-transparent overflow-visible md:overflow-y-auto overflow-x-hidden custom-scrollbar">
 
                                 {/* Header */}
-                                <div className="p-8 pb-0 relative">
-                                    <div className="mb-8 relative group perspective-1000">
+                                <div className="p-4 pt-6 md:p-8 md:pb-0 relative">
+                                    <div className="mb-6 md:mb-8 relative group perspective-1000 hidden md:block">
                                         <div className="absolute -inset-10 bg-emerald-500/20 blur-[60px] rounded-full opacity-60 animate-pulse"></div>
 
                                         {/* 3D Floating Icon Container */}
@@ -198,33 +249,33 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                         </motion.div>
                                     </div>
 
-                                    <div className="space-y-4">
-                                        <div className="px-3 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-mono text-emerald-300 w-fit uppercase tracking-widest flex items-center gap-2 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
-                                            <Radar size={12} className="animate-spin-slow" />
+                                    <div className="space-y-2 md:space-y-4">
+                                        <div className="px-2 py-0.5 md:px-3 md:py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-[9px] md:text-[10px] font-mono text-emerald-300 w-fit uppercase tracking-widest flex items-center gap-1.5 md:gap-2 shadow-[0_0_15px_rgba(16,185,129,0.1)]">
+                                            <Radar size={10} className="animate-spin-slow md:w-3 md:h-3" />
                                             {isRtl ? 'סיווג: שמור' : 'RESTRICTED ACCESS'}
                                         </div>
 
-                                        <h2 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-100 to-emerald-400 leading-tight uppercase tracking-tight shadow-emerald-500/20 drop-shadow-lg">
-                                            <DecryptText text={data.title} revealDelay={0.2} />
+                                        <h2 className="text-xl md:text-4xl lg:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-emerald-100 to-emerald-400 leading-tight md:leading-tight uppercase tracking-tight shadow-emerald-500/20 drop-shadow-lg pe-8 md:pe-0">
+                                            <DecryptText text={activeData.title} revealDelay={0.2} />
                                         </h2>
 
-                                        <div className="flex flex-col gap-1 font-mono text-xs text-emerald-500/60 pt-4 border-t border-emerald-500/20 w-full">
+                                        <div className="flex items-center gap-2 font-mono text-[10px] md:text-xs text-emerald-500/60 pt-2 md:pt-4 border-t border-emerald-500/20 w-fit">
                                             <span>ID://</span>
-                                            <span className="text-emerald-400 break-all leading-relaxed bg-emerald-500/5 p-2 rounded border border-emerald-500/10"><DecryptText text={`${data.id.toUpperCase()}_REV_04`} revealDelay={0.8} /></span>
+                                            <span className="text-emerald-400 break-all leading-relaxed bg-emerald-500/5 px-2 py-0.5 md:p-2 rounded border border-emerald-500/10" dir="ltr"><DecryptText text={`${activeData.id.toUpperCase()}_REV_04`} revealDelay={0.8} /></span>
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Meta Stats - HUD Style */}
-                                <div className="p-8 space-y-6 mt-auto">
+                                <div className="p-6 md:p-8 space-y-4 md:space-y-6 mt-4 md:mt-auto hidden border-t border-emerald-500/10 md:block">
                                     <div className="space-y-4">
                                         <div className="flex justify-between items-center group">
                                             <div className="text-[10px] text-emerald-500/60 uppercase tracking-widest flex items-center gap-2">
                                                 <Hierarchy size={10} />
                                                 {isRtl ? 'פרוטוקול' : 'PROTOCOL'}
                                             </div>
-                                            <div className="font-mono text-sm text-white group-hover:text-emerald-300 transition-colors shadow-emerald-500/20 break-all text-right pl-4">
-                                                <DecryptText text={data.protocol || 'STD-88'} revealDelay={1} />
+                                            <div className="font-mono text-sm text-white group-hover:text-emerald-300 transition-colors shadow-emerald-500/20 break-all text-start ps-4">
+                                                <DecryptText text={activeData.protocol || 'STD-88'} revealDelay={1} />
                                             </div>
                                         </div>
                                         <div className="h-px bg-emerald-500/10 w-full"></div>
@@ -262,12 +313,12 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
 
 
                             {/* === RIGHT COLUMN: DATA STREAM === */}
-                            <div className="flex-1 relative overflow-y-auto custom-scrollbar">
+                            <div className="flex-1 relative overflow-y-auto custom-scrollbar pt-4 md:pt-0">
                                 <motion.div
                                     variants={containerVariants}
                                     initial="hidden"
                                     animate="visible"
-                                    className="p-8 md:p-16 space-y-12 relative z-10"
+                                    className="p-6 pt-0 md:p-16 space-y-10 md:space-y-12 relative z-10 pb-20 md:pb-16"
                                 >
 
                                     {/* 1. Mission Brief */}
@@ -279,12 +330,12 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                             </h3>
                                         </div>
                                         <p className="text-lg md:text-xl text-emerald-50/90 font-light leading-relaxed" style={{ textShadow: '0 0 10px rgba(16,185,129,0.2)' }}>
-                                            "{data.details?.fullDesc || data.desc}"
+                                            "{activeData.details?.fullDesc || activeData.desc}"
                                         </p>
                                     </motion.div>
 
                                     {/* 1.5. Strategic Impact — THE VERDICT (Premium) */}
-                                    {data.details?.impact && (
+                                    {activeData.details?.impact && (
                                         <motion.div variants={itemVariants} className="max-w-4xl">
                                             <div className="relative rounded-2xl overflow-hidden group">
                                                 {/* Outer Glow */}
@@ -297,9 +348,9 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
 
                                                     {/* Background Glow Orbs */}
                                                     <div className="absolute -right-16 -top-16 w-48 h-48 bg-emerald-500/8 blur-[80px] rounded-full pointer-events-none group-hover:bg-emerald-500/15 transition-all duration-700" />
-                                                    <div className="absolute -left-16 -bottom-16 w-48 h-48 bg-emerald-500/5 blur-[60px] rounded-full pointer-events-none" />
+                                                    <div className="absolute -left-16 -bottom-16 w-32 md:w-48 h-32 md:h-48 bg-emerald-500/5 blur-[60px] rounded-full pointer-events-none" />
 
-                                                    <div className="relative z-10 p-8 md:p-10">
+                                                    <div className="relative z-10 p-6 md:p-10">
                                                         {/* Header Row */}
                                                         <div className="flex items-center gap-4 mb-6">
                                                             {/* Pulsing Icon */}
@@ -330,7 +381,7 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
 
                                                         {/* Impact Text */}
                                                         <p className="text-lg md:text-xl text-emerald-50/90 leading-relaxed font-light" style={{ textShadow: '0 0 8px rgba(16,185,129,0.15)' }}>
-                                                            {data.details?.impact}
+                                                            {activeData.details?.impact}
                                                         </p>
                                                     </div>
                                                 </div>
@@ -347,8 +398,8 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                                 {isRtl ? 'נתוני מודיעין' : 'RAW INTELLIGENCE'}
                                             </h3>
                                         </div>
-                                        <div className="bg-[#050505] rounded-lg border border-white/10 p-6 font-mono text-xs md:text-sm relative overflow-hidden group hover:border-emerald-500/30 transition-colors duration-500 shadow-inner">
-                                            <div className="absolute top-0 right-0 p-3 flex gap-2">
+                                        <div className="bg-[#050505] rounded-lg border border-white/10 p-4 md:p-6 font-mono text-xs md:text-sm relative overflow-hidden group hover:border-emerald-500/30 transition-colors duration-500 shadow-inner">
+                                            <div className="absolute top-0 inset-inline-end-0 p-3 flex gap-2">
                                                 <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
                                                 <span className="text-[9px] text-emerald-500/60 font-bold tracking-widest">LIVE FEED</span>
                                             </div>
@@ -361,7 +412,7 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                                 </div>
                                                 <div className="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-4 items-baseline border-b border-white/5 pb-2">
                                                     <span className="text-slate-500 uppercase text-[10px] tracking-widest">Payload</span>
-                                                    <span className="text-slate-300 leading-relaxed">"{data.desc}"</span>
+                                                    <span className="text-slate-300 leading-relaxed">"{activeData.desc}"</span>
                                                 </div>
                                                 <div className="grid grid-cols-[80px_1fr] md:grid-cols-[120px_1fr] gap-4 items-baseline border-b border-white/5 pb-2">
                                                     <span className="text-slate-500 uppercase text-[10px] tracking-widest">Confidence</span>
@@ -392,7 +443,7 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                             </h3>
                                         </div>
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                            {data.details?.capabilities?.map((cap: string, i: number) => {
+                                            {activeData.details?.capabilities?.map((cap: string, i: number) => {
                                                 // Dynamic colors for variety
                                                 const colors = [
                                                     'from-emerald-500/10 to-transparent border-emerald-500/20 hover:border-emerald-400',
@@ -406,13 +457,15 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                                 const iconColor = colorClass.split(' ')[0].replace('from-', 'text-').replace('/10', '');
 
                                                 return (
-                                                    <motion.div
+                                                    <TiltCard
                                                         key={i}
-                                                        whileHover={{ y: -2, scale: 1.01 }}
-                                                        className={`group relative p-5 rounded-xl bg-gradient-to-br ${colorClass} border transition-all duration-300 overflow-hidden flex flex-col justify-between min-h-[100px]`}
+                                                        className={`group relative p-5 rounded-xl bg-gradient-to-br ${colorClass} border transition-all duration-300 overflow-hidden flex flex-col justify-between min-h-[100px] shadow-[0_5px_15px_rgba(0,0,0,0.5)] hover:shadow-[0_15px_30px_rgba(16,185,129,0.2)]`}
                                                     >
+                                                        {/* Optional Glare over the background layer */}
+                                                        <div className="absolute inset-0 bg-gradient-to-tr from-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-0" />
+
                                                         <div className="flex justify-between items-start mb-2 relative z-10">
-                                                            <div className={`p-2 rounded-lg bg-black/40 border border-white/5 ${iconColor}`}>
+                                                            <div className={`p-2 rounded-lg bg-black/40 border border-white/5 ${iconColor} drop-shadow-[0_0_10px_rgba(255,255,255,0.2)]`}>
                                                                 <Flash size={18} variant="Bulk" />
                                                             </div>
                                                             <span className="text-[9px] font-mono text-slate-500 opacity-50">0{i + 1}</span>
@@ -421,7 +474,7 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                                         <h4 className="text-sm font-semibold text-slate-200 group-hover:text-white transition-colors relative z-10 leading-tight">
                                                             {cap}
                                                         </h4>
-                                                    </motion.div>
+                                                    </TiltCard>
                                                 );
                                             })}
                                         </div>
@@ -436,21 +489,21 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                             </h3>
                                         </div>
 
-                                        <div className="relative pl-6 md:pl-8 border-l-2 border-emerald-500/20 space-y-4 md:space-y-6">
+                                        <div className="relative ps-6 md:ps-8 border-s-2 border-emerald-500/20 space-y-4 md:space-y-6">
                                             {/* Root Node Mockup */}
-                                            <div className="absolute -left-[9px] -top-1 w-4 h-4 rounded-full bg-emerald-500 border-4 border-black box-content shadow-[0_0_15px_rgba(16,185,129,0.5)] z-20"></div>
+                                            <div className="absolute -inline-start-[9px] -top-1 w-4 h-4 rounded-full bg-emerald-500 border-4 border-black box-content shadow-[0_0_15px_rgba(16,185,129,0.5)] z-20"></div>
 
                                             {['Finance_Dept', 'Offshore_LLC', 'Crypto_Wallet_X'].map((entity, i) => (
                                                 <motion.div
                                                     key={i}
-                                                    initial={{ opacity: 0, x: -20 }}
+                                                    initial={{ opacity: 0, x: isRtl ? 20 : -20 }}
                                                     whileInView={{ opacity: 1, x: 0 }}
                                                     transition={{ delay: i * 0.1 }}
                                                     className="relative group"
                                                 >
                                                     {/* Connector Line */}
-                                                    <div className="absolute -left-[34px] md:-left-[42px] top-1/2 w-6 md:w-8 h-[2px] bg-emerald-500/20 group-hover:bg-emerald-500 group-hover:shadow-[0_0_10px_rgba(16,185,129,0.5)] transition-all duration-300"></div>
-                                                    <div className="absolute -left-[36px] md:-left-[44px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-black border-2 border-emerald-500/50 group-hover:border-emerald-400 group-hover:bg-emerald-500 transition-colors z-10"></div>
+                                                    <div className="absolute -inline-start-[34px] md:-inline-start-[42px] top-1/2 w-6 md:w-8 h-[2px] bg-emerald-500/20 group-hover:bg-emerald-500 group-hover:shadow-[0_0_10px_rgba(16,185,129,0.5)] transition-all duration-300"></div>
+                                                    <div className="absolute -inline-start-[36px] md:-inline-start-[44px] top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-black border-2 border-emerald-500/50 group-hover:border-emerald-400 group-hover:bg-emerald-500 transition-colors z-10"></div>
 
                                                     <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 hover:bg-white/[0.08] hover:border-emerald-500/30 transition-all cursor-pointer flex items-center gap-4 md:gap-5 group-hover:translate-x-1 duration-300">
                                                         <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-black/40 border border-white/10 flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform duration-300 text-slate-300 group-hover:text-emerald-400 group-hover:border-emerald-500/30">
@@ -473,7 +526,7 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                                                             </div>
                                                         </div>
 
-                                                        <ArrowRight2 size={18} className="text-slate-600 group-hover:text-emerald-400 -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+                                                        <ArrowRight2 size={18} className={`text-slate-600 group-hover:text-emerald-400 -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ${isRtl ? 'rotate-180' : ''}`} />
                                                     </div>
                                                 </motion.div>
                                             ))}
@@ -488,8 +541,9 @@ const UseCaseModal: React.FC<UseCaseModalProps> = ({ isOpen, onClose, data, isRt
                         </motion.div>
                     </motion.div>
                 </>
-            )}
-        </AnimatePresence>
+            )
+            }
+        </AnimatePresence >
     );
 };
 

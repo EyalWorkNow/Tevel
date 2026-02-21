@@ -62,6 +62,27 @@ const MobileNav: React.FC<MobileNavProps> = ({ isRtl }) => {
         }
     };
 
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.1,
+                delayChildren: 0.2
+            }
+        }
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, scale: 0.8, y: 20 },
+        visible: {
+            opacity: 1,
+            scale: 1,
+            y: 0,
+            transition: { type: "spring", stiffness: 300, damping: 20 }
+        }
+    };
+
     return (
         <AnimatePresence>
             {isVisible && (
@@ -70,17 +91,24 @@ const MobileNav: React.FC<MobileNavProps> = ({ isRtl }) => {
                     animate={{ y: 0 }}
                     exit={{ y: 100 }}
                     transition={{ type: "spring", stiffness: 260, damping: 20 }}
-                    className="fixed bottom-4 left-4 right-4 z-50 md:hidden"
+                    className="fixed bottom-4 left-4 right-4 z-50 md:hidden pb-safe" // added pb-safe for iOS home bar
                 >
-                    <div className="bg-[#0a0c10]/80 backdrop-blur-lg border border-white/10 rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center justify-between p-2 px-6">
+                    <motion.div
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="visible"
+                        className="bg-[#0a0c10]/85 backdrop-blur-2xl border border-white/15 rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.6)] flex items-center justify-between p-2 px-4 sm:px-8"
+                    >
                         {navItems.map((item) => {
                             const isActive = activeSection === item.id;
 
                             return (
-                                <button
+                                <motion.button
                                     key={item.id}
+                                    variants={itemVariants}
                                     onClick={() => scrollToSection(item.id)}
-                                    className={`relative flex flex-col items-center justify-center p-2 transition-all duration-300 ${isActive ? 'text-emerald-400' : 'text-slate-500 hover:text-slate-300'
+                                    whileTap={{ scale: 0.9 }}
+                                    className={`relative flex flex-col items-center justify-center p-3 rounded-xl min-w-[64px] transition-all duration-300 ${isActive ? 'text-emerald-400 bg-white/5' : 'text-slate-500 hover:text-slate-200 hover:bg-white/5'
                                         }`}
                                 >
                                     {isActive && (
@@ -94,12 +122,12 @@ const MobileNav: React.FC<MobileNavProps> = ({ isRtl }) => {
                                     <span className="text-[10px] font-medium mt-1">{item.label}</span>
 
                                     {isActive && (
-                                        <div className="absolute inset-0 bg-emerald-500/10 rounded-xl blur-lg -z-10" />
+                                        <div className="absolute inset-0 bg-emerald-500/10 rounded-xl blur-md -z-10" />
                                     )}
-                                </button>
+                                </motion.button>
                             );
                         })}
-                    </div>
+                    </motion.div>
                 </motion.div>
             )}
         </AnimatePresence>

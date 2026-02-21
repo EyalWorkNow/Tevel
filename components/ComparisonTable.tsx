@@ -1,7 +1,7 @@
 // Force Update v3
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Check, X, AlertTriangle, Minus } from 'lucide-react';
+import { Check, X, AlertTriangle, Minus, ChevronRight, ChevronLeft } from 'lucide-react';
 
 interface ComparisonTableProps {
   data: any;
@@ -10,6 +10,7 @@ interface ComparisonTableProps {
 
 const ComparisonTable: React.FC<ComparisonTableProps> = ({ data, isRtl }) => {
   const [activeTab, setActiveTab] = useState(0);
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   // Safety check if data structure hasn't propagated yet or is mismatched
   if (!data?.tables) {
@@ -38,6 +39,31 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ data, isRtl }) => {
       return <X className="text-red-500/50 w-4 h-4 md:w-5 md:h-5" />;
     }
     return <Check className="text-blue-500/50 w-4 h-4 md:w-5 md:h-5" />;
+  };
+
+  const tableContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.2
+      }
+    },
+    exit: {
+      opacity: 0,
+      transition: { staggerChildren: 0.05, staggerDirection: -1 }
+    }
+  };
+
+  const rowVariants = {
+    hidden: { opacity: 0, x: isRtl ? 30 : -30 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { type: "spring", stiffness: 120, damping: 20 }
+    },
+    exit: { opacity: 0, x: isRtl ? -30 : 30 }
   };
 
   return (
@@ -69,14 +95,29 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ data, isRtl }) => {
       </div>
 
       {/* Table Container */}
-      <div className="w-full max-w-7xl overflow-x-auto md:overflow-visible pb-4 px-2 md:px-0">
+      <div
+        className="w-full max-w-7xl overflow-x-auto md:overflow-visible pb-4 px-2 md:px-0 relative"
+        onScroll={() => !hasScrolled && setHasScrolled(true)}
+      >
+        {/* Mobile Swipe Hint */}
+        {!hasScrolled && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className={`md:hidden absolute top-1/2 -translate-y-1/2 z-30 pointer-events-none flex items-center justify-center p-3 rounded-full bg-black/60 backdrop-blur-sm border border-emerald-500/30 text-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.3)] ${isRtl ? 'left-4' : 'right-4'}`}
+          >
+            {isRtl ? <ChevronLeft className="w-5 h-5 animate-pulse" /> : <ChevronRight className="w-5 h-5 animate-pulse" />}
+          </motion.div>
+        )}
+
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.3 }}
+            variants={tableContainerVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
             className="min-w-[800px] md:min-w-0 w-full bg-white/[0.02] rounded-3xl border border-white/5 backdrop-blur-md overflow-hidden shadow-2xl shadow-black/50 relative group"
           >
             {/* Header */}
@@ -88,9 +129,9 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ data, isRtl }) => {
                 <div
                   key={i}
                   className={`p-3 md:p-6 font-bold text-[10px] md:text-sm uppercase tracking-widest flex items-center justify-center text-center break-words
-                      ${col.includes('TEVEL') || col.includes('טבל') ? 'text-emerald-400 bg-emerald-500/5' : 'text-slate-400'}
-                      ${i === 0 ? 'sticky left-0 z-20 bg-[#0a0c10] border-r border-white/10 shadow-[5px_0_10px_rgba(0,0,0,0.5)] justify-start ltr:text-left rtl:text-right px-4 md:px-8 text-slate-200' : ''}
-                  `}
+                        ${col.includes('TEVEL') || col.includes('טבל') ? 'text-emerald-400 bg-emerald-500/5' : 'text-slate-400'}
+                        ${i === 0 ? `sticky ${isRtl ? 'right-0' : 'left-0'} z-20 bg-[#0a0c10] border-${isRtl ? 'l' : 'r'} border-white/10 shadow-[${isRtl ? '-8px' : '8px'}_0_15px_rgba(0,0,0,0.6)] justify-start ltr:text-left rtl:text-right px-4 md:px-8 text-slate-200 lg:shadow-none` : ''}
+                    `}
                 >
                   {col}
                 </div>
@@ -103,25 +144,22 @@ const ComparisonTable: React.FC<ComparisonTableProps> = ({ data, isRtl }) => {
 
               return (
                 <motion.div
-                  key={idx}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: false }}
-                  transition={{ delay: idx * 0.05, duration: 0.5 }}
+                  key={`${activeTab}-${idx}`}
+                  variants={rowVariants}
                   className={`
                     transition-colors border-b border-white/5 last:border-0 group relative z-10 grid items-stretch
-                    ${isTevelRow ? 'bg-emerald-500/10 hover:bg-emerald-500/20' : 'hover:bg-white/[0.03]'}
+                    ${isTevelRow ? 'bg-emerald-500/10 hover:bg-emerald-500/20' : 'hover:bg-white/[0.05]'}
                   `}
                   style={{ gridTemplateColumns: `250px repeat(${currentTable.columns.length - 1}, minmax(100px, 1fr))` }}
                 >
                   {/* Feature Name - Sticky Column */}
                   <div className={`
-                    sticky left-0 z-20 border-r border-white/10 shadow-[5px_0_10px_rgba(0,0,0,0.5)] p-3 md:p-5 flex items-center text-[11px] md:text-sm ltr:text-left rtl:text-right px-4 md:px-8 transition-colors
+                    sticky ${isRtl ? 'right-0' : 'left-0'} z-20 border-${isRtl ? 'l' : 'r'} border-white/10 shadow-[${isRtl ? '-8px' : '8px'}_0_15px_rgba(0,0,0,0.6)] lg:shadow-none p-3 md:p-5 flex items-center text-[11px] md:text-sm ltr:text-left rtl:text-right px-4 md:px-8 transition-colors
                     ${isTevelRow ? 'bg-[#0F1115] text-emerald-400 font-bold' : 'bg-[#0a0c10] font-medium text-slate-300 group-hover:text-white'}
                   `}>
                     {row.feature}
                     {isTevelRow && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]" />
+                      <div className={`absolute ${isRtl ? 'right-0' : 'left-0'} top-0 bottom-0 w-1 bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]`} />
                     )}
                   </div>
 

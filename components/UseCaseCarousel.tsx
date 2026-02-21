@@ -174,94 +174,97 @@ const Card3D: React.FC<Card3DProps> = ({ item, isRtl, onSelect }) => {
     };
 
     return (
-        <motion.div
-            ref={ref}
-            onMouseMove={handleMouseMove}
-            onMouseLeave={handleMouseLeave}
-            onClick={() => onSelect(item)}
-            initial={{ scale: 0.9, opacity: 0 }}
-            whileInView={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            style={{
-                rotateX: window.innerWidth >= 768 ? rotateX : 0,
-                rotateY: window.innerWidth >= 768 ? rotateY : 0,
-                transformStyle: "preserve-3d",
-                perspective: "1200px"
-            }}
-            className="relative w-[85vw] max-w-[320px] md:max-w-[360px] h-[380px] md:h-[440px] mx-4 flex-shrink-0 cursor-pointer group py-6 z-10"
-        >
-            {/* Ambient Glow */}
-            <div
-                className={`hidden md:block absolute inset-10 rounded-full blur-[80px] opacity-0 group-hover:opacity-40 transition-opacity duration-700 -z-10 ${theme.accent.replace('bg-', 'bg-')}`}
-                style={{ transform: "translateZ(-80px)" }}
-            />
-
-            {/* Main Card Chassis */}
-            <div
-                className={`absolute inset-0 bg-[#0a0d12]/98 md:bg-[#080a0e]/95 backdrop-blur-xl rounded-[24px] md:rounded-[32px] border border-white/10 md:border-white/5 overflow-hidden transition-all duration-300 group-hover:${theme.border} md:group-hover:shadow-[0_0_50px_rgba(0,0,0,0.5)]`}
-                style={{ transform: "translateZ(0)" }}
+        <div style={{ perspective: "1200px" }} className="relative w-[85vw] max-w-[320px] md:max-w-[360px] h-[380px] md:h-[440px] mx-4 flex-shrink-0 z-10">
+            <motion.div
+                ref={ref}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={handleMouseLeave}
+                onClick={() => onSelect(item)}
+                initial={{ scale: 0.9, opacity: 0 }}
+                whileInView={{ scale: 1, opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                style={{
+                    rotateX,
+                    rotateY,
+                    transformStyle: "preserve-3d"
+                }}
+                dir={isRtl ? 'rtl' : 'ltr'}
+                className="w-full h-full cursor-pointer group py-6 relative"
             >
-                {/* Texture Overlay */}
-                <div className="hidden md:block absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay pointer-events-none"></div>
-
-                {/* Dynamic Glare */}
-                <motion.div
-                    className="hidden md:block absolute inset-0 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 mix-blend-soft-light"
-                    style={{
-                        background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.15), transparent 50%)`
-                    }}
+                {/* Ambient Glow */}
+                <div
+                    className={`hidden md:block absolute inset-10 rounded-full blur-[80px] opacity-0 group-hover:opacity-40 transition-opacity duration-700 -z-10 ${theme.accent.replace('bg-', 'bg-')}`}
+                    style={{ transform: "translateZ(-80px)" }}
                 />
 
-                {/* Content Container (Preserve 3D) */}
-                <div className="relative z-30 h-full flex flex-col p-5 md:p-8" style={{ transformStyle: "preserve-3d" }}>
+                {/* Main Card Chassis */}
+                <motion.div
+                    className={`absolute inset-0 bg-[#0a0d12]/98 md:bg-[#080a0e]/95 backdrop-blur-xl rounded-[24px] md:rounded-[32px] border border-white/10 md:border-white/5 overflow-hidden transition-all duration-300 group-hover:${theme.border} md:group-hover:shadow-[0_0_50px_rgba(0,0,0,0.5)]`}
+                    style={{ transform: "translateZ(0)" }}
+                >
+                    {/* Holographic Foil Sheen */}
+                    <div className="absolute inset-0 -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-[1.5s] ease-in-out bg-gradient-to-r from-transparent via-white/5 to-transparent z-20 pointer-events-none transform -skew-x-12" />
+                    {/* Texture Overlay */}
+                    <div className="hidden md:block absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] mix-blend-overlay pointer-events-none"></div>
 
-                    {/* Floating Icon Header */}
-                    <div className="flex justify-between items-start mb-5 md:mb-6" style={{ transform: "translateZ(40px)" }}>
-                        <motion.div
-                            style={{ x: iconX, y: iconY }}
-                            className={`w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl ${theme.bg} border ${theme.border} flex items-center justify-center ${theme.color} shadow-md md:shadow-lg backdrop-blur-sm group-hover:scale-110 transition-transform duration-300`}
-                        >
-                            {iconMap[item.id] || <Cpu variant="TwoTone" size={28} />}
-                        </motion.div>
+                    {/* Dynamic Glare */}
+                    <motion.div
+                        className="hidden md:block absolute inset-0 z-20 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 mix-blend-soft-light"
+                        style={{
+                            background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.15), transparent 50%)`
+                        }}
+                    />
 
-                        <div className={`px-2 md:px-2.5 py-0.5 md:py-1 rounded-md md:rounded-lg border border-white/10 md:border-white/5 bg-black/70 md:bg-black/60 backdrop-blur text-[9px] md:text-[10px] font-mono text-slate-400 md:text-slate-500 tracking-widest uppercase flex items-center gap-1.5 md:gap-2 shadow-none md:shadow-inner group-hover:text-white transition-colors`}>
-                            <span className={`w-1.5 h-1.5 rounded-full ${theme.accent} animate-pulse`}></span>
-                            {item.id.split('_')[0]}
-                        </div>
-                    </div>
+                    {/* Content Container (Preserve 3D) */}
+                    <div className="relative z-30 h-full flex flex-col p-5 md:p-8" style={{ transformStyle: "preserve-3d" }}>
 
-                    {/* Text Content */}
-                    <div style={{ transform: "translateZ(25px)" }} className="flex-1">
-                        <h3 className={`text-lg md:text-2xl font-black text-white mb-2.5 md:mb-3 leading-tight group-hover:${theme.color} transition-colors ${isRtl ? 'text-right' : 'text-left'}`}>
-                            {item.title}
-                        </h3>
-                        {/* Decorative Line */}
-                        <div className={`w-8 md:w-10 h-0.5 md:h-1 rounded-full bg-white/20 md:bg-white/10 mb-3 md:mb-4 group-hover:w-16 md:group-hover:w-20 group-hover:${theme.accent} transition-all duration-500`}></div>
+                        {/* Floating Icon Header */}
+                        <div className="flex justify-between items-start mb-5 md:mb-6" style={{ transform: "translateZ(40px)" }}>
+                            <motion.div
+                                style={{ x: iconX, y: iconY }}
+                                className={`w-14 h-14 md:w-16 md:h-16 rounded-xl md:rounded-2xl ${theme.bg} border ${theme.border} flex items-center justify-center ${theme.color} shadow-md md:shadow-lg backdrop-blur-sm group-hover:scale-110 transition-transform duration-300`}
+                            >
+                                {iconMap[item.id] || <Cpu variant="TwoTone" size={28} />}
+                            </motion.div>
 
-                        <p className={`text-sm md:text-sm text-slate-300 md:text-slate-400 font-light leading-relaxed line-clamp-3 group-hover:text-slate-200 md:group-hover:text-slate-300 transition-colors ${isRtl ? 'text-right' : 'text-left'}`}>
-                            {item.desc}
-                        </p>
-                    </div>
-
-                    {/* Footer / Action */}
-                    <div className="mt-auto pt-4 md:pt-6 border-t border-white/10 md:border-white/5 flex items-center justify-between" style={{ transform: "translateZ(50px)" }}>
-                        <div className="flex flex-col">
-                            <span className="text-[9px] text-slate-500 md:text-slate-600 font-mono tracking-widest uppercase">
-                                {isRtl ? 'מזהה' : 'ID'}
-                            </span>
-                            <span className={`text-[10px] md:text-xs font-mono ${theme.color} opacity-90 md:opacity-80`}>
-                                {item.id.substring(0, 4).toUpperCase()}_04
-                            </span>
+                            <div className={`px-2 md:px-2.5 py-0.5 md:py-1 rounded-md md:rounded-lg border border-white/10 md:border-white/5 bg-black/70 md:bg-black/60 backdrop-blur text-[9px] md:text-[10px] font-mono text-slate-400 md:text-slate-500 tracking-widest uppercase flex items-center gap-1.5 md:gap-2 shadow-none md:shadow-inner group-hover:text-white transition-colors`}>
+                                <span className={`w-1.5 h-1.5 rounded-full ${theme.accent} animate-pulse`}></span>
+                                {item.id.split('_')[0]}
+                            </div>
                         </div>
 
-                        <button className={`w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/10 md:bg-white/5 border border-white/10 md:border-white/5 flex items-center justify-center text-slate-300 md:text-slate-400 group-hover:${theme.bg} group-hover:${theme.color} group-hover:${theme.border} transition-all duration-300 group-hover:scale-110 shadow-md md:shadow-lg`}>
-                            <ExportSquare variant="TwoTone" size={18} />
-                        </button>
-                    </div>
+                        {/* Text Content */}
+                        <div style={{ transform: "translateZ(25px)" }} className="flex-1">
+                            <h3 className={`text-lg md:text-2xl font-black text-white mb-2.5 md:mb-3 leading-tight group-hover:${theme.color} transition-colors text-start`}>
+                                {item.title}
+                            </h3>
+                            {/* Decorative Line */}
+                            <div className={`w-8 md:w-10 h-0.5 md:h-1 rounded-full bg-white/20 md:bg-white/10 mb-3 md:mb-4 group-hover:w-16 md:group-hover:w-20 group-hover:${theme.accent} transition-all duration-500`}></div>
 
-                </div>
-            </div>
-        </motion.div>
+                            <p className={`text-sm md:text-sm text-slate-300 md:text-slate-400 font-light leading-relaxed line-clamp-3 group-hover:text-slate-200 md:group-hover:text-slate-300 transition-colors text-start`}>
+                                {item.desc}
+                            </p>
+                        </div>
+
+                        {/* Footer / Action */}
+                        <div className="mt-auto pt-4 md:pt-6 border-t border-white/10 md:border-white/5 flex items-center justify-between" style={{ transform: "translateZ(50px)" }}>
+                            <div className="flex flex-col">
+                                <span className="text-[9px] text-slate-500 md:text-slate-600 font-mono tracking-widest uppercase">
+                                    {isRtl ? 'מזהה' : 'ID'}
+                                </span>
+                                <span className={`text-[10px] md:text-xs font-mono ${theme.color} opacity-90 md:opacity-80`} dir="ltr">
+                                    {item.id.substring(0, 4).toUpperCase()}_04
+                                </span>
+                            </div>
+
+                            <button className={`w-11 h-11 md:w-12 md:h-12 rounded-full bg-white/10 md:bg-white/5 border border-white/10 md:border-white/5 flex items-center justify-center text-slate-300 md:text-slate-400 group-hover:${theme.bg} group-hover:${theme.color} group-hover:${theme.border} transition-all duration-300 group-hover:scale-110 shadow-md md:shadow-lg`}>
+                                <ExportSquare variant="TwoTone" size={18} className={isRtl ? 'rotate-180' : ''} />
+                            </button>
+                        </div>
+                    </div>
+                </motion.div>
+            </motion.div>
+        </div>
     );
 };
 
