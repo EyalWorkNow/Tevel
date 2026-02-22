@@ -147,7 +147,7 @@ const DashboardMockup: React.FC<DashboardMockupProps> = ({ t, isRtl }) => {
     return (
         <div
             ref={containerRef}
-            className="perspective-container w-full max-w-[1600px] mx-auto px-4 lg:px-12 py-12 md:py-24"
+            className="relative perspective-container w-full max-w-[1600px] mx-auto px-4 lg:px-12 py-12 md:py-24"
             style={{ perspective: '3000px' }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
@@ -327,27 +327,30 @@ const DashboardMockup: React.FC<DashboardMockupProps> = ({ t, isRtl }) => {
                                     </div>
 
                                     {/* Data Connectors */}
-                                    <svg className="absolute w-full h-full inset-0 z-[-1] overflow-visible">
+                                    <svg className="absolute w-full h-full inset-0 z-[-1] overflow-visible" viewBox="0 0 100 100" preserveAspectRatio="none">
                                         <motion.path
-                                            d="M 50% 50% L 20% 30%"
+                                            d="M 50 50 L 20 30"
                                             stroke="url(#gradient-line)"
                                             strokeWidth="2"
                                             fill="none"
                                             strokeDasharray="4 4"
                                             animate={{ strokeDashoffset: [0, -20] }}
                                             transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                                            vectorEffect="non-scaling-stroke"
                                         />
                                         <motion.path
-                                            d="M 50% 50% L 80% 40%"
+                                            d="M 50 50 L 80 40"
                                             stroke="url(#gradient-line)"
                                             strokeWidth="2"
                                             fill="none"
+                                            vectorEffect="non-scaling-stroke"
                                         />
                                         <motion.path
-                                            d="M 50% 50% L 35% 80%"
+                                            d="M 50 50 L 35 80"
                                             stroke="url(#gradient-line)"
                                             strokeWidth="1.5"
                                             fill="none"
+                                            vectorEffect="non-scaling-stroke"
                                         />
 
                                         <defs>
